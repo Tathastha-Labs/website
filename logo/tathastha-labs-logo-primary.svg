@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 160" width="560" height="160">
+  <title>Tathastha Labs — primary logo</title>
+  <desc>Indigo T mark with saffron bindu, wordmark "Tathastha" with "LABS" accent.</desc>
+
+  <!-- Icon mark -->
+  <g transform="translate(20, 18)">
+    <!-- Saffron bindu (point of manifestation / AI node) -->
+    <circle cx="64" cy="22" r="12" fill="#F97316"/>
+    <!-- T letterform -->
+    <rect x="16" y="44" width="96" height="22" rx="3" fill="#312E81"/>
+    <rect x="54" y="66" width="20" height="62" rx="3" fill="#312E81"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g font-family="Inter, 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+    <text x="168" y="92" font-size="46" font-weight="700" fill="#312E81" letter-spacing="-1.6">Tathastha</text>
+    <text x="170" y="122" font-size="15" font-weight="600" fill="#F97316" letter-spacing="6">LABS</text>
+  </g>
+</svg>

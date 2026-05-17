@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Tathastha Labs — Logo Preview</title>
+<style>
+  :root {
+    --ink: #1A1A1A;
+    --graphite: #6B6B6B;
+    --paper: #FFFFFF;
+    --noir: #0E0E0E;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Inter, 'Segoe UI', Arial, sans-serif; color: var(--ink); background: #F4F2EE; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 32px 96px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 18px; margin-bottom: 36px; }
+  h1 { font-weight: 300; letter-spacing: 1px; font-size: 22px; margin: 0; }
+  .meta { color: var(--graphite); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+  .section-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--graphite); margin: 36px 0 14px; }
+  .panel { border-radius: 14px; overflow: hidden; box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 24px 60px -28px rgba(0,0,0,0.18); }
+  .panel.light { background: var(--paper); }
+  .panel.dark  { background: var(--noir); }
+  .panel-inner { padding: 56px 48px; display: flex; align-items: center; justify-content: center; min-height: 240px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .row.icons { grid-template-columns: repeat(4, 1fr); }
+  .icon-panel-inner { padding: 28px; min-height: 160px; }
+  img.full { width: 100%; height: auto; max-width: 520px; display: block; }
+  img.icon { width: 96px; height: 96px; display: block; margin: 0 auto; }
+  .swatches { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+  .sw { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--graphite); }
+  .chip { width: 22px; height: 22px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.08); }
+  .files { margin-top: 36px; font-size: 13px; color: var(--graphite); }
+  .files code { background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; color: var(--ink); }
+  .files ul { padding-left: 18px; line-height: 1.9; }
+  .notes { margin-top: 28px; font-size: 13px; line-height: 1.7; color: #333; max-width: 720px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Tathastha Labs &nbsp;·&nbsp; Logo</h1>
+      <span class="meta">Monochrome · Iconic symbol + wordmark</span>
+    </header>
+
+    <div class="section-label">Primary &nbsp;—&nbsp; Light variant</div>
+    <div class="panel light">
+      <div class="panel-inner">
+        <img class="full" src="tathastha-labs-logo-light.png" alt="Tathastha Labs logo, light variant"/>
+      </div>
+    </div>
+
+    <div class="section-label">Primary &nbsp;—&nbsp; Dark variant</div>
+    <div class="panel dark">
+      <div class="panel-inner">
+        <img class="full" src="tathastha-labs-logo-dark.png" alt="Tathastha Labs logo, dark variant"/>
+      </div>
+    </div>
+
+    <div class="section-label">Icon mark &nbsp;—&nbsp; for favicons, app tiles, social avatars</div>
+    <div class="row icons">
+      <div class="panel light"><div class="panel-inner icon-panel-inner"><img class="icon" src="tathastha-labs-icon-light.png" alt=""/></div></div>
+      <div class="panel light"><div class="panel-inner icon-panel-inner"><img class="icon" src="tathastha-labs-icon-light.png" alt="" style="width:56px;height:56px"/></div></div>
+      <div class="panel dark"><div class="panel-inner icon-panel-inner"><img class="icon" src="tathastha-labs-icon-dark.png" alt=""/></div></div>
+      <div class="panel dark"><div class="panel-inner icon-panel-inner"><img class="icon" src="tathastha-labs-icon-dark.png" alt="" style="width:32px;height:32px"/></div></div>
+    </div>
+
+    <div class="section-label">Palette</div>
+    <div class="swatches">
+      <div class="sw"><span class="chip" style="background:#1A1A1A"></span>Ink &nbsp;·&nbsp; #1A1A1A</div>
+      <div class="sw"><span class="chip" style="background:#6B6B6B"></span>Graphite &nbsp;·&nbsp; #6B6B6B</div>
+      <div class="sw"><span class="chip" style="background:#F2F2F2;border-color:rgba(0,0,0,0.2)"></span>Paper &nbsp;·&nbsp; #F2F2F2</div>
+      <div class="sw"><span class="chip" style="background:#0E0E0E"></span>Noir &nbsp;·&nbsp; #0E0E0E</div>
+    </div>
+
+    <div class="notes">
+      <strong>Concept.</strong> The mark is a perfect circle — the literal sense of <em>tathastha</em>: the impartial observer.
+      Inside, three nodes sit on an equilateral triangle around a central focal node, joined by spokes and a triangular network edge —
+      a minimal neural graph that reads as data, model, and inference orbiting an equilibrium core. Monochrome (ink, graphite, paper, noir)
+      keeps the system maximally neutral and scales cleanly from a 16-pixel favicon up to print.
+    </div>
+
+    <div class="files">
+      <strong>Files included:</strong>
+      <ul>
+        <li><code>tathastha-labs-logo-light.svg</code> &nbsp;·&nbsp; <code>.png</code> &nbsp;— full wordmark, light backgrounds</li>
+        <li><code>tathastha-labs-logo-dark.svg</code> &nbsp;·&nbsp; <code>.png</code> &nbsp;— full wordmark, dark backgrounds</li>
+        <li><code>tathastha-labs-icon-light.svg</code> &nbsp;·&nbsp; <code>.png</code> &nbsp;— icon only, light backgrounds</li>
+        <li><code>tathastha-labs-icon-dark.svg</code> &nbsp;·&nbsp; <code>.png</code> &nbsp;— icon only, dark backgrounds</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

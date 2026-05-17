@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" width="760" height="220" role="img" aria-label="Tathastha Labs">
+  <title>Tathastha Labs</title>
+  <desc>Wordmark logo with circular neural-network mark, dark variant.</desc>
+
+  <!-- Background (so the SVG previews well on a dark canvas; remove if you want transparent) -->
+  <rect width="760" height="220" fill="#0E0E0E"/>
+
+  <!-- ============== ICON ============== -->
+  <g transform="translate(110,110)">
+    <!-- Outer ring -->
+    <circle cx="0" cy="0" r="72" fill="none" stroke="#F2F2F2" stroke-width="2.25"/>
+
+    <!-- Inner thin ring -->
+    <circle cx="0" cy="0" r="60" fill="none" stroke="#F2F2F2" stroke-width="0.6" opacity="0.30"/>
+
+    <!-- Network edges (triangle) -->
+    <g stroke="#F2F2F2" stroke-width="1.1" fill="none" opacity="0.55">
+      <line x1="0"      y1="-44"   x2="38.1"  y2="22"/>
+      <line x1="38.1"   y1="22"    x2="-38.1" y2="22"/>
+      <line x1="-38.1"  y1="22"    x2="0"     y2="-44"/>
+    </g>
+
+    <!-- Spokes from center -->
+    <g stroke="#F2F2F2" stroke-width="1.6" fill="none">
+      <line x1="0" y1="0" x2="0"     y2="-44"/>
+      <line x1="0" y1="0" x2="38.1"  y2="22"/>
+      <line x1="0" y1="0" x2="-38.1" y2="22"/>
+    </g>
+
+    <!-- Outer nodes -->
+    <g fill="#F2F2F2">
+      <circle cx="0"     cy="-44" r="5.5"/>
+      <circle cx="38.1"  cy="22"  r="5.5"/>
+      <circle cx="-38.1" cy="22"  r="5.5"/>
+    </g>
+
+    <!-- Center node -->
+    <circle cx="0" cy="0" r="8.5" fill="#F2F2F2"/>
+    <circle cx="0" cy="0" r="3"   fill="#0E0E0E"/>
+  </g>
+
+  <!-- ============== WORDMARK ============== -->
+  <g transform="translate(220,110)" font-family="'Helvetica Neue', 'Inter', 'Segoe UI', Arial, sans-serif">
+    <text x="0" y="0" font-size="54" font-weight="300" fill="#F2F2F2" letter-spacing="2.2" dominant-baseline="alphabetic">
+      Tathastha
+    </text>
+    <text x="3" y="32" font-size="14" font-weight="500" fill="#A0A0A0" letter-spacing="11" dominant-baseline="alphabetic">
+      L A B S
+    </text>
+  </g>
+
+  <!-- Separator -->
+  <line x1="200" y1="62" x2="200" y2="158" stroke="#F2F2F2" stroke-width="0.5" opacity="0.22"/>
+</svg>

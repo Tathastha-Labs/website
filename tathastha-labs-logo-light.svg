@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" width="760" height="220" role="img" aria-label="Tathastha Labs">
+  <title>Tathastha Labs</title>
+  <desc>Wordmark logo with circular neural-network mark, light variant.</desc>
+
+  <!-- ============== ICON ============== -->
+  <g transform="translate(110,110)">
+    <!-- Outer ring: neutrality, the observer's lens -->
+    <circle cx="0" cy="0" r="72" fill="none" stroke="#1A1A1A" stroke-width="2.25"/>
+
+    <!-- Inner thin ring for subtle depth -->
+    <circle cx="0" cy="0" r="60" fill="none" stroke="#1A1A1A" stroke-width="0.6" opacity="0.35"/>
+
+    <!-- Network edges: triangle (data / model / inference triad) -->
+    <g stroke="#1A1A1A" stroke-width="1.1" fill="none" opacity="0.55">
+      <line x1="0"      y1="-44"   x2="38.1"  y2="22"/>
+      <line x1="38.1"   y1="22"    x2="-38.1" y2="22"/>
+      <line x1="-38.1"  y1="22"    x2="0"     y2="-44"/>
+    </g>
+
+    <!-- Spokes from center (the equilibrium / AI core) -->
+    <g stroke="#1A1A1A" stroke-width="1.6" fill="none">
+      <line x1="0" y1="0" x2="0"     y2="-44"/>
+      <line x1="0" y1="0" x2="38.1"  y2="22"/>
+      <line x1="0" y1="0" x2="-38.1" y2="22"/>
+    </g>
+
+    <!-- Outer nodes -->
+    <g fill="#1A1A1A">
+      <circle cx="0"     cy="-44" r="5.5"/>
+      <circle cx="38.1"  cy="22"  r="5.5"/>
+      <circle cx="-38.1" cy="22"  r="5.5"/>
+    </g>
+
+    <!-- Center node: solid disc with inner cut, suggests an aperture / focal observer -->
+    <circle cx="0" cy="0" r="8.5" fill="#1A1A1A"/>
+    <circle cx="0" cy="0" r="3"   fill="#FFFFFF"/>
+  </g>
+
+  <!-- ============== WORDMARK ============== -->
+  <g transform="translate(220,110)" font-family="'Helvetica Neue', 'Inter', 'Segoe UI', Arial, sans-serif">
+    <text x="0" y="0" font-size="54" font-weight="300" fill="#1A1A1A" letter-spacing="2.2" dominant-baseline="alphabetic">
+      Tathastha
+    </text>
+    <text x="3" y="32" font-size="14" font-weight="500" fill="#6B6B6B" letter-spacing="11" dominant-baseline="alphabetic">
+      L A B S
+    </text>
+  </g>
+
+  <!-- Subtle separator between mark and wordmark -->
+  <line x1="200" y1="62" x2="200" y2="158" stroke="#1A1A1A" stroke-width="0.5" opacity="0.18"/>
+</svg>
