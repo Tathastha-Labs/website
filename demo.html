@@ -194,11 +194,37 @@
   </div>
 </section>
 
-<!-- ============== DEMO 3: SPEECH -> SOAP ============== -->
+<!-- ============== DEMO 3: DISEASE ENTITY DETECTION ============== -->
+<section id="demo-disease" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <div class="caps mb-3">Demo 03 · Disease detection</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Find disease mentions in a note.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        A biomedical NER model from <a href="https://openmed.life/" target="_blank" rel="noopener" class="underline hover:text-ink">OpenMed</a>'s
+        open-source model family, fine-tuned specifically to recognize disease and condition mentions in clinical
+        text — the kind of model that feeds structured problem lists and registries.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite">Model: <code class="text-ink/80">OpenMed-NER-DiseaseDetect-TinyMed-135M</code> · ~65 MB first run</p>
+    </div>
+    <div class="md:col-span-8">
+      <textarea id="disease-input" class="field" rows="5">Patient presents with a known history of type 2 diabetes mellitus, chronic obstructive pulmonary disease, and a prior myocardial infarction. No evidence of pneumonia or acute kidney injury on this visit. Continues to be monitored for early-stage chronic kidney disease.</textarea>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="disease-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Detect diseases</button>
+        <span id="disease-status" class="status-line"></span>
+      </div>
+      <div id="disease-output" class="mt-6"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 4: SPEECH -> SOAP ============== -->
 <section id="demo-soap" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
   <div class="grid md:grid-cols-12 gap-10">
     <div class="md:col-span-4">
-      <div class="caps mb-3">Demo 03 · Speech to SOAP note</div>
+      <div class="caps mb-3">Demo 04 · Speech to SOAP note</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Record a visit. Get a structured note.
       </h2>
@@ -270,7 +296,7 @@
     return (data) => {
       if (data.status === 'progress' && data.file) {
         const pct = data.total ? Math.round((data.loaded / data.total) * 100) : null;
-        busy(id, `Downloading ${data.file}${pct !== null ? ` — ${pct}%` : ''}`);
+        busy(id, `Downloading model${pct !== null ? ` — ${pct}%` : ''}`);
       } else if (data.status === 'ready' || data.status === 'done') {
         busy(id, 'Preparing model…');
       }
@@ -321,9 +347,9 @@
     }));
   }
 
-  function renderEntities(text, rawEntities) {
-    const out = document.getElementById('ner-output');
-    const merged = mergeEntities(rawEntities);
+  function renderEntities(text, rawEntities, outputId) {
+    const out = document.getElementById(outputId);
+    const merged = mergeEntities(rawEntities).filter((e) => e.score >= 0.6);
     if (!merged.length) {
       out.innerHTML = '<p class="text-[14px] text-graphite">No entities detected.</p>';
       return;
@@ -370,11 +396,31 @@
       const ner = await loadPipeline('ner', 'token-classification', 'Xenova/bert-base-NER', { dtype: 'q8' }, 'ner-status');
       busy('ner-status', 'Extracting…');
       const entities = await ner(text);
-      renderEntities(text, entities);
+      renderEntities(text, entities, 'ner-output');
       setStatus('ner-status', 'Done.');
     } catch (err) {
       console.error(err);
       setStatus('ner-status', `Error: ${err.message}`);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById('disease-run').addEventListener('click', async () => {
+    const btn = document.getElementById('disease-run');
+    const text = document.getElementById('disease-input').value.trim();
+    if (!text) return;
+    btn.disabled = true;
+    try {
+      busy('disease-status', 'Loading model…');
+      const ner = await loadPipeline('disease', 'token-classification', 'grazh/OpenMed-NER-DiseaseDetect-TinyMed-135M-onnx', { dtype: 'q8' }, 'disease-status');
+      busy('disease-status', 'Extracting…');
+      const entities = await ner(text);
+      renderEntities(text, entities, 'disease-output');
+      setStatus('disease-status', 'Done.');
+    } catch (err) {
+      console.error(err);
+      setStatus('disease-status', `Error: ${err.message}`);
     } finally {
       btn.disabled = false;
     }
