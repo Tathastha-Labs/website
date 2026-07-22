@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Tathastha Labs — In-browser AI demos</title>
+  <meta name="description" content="Live, in-browser demos of clinical NER, image classification, and speech-to-SOAP-note generation, powered by transformers.js. Everything runs locally — nothing is uploaded to a server."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://tathastha.com/demo.html"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://tathastha.com/demo.html"/>
+  <meta property="og:title" content="Tathastha Labs — In-browser AI demos"/>
+  <meta property="og:description" content="Live, in-browser demos of clinical NER, image classification, and speech-to-SOAP-note generation. Everything runs locally in your browser."/>
+
+  <link rel="icon" type="image/svg+xml" href="/tathastha-labs-icon-light.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink:      '#1A1A1A',
+            graphite: '#6B6B6B',
+            mist:     '#A8A8A8',
+            paper:    '#FAFAF7',
+            bone:     '#F2F0EA',
+            noir:     '#0E0E0E',
+            sage:     '#6C8884',
+            sageink:  '#3F5552'
+          },
+          fontFamily: {
+            sans: ['Inter', 'Helvetica Neue', 'Segoe UI', 'Arial', 'sans-serif'],
+            serif: ['Fraunces', 'Georgia', 'Times New Roman', 'serif']
+          },
+          letterSpacing: {
+            'tight-1': '-0.01em',
+            'tight-2': '-0.02em',
+            'wide-3':  '0.18em',
+            'wide-4':  '0.28em'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-feature-settings: "ss01","cv11"; }
+    .hairline { border-color: rgba(0,0,0,0.10); }
+    .caps { text-transform: uppercase; letter-spacing: 0.28em; font-size: 11px; font-weight: 500; color: #6B6B6B; }
+    .cta-sage { background: #1A1A1A; color: #FAFAF7; transition: background 220ms ease; }
+    .cta-sage:hover { background: #3F5552; }
+    .cta-sage:disabled { background: #A8A8A8; cursor: not-allowed; }
+    .cta-outline { border: 1px solid rgba(0,0,0,0.55); color: #1A1A1A; transition: background 220ms ease, color 220ms ease; }
+    .cta-outline:hover { background: #1A1A1A; color: #FAFAF7; }
+    .num { font-family: 'Fraunces', Georgia, serif; font-weight: 300; letter-spacing: -0.03em; }
+    textarea, input[type="file"] { font-family: inherit; }
+    .field {
+      width: 100%; border: 1px solid rgba(0,0,0,0.15); background: #FAFAF7;
+      padding: 14px 16px; font-size: 14.5px; line-height: 1.6; color: #1A1A1A;
+      border-radius: 4px;
+    }
+    .field:focus { outline: none; border-color: #6C8884; }
+    .bar-track { background: rgba(0,0,0,0.08); border-radius: 999px; height: 8px; overflow: hidden; }
+    .bar-fill { background: #6C8884; height: 100%; }
+    .ent-mark { padding: 1px 3px; border-radius: 3px; }
+    .status-line { font-size: 12.5px; color: #6B6B6B; min-height: 1.2em; }
+    .spinner {
+      width: 13px; height: 13px; border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.15); border-top-color: #1A1A1A;
+      display: inline-block; animation: spin 0.7s linear infinite; margin-right: 6px; vertical-align: -2px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .soap-note h4 { font-weight: 600; margin-top: 14px; margin-bottom: 4px; }
+    .soap-note h4:first-child { margin-top: 0; }
+  </style>
+</head>
+<body class="bg-paper text-ink font-sans antialiased">
+
+<!-- ============== NAV ============== -->
+<header class="sticky top-0 z-40 bg-paper/85 backdrop-blur border-b hairline">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group">
+      <svg viewBox="0 0 220 220" class="w-9 h-9" aria-hidden="true">
+        <g transform="translate(110,110)">
+          <circle cx="0" cy="0" r="82" fill="none" stroke="#1A1A1A" stroke-width="6"/>
+          <g stroke="#1A1A1A" stroke-width="3" fill="none" opacity="0.55">
+            <line x1="0" y1="-50" x2="43.3" y2="25"/>
+            <line x1="43.3" y1="25" x2="-43.3" y2="25"/>
+            <line x1="-43.3" y1="25" x2="0" y2="-50"/>
+          </g>
+          <g stroke="#1A1A1A" stroke-width="4.5" fill="none">
+            <line x1="0" y1="0" x2="0" y2="-50"/>
+            <line x1="0" y1="0" x2="43.3" y2="25"/>
+            <line x1="0" y1="0" x2="-43.3" y2="25"/>
+          </g>
+          <g fill="#1A1A1A">
+            <circle cx="0" cy="-50" r="12"/>
+            <circle cx="43.3" cy="25" r="12"/>
+            <circle cx="-43.3" cy="25" r="12"/>
+          </g>
+          <circle cx="0" cy="0" r="18" fill="#1A1A1A"/>
+          <circle cx="0" cy="0" r="7" fill="#FAFAF7"/>
+        </g>
+      </svg>
+      <span class="font-light text-[19px] tracking-tight-1">Tathastha <span class="text-graphite">Labs</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[14px] text-graphite">
+      <a href="/#ai" class="hover:text-ink">Capabilities</a>
+      <a href="/#industries" class="hover:text-ink">Industries</a>
+      <a href="/industries/healthcare.html" class="hover:text-ink">Healthcare</a>
+    </nav>
+    <a href="/#contact" class="cta-sage rounded-full text-[13px] px-4 py-2 tracking-tight-1">Start a sprint</a>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section class="max-w-7xl mx-auto px-6 md:px-10 pt-20 pb-14">
+  <div class="caps mb-6">Try it yourself</div>
+  <h1 class="font-serif font-light text-[38px] sm:text-[50px] md:text-[62px] leading-[1.05] tracking-tight-2 max-w-4xl">
+    In-browser AI, running on your machine — not ours.
+  </h1>
+  <p class="mt-6 max-w-2xl text-[16px] md:text-[17px] leading-[1.7] text-graphite">
+    Every demo on this page runs entirely client-side using
+    <a href="https://huggingface.co/docs/transformers.js" target="_blank" rel="noopener" class="underline hover:text-ink">transformers.js</a>.
+    Models download once from Hugging Face and execute locally in your browser via WebAssembly or WebGPU.
+    Nothing you type, record, or upload here is sent to Tathastha Labs or any server.
+  </p>
+  <div class="mt-8 border-l-2 border-sage/60 pl-5 max-w-2xl text-[13.5px] text-graphite leading-[1.7]">
+    <strong class="text-ink">Not a medical device.</strong> These demos illustrate the underlying AI capabilities in a
+    general way. They are not validated for clinical or diagnostic use, and none of the sample outputs should
+    inform real patient care.
+  </div>
+</section>
+
+<!-- ============== DEMO 1: CLINICAL NER ============== -->
+<section id="demo-ner" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <div class="caps mb-3">Demo 01 · Clinical NER</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Extract clinical entities from a note.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        A named-entity model finds people, organizations, and locations in raw clinical text — patient and
+        clinician names, facility names — the same category of model that underlies de-identification and
+        structured-extraction pipelines.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite">Model: <code class="text-ink/80">Xenova/bert-base-NER</code> · ~45 MB first run</p>
+    </div>
+    <div class="md:col-span-8">
+      <textarea id="ner-input" class="field" rows="5">Patient is a 58-year-old male, John Carter, DOB 03/14/1967, presenting with chest pain radiating to the left arm and shortness of breath. History of hypertension and type 2 diabetes, currently on metformin and lisinopril. Seen by Dr. Angela Reyes in the cardiology department at Meridian General Hospital on April 2, 2026. Contact number 555-014-2231.</textarea>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="ner-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Extract entities</button>
+        <span id="ner-status" class="status-line"></span>
+      </div>
+      <div id="ner-output" class="mt-6"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 2: IMAGE CLASSIFICATION ============== -->
+<section id="demo-image" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <div class="caps mb-3">Demo 02 · Image classification</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Classify any image, in-browser.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        This is a general-purpose vision classifier, not a diagnostic model — we're showing the mechanics of an
+        in-browser imaging pipeline (upload → preprocess → inference → ranked output), the same shape as the
+        modality-specific models we build for imaging engagements.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite">Model: <code class="text-ink/80">Xenova/vit-base-patch16-224</code> · ~90 MB first run</p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <label for="img-input" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
+          Choose an image
+        </label>
+        <input type="file" id="img-input" accept="image/*" class="hidden"/>
+        <img id="img-preview" class="hidden w-40 h-40 object-cover rounded border hairline"/>
+      </div>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="img-run" class="cta-sage rounded-full text-[14px] px-6 py-3" disabled>Classify image</button>
+        <span id="img-status" class="status-line"></span>
+      </div>
+      <div id="img-output" class="mt-6 space-y-3 max-w-md"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 3: SPEECH -> SOAP ============== -->
+<section id="demo-soap" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <div class="caps mb-3">Demo 03 · Speech to SOAP note</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Record a visit. Get a structured note.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Speech is transcribed with Whisper, then a small instruct model drafts a structured clinical summary from
+        the transcript — the same two-stage pattern behind our ambient scribe work, running entirely on-device here.
+        This is a 0.5B-parameter model for browser-friendly size, so treat the formatting as a rough draft, not a
+        polished SOAP note — production engagements use larger, evaluated models for that.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        Models: <code class="text-ink/80">Xenova/whisper-tiny.en</code> (~40 MB) +
+        <code class="text-ink/80">onnx-community/Qwen2.5-0.5B-Instruct</code> (~300 MB) · first run only
+      </p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="flex flex-wrap items-center gap-4">
+        <button id="soap-record" class="cta-outline rounded-full text-[14px] px-6 py-3">● Record</button>
+        <span class="text-graphite text-[13px]">or</span>
+        <label for="soap-file" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer">Upload audio file</label>
+        <input type="file" id="soap-file" accept="audio/*" class="hidden"/>
+        <span id="soap-rec-status" class="status-line"></span>
+      </div>
+
+      <div class="mt-6">
+        <div class="caps mb-2">Transcript (editable)</div>
+        <textarea id="soap-transcript" class="field" rows="4" placeholder="Transcript will appear here once you record or upload audio — or type/paste one yourself."></textarea>
+      </div>
+
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="soap-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Generate SOAP note</button>
+        <span id="soap-status" class="status-line"></span>
+      </div>
+
+      <div id="soap-output" class="soap-note mt-6 text-[14.5px] leading-[1.7] text-ink/90"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="bg-noir text-paper/60 border-t border-paper/10 mt-10">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-[13px]">
+    <div class="flex items-center gap-3">
+      <span class="font-light text-paper text-[15px]">Tathastha Labs</span>
+    </div>
+    <nav class="flex flex-wrap gap-x-6 gap-y-2">
+      <a href="/" class="hover:text-paper">Home</a>
+      <a href="/industries/healthcare.html" class="hover:text-paper">Healthcare</a>
+      <a href="/#contact" class="hover:text-paper">Contact</a>
+    </nav>
+    <div class="text-paper/40">© 2026 Tathastha Labs. All rights reserved.</div>
+  </div>
+</footer>
+
+<script type="module">
+  import { pipeline, RawImage } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3';
+
+  // WASM is the most broadly reliable backend across browsers/drivers for this
+  // page's models — WebGPU support (and correctness) still varies too much
+  // to default to for a public demo.
+  const device = 'wasm';
+
+  function setStatus(id, text) {
+    document.getElementById(id).innerHTML = text;
+  }
+  function busy(id, text) {
+    setStatus(id, `<span class="spinner"></span>${text}`);
+  }
+  function makeProgress(id) {
+    return (data) => {
+      if (data.status === 'progress' && data.file) {
+        const pct = data.total ? Math.round((data.loaded / data.total) * 100) : null;
+        busy(id, `Downloading ${data.file}${pct !== null ? ` — ${pct}%` : ''}`);
+      } else if (data.status === 'ready' || data.status === 'done') {
+        busy(id, 'Preparing model…');
+      }
+    };
+  }
+
+  async function loadPipeline(cacheKey, task, model, opts, statusId) {
+    if (loadPipeline.cache?.[cacheKey]) return loadPipeline.cache[cacheKey];
+    loadPipeline.cache = loadPipeline.cache || {};
+    const p = await pipeline(task, model, { device, progress_callback: makeProgress(statusId), ...opts });
+    loadPipeline.cache[cacheKey] = p;
+    return p;
+  }
+
+  /* ---------------- Demo 1: Clinical NER ---------------- */
+  const ENTITY_COLORS = ['#D9E4E2', '#E7DCC8', '#E0D6E8', '#D9E0EE', '#EAD9D2', '#DCE8D5'];
+  const entityColorMap = {};
+  function colorFor(label) {
+    if (!entityColorMap[label]) {
+      entityColorMap[label] = ENTITY_COLORS[Object.keys(entityColorMap).length % ENTITY_COLORS.length];
+    }
+    return entityColorMap[label];
+  }
+
+  // transformers.js's token-classification pipeline returns raw per-token BIO
+  // tags with no character offsets, so we merge adjacent same-type tokens ourselves.
+  function mergeEntities(raw) {
+    const groups = [];
+    for (const tok of raw) {
+      const dash = tok.entity.indexOf('-');
+      const prefix = dash === -1 ? 'B' : tok.entity.slice(0, dash);
+      const type = dash === -1 ? tok.entity : tok.entity.slice(dash + 1);
+      const isContinuation = tok.word.startsWith('##');
+      const cleanWord = isContinuation ? tok.word.slice(2) : tok.word;
+      const last = groups[groups.length - 1];
+      if (last && last.type === type && tok.index === last.lastIndex + 1 && (prefix === 'I' || isContinuation)) {
+        last.word += isContinuation ? cleanWord : ' ' + cleanWord;
+        last.scores.push(tok.score);
+        last.lastIndex = tok.index;
+      } else {
+        groups.push({ type, word: cleanWord, scores: [tok.score], lastIndex: tok.index });
+      }
+    }
+    return groups.map((g) => ({
+      type: g.type,
+      word: g.word,
+      score: g.scores.reduce((a, b) => a + b, 0) / g.scores.length
+    }));
+  }
+
+  function renderEntities(text, rawEntities) {
+    const out = document.getElementById('ner-output');
+    const merged = mergeEntities(rawEntities);
+    if (!merged.length) {
+      out.innerHTML = '<p class="text-[14px] text-graphite">No entities detected.</p>';
+      return;
+    }
+    let html = '';
+    let cursor = 0;
+    const found = [];
+    for (const e of merged) {
+      const idx = text.indexOf(e.word, cursor);
+      if (idx === -1) { found.push(e); continue; }
+      html += escapeHtml(text.slice(cursor, idx));
+      html += `<mark class="ent-mark" style="background:${colorFor(e.type)}" title="${e.type} — ${(e.score*100).toFixed(1)}%">${escapeHtml(text.slice(idx, idx + e.word.length))}</mark>`;
+      cursor = idx + e.word.length;
+      found.push(e);
+    }
+    html += escapeHtml(text.slice(cursor));
+
+    const rows = found.map((e) => `
+      <tr class="border-t hairline">
+        <td class="py-2 pr-4 text-[13.5px]">${escapeHtml(e.word)}</td>
+        <td class="py-2 pr-4 text-[13px] text-graphite">${escapeHtml(e.type)}</td>
+        <td class="py-2 text-[13px] text-graphite">${(e.score*100).toFixed(1)}%</td>
+      </tr>`).join('');
+
+    out.innerHTML = `
+      <div class="p-5 border hairline rounded bg-bone text-[14.5px] leading-[1.8]">${html}</div>
+      <table class="w-full mt-4 text-left">
+        <thead><tr class="caps"><th class="pb-2">Text</th><th class="pb-2">Entity</th><th class="pb-2">Confidence</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  document.getElementById('ner-run').addEventListener('click', async () => {
+    const btn = document.getElementById('ner-run');
+    const text = document.getElementById('ner-input').value.trim();
+    if (!text) return;
+    btn.disabled = true;
+    try {
+      busy('ner-status', 'Loading model…');
+      const ner = await loadPipeline('ner', 'token-classification', 'Xenova/bert-base-NER', { dtype: 'q8' }, 'ner-status');
+      busy('ner-status', 'Extracting…');
+      const entities = await ner(text);
+      renderEntities(text, entities);
+      setStatus('ner-status', 'Done.');
+    } catch (err) {
+      console.error(err);
+      setStatus('ner-status', `Error: ${err.message}`);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  /* ---------------- Demo 2: Image classification ---------------- */
+  const imgInput = document.getElementById('img-input');
+  const imgPreview = document.getElementById('img-preview');
+  const imgRunBtn = document.getElementById('img-run');
+  let currentImageUrl = null;
+
+  imgInput.addEventListener('change', () => {
+    const file = imgInput.files[0];
+    if (!file) return;
+    currentImageUrl = URL.createObjectURL(file);
+    imgPreview.src = currentImageUrl;
+    imgPreview.classList.remove('hidden');
+    imgRunBtn.disabled = false;
+    document.getElementById('img-output').innerHTML = '';
+    setStatus('img-status', '');
+  });
+
+  imgRunBtn.addEventListener('click', async () => {
+    if (!currentImageUrl) return;
+    imgRunBtn.disabled = true;
+    try {
+      busy('img-status', 'Loading model…');
+      const classifier = await loadPipeline('vit', 'image-classification', 'Xenova/vit-base-patch16-224', { dtype: 'q8' }, 'img-status');
+      busy('img-status', 'Classifying…');
+      const image = await RawImage.fromURL(currentImageUrl);
+      const preds = await classifier(image, { topk: 5 });
+      renderBars(preds);
+      setStatus('img-status', 'Done.');
+    } catch (err) {
+      console.error(err);
+      setStatus('img-status', `Error: ${err.message}`);
+    } finally {
+      imgRunBtn.disabled = false;
+    }
+  });
+
+  function renderBars(preds) {
+    const out = document.getElementById('img-output');
+    out.innerHTML = preds.map(p => `
+      <div>
+        <div class="flex justify-between text-[13.5px] mb-1">
+          <span>${escapeHtml(p.label)}</span>
+          <span class="text-graphite">${(p.score*100).toFixed(1)}%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(p.score*100).toFixed(1)}%"></div></div>
+      </div>`).join('');
+  }
+
+  /* ---------------- Demo 3: Speech -> SOAP ---------------- */
+  let mediaRecorder = null;
+  let chunks = [];
+  let recording = false;
+  const recordBtn = document.getElementById('soap-record');
+
+  recordBtn.addEventListener('click', async () => {
+    if (!recording) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        chunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
+        mediaRecorder.start();
+        recording = true;
+        recordBtn.textContent = '■ Stop';
+        setStatus('soap-rec-status', 'Recording…');
+      } catch (err) {
+        setStatus('soap-rec-status', `Microphone error: ${err.message}`);
+      }
+    } else {
+      const blob = await new Promise((resolve) => {
+        mediaRecorder.onstop = () => resolve(new Blob(chunks, { type: 'audio/webm' }));
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach((t) => t.stop());
+      });
+      recording = false;
+      recordBtn.textContent = '● Record';
+      await transcribeBlob(blob);
+    }
+  });
+
+  document.getElementById('soap-file').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (file) await transcribeBlob(file);
+  });
+
+  async function decodeTo16k(blob) {
+    const arrayBuffer = await blob.arrayBuffer();
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AudioCtx();
+    const decoded = await ctx.decodeAudioData(arrayBuffer);
+    const targetRate = 16000;
+    const offline = new OfflineAudioContext(1, Math.ceil(decoded.duration * targetRate), targetRate);
+    const src = offline.createBufferSource();
+    src.buffer = decoded;
+    src.connect(offline.destination);
+    src.start(0);
+    const rendered = await offline.startRendering();
+    return rendered.getChannelData(0);
+  }
+
+  async function transcribeBlob(blob) {
+    try {
+      busy('soap-rec-status', 'Decoding audio…');
+      const audio = await decodeTo16k(blob);
+      busy('soap-rec-status', 'Loading speech model…');
+      const asr = await loadPipeline('whisper', 'automatic-speech-recognition', 'Xenova/whisper-tiny.en', { dtype: 'q8' }, 'soap-rec-status');
+      busy('soap-rec-status', 'Transcribing…');
+      const result = await asr(audio, { chunk_length_s: 30 });
+      document.getElementById('soap-transcript').value = result.text.trim();
+      setStatus('soap-rec-status', 'Transcribed. Review the text, then generate a SOAP note.');
+    } catch (err) {
+      console.error(err);
+      setStatus('soap-rec-status', `Error: ${err.message}`);
+    }
+  }
+
+  document.getElementById('soap-run').addEventListener('click', async () => {
+    const btn = document.getElementById('soap-run');
+    const transcript = document.getElementById('soap-transcript').value.trim();
+    if (!transcript) {
+      setStatus('soap-status', 'Add or record a transcript first.');
+      return;
+    }
+    btn.disabled = true;
+    try {
+      busy('soap-status', 'Loading language model (largest download, first run only)…');
+      const llm = await loadPipeline('qwen', 'text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', { dtype: 'q4' }, 'soap-status');
+      busy('soap-status', 'Writing note…');
+      const messages = [
+        {
+          role: 'system',
+          content: 'You are a clinical scribe. Read the visit transcript and reply with nothing but a SOAP note in exactly this template, replacing each <...> and adding no other headings, sections, or commentary before or after it:\nSubjective: <patient-reported symptoms and history from the transcript>\nObjective: <vitals, exam findings, and test results mentioned>\nAssessment: <the clinician\'s diagnosis or impression>\nPlan: <treatment, medications, and follow-up>\nOnly use information present in the transcript. Write "Not documented" for a section with no supporting information. Do not use markdown formatting or bullet points. Be concise.'
+        },
+        { role: 'user', content: transcript }
+      ];
+      const output = await llm(messages, { max_new_tokens: 400, temperature: 0.3, do_sample: false });
+      const generated = output[0].generated_text;
+      const noteText = Array.isArray(generated) ? generated[generated.length - 1].content : generated;
+      document.getElementById('soap-output').innerHTML = formatSoap(noteText);
+      setStatus('soap-status', 'Done.');
+    } catch (err) {
+      console.error(err);
+      setStatus('soap-status', `Error: ${err.message}`);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  function formatSoap(text) {
+    const escaped = escapeHtml(text.trim());
+    return escaped
+      // small models still emit markdown bold sometimes despite instructions not to
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/^\**\s*(Subjective|Objective|Assessment|Plan)\s*\**:?/gim, '<h4>$1</h4>')
+      .replace(/^-\s+/gim, '&bull;&nbsp;')
+      .replace(/\n{2,}/g, '<br/><br/>')
+      .replace(/\n/g, '<br/>');
+  }
+</script>
+
+</body>
+</html>
