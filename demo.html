@@ -146,7 +146,7 @@
         clinician names, facility names — the same category of model that underlies de-identification and
         structured-extraction pipelines.
       </p>
-      <p class="mt-4 text-[12.5px] text-graphite">Model: <code class="text-ink/80">Xenova/bert-base-NER</code> · ~45 MB first run</p>
+      <p class="mt-4 text-[12.5px] text-graphite">~45 MB first run only</p>
     </div>
     <div class="md:col-span-8">
       <textarea id="ner-input" class="field" rows="5">Patient is a 58-year-old male, John Carter, DOB 03/14/1967, presenting with chest pain radiating to the left arm and shortness of breath. History of hypertension and type 2 diabetes, currently on metformin and lisinopril. Seen by Dr. Angela Reyes in the cardiology department at Meridian General Hospital on April 2, 2026. Contact number 555-014-2231.</textarea>
@@ -172,7 +172,7 @@
         in-browser imaging pipeline (upload → preprocess → inference → ranked output), the same shape as the
         modality-specific models we build for imaging engagements.
       </p>
-      <p class="mt-4 text-[12.5px] text-graphite">Model: <code class="text-ink/80">Xenova/vit-base-patch16-224</code> · ~90 MB first run</p>
+      <p class="mt-4 text-[12.5px] text-graphite">~90 MB first run only</p>
     </div>
     <div class="md:col-span-8">
       <div class="flex flex-col sm:flex-row gap-6 items-start">
@@ -200,11 +200,10 @@
         Find disease mentions in a note.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
-        A biomedical NER model from <a href="https://openmed.life/" target="_blank" rel="noopener" class="underline hover:text-ink">OpenMed</a>'s
-        open-source model family, fine-tuned specifically to recognize disease and condition mentions in clinical
-        text — the kind of model that feeds structured problem lists and registries.
+        An open-source biomedical NER model, fine-tuned specifically to recognize disease and condition mentions
+        in clinical text — the kind of model that feeds structured problem lists and registries.
       </p>
-      <p class="mt-4 text-[12.5px] text-graphite">Model: <code class="text-ink/80">OpenMed-NER-DiseaseDetect-TinyMed-135M</code> · ~65 MB first run</p>
+      <p class="mt-4 text-[12.5px] text-graphite">~65 MB first run only</p>
     </div>
     <div class="md:col-span-8">
       <textarea id="disease-input" class="field" rows="5">Patient presents with a known history of type 2 diabetes mellitus, chronic obstructive pulmonary disease, and a prior myocardial infarction. No evidence of pneumonia or acute kidney injury on this visit. Continues to be monitored for early-stage chronic kidney disease.</textarea>
@@ -226,15 +225,12 @@
         Record a visit. Get a structured note.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
-        Speech is transcribed with Whisper, then a small instruct model drafts a structured clinical summary from
+        Speech is transcribed first, then a small instruct model drafts a structured clinical summary from
         the transcript — the same two-stage pattern behind our ambient scribe work, running entirely on-device here.
-        This is a 0.5B-parameter model for browser-friendly size, so treat the formatting as a rough draft, not a
+        Both models are small for browser-friendly size, so treat the formatting as a rough draft, not a
         polished SOAP note — production engagements use larger, evaluated models for that.
       </p>
-      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
-        Models: <code class="text-ink/80">Xenova/whisper-tiny.en</code> (~40 MB) +
-        <code class="text-ink/80">onnx-community/Qwen2.5-0.5B-Instruct</code> (~300 MB) · first run only
-      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">~340 MB first run only</p>
     </div>
     <div class="md:col-span-8">
       <div class="flex flex-wrap items-center gap-4">
