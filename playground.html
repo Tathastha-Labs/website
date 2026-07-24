@@ -301,6 +301,51 @@
   </div>
 </section>
 
+<!-- ============== DEMO 6: RAG (ASK YOUR DOCUMENT) ============== -->
+<section id="demo-rag" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <div class="caps mb-3">06 · Retrieval-augmented Q&amp;A</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Upload a document. Ask it questions.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Text is split into passages and embedded, then a question is matched against the most relevant
+        passages and answered from them alone — the same retrieve-then-generate pattern (naive RAG) behind
+        most document Q&amp;A systems, indexed and queried entirely on-device.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        Plain text only, 1 MB max. ~25 MB first run for the embedding model, plus the drafting model used above.
+        Larger documents take longer to index.
+      </p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="flex flex-col sm:flex-row gap-4 items-start flex-wrap">
+        <label for="rag-file" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
+          Choose a text file
+        </label>
+        <input type="file" id="rag-file" accept=".txt,.md,text/plain" class="hidden"/>
+      </div>
+      <div class="mt-4">
+        <textarea id="rag-text" class="field" rows="6" placeholder="Paste text here, or choose a .txt file above — up to 1 MB."></textarea>
+      </div>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="rag-index" class="cta-sage rounded-full text-[14px] px-6 py-3">Index document</button>
+        <span id="rag-index-status" class="status-line"></span>
+      </div>
+
+      <div class="mt-8 pt-8 border-t hairline">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="rag-question" class="field sm:flex-1" placeholder="Ask a question about the document above…" disabled/>
+          <button id="rag-ask" class="cta-sage rounded-full text-[14px] px-6 py-3 whitespace-nowrap" disabled>Ask</button>
+        </div>
+        <div class="mt-3"><span id="rag-answer-status" class="status-line"></span></div>
+        <div id="rag-answer" class="mt-4"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============== FOOTER ============== -->
 <footer class="bg-noir text-paper/60 border-t border-paper/10 mt-10">
   <div class="max-w-7xl mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-[13px]">
@@ -735,20 +780,20 @@
       const llm = await loadPipeline('qwen', 'text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', { dtype: 'q4' }, 'invoice-status');
       busy('invoice-status', 'Extracting fields…');
       const sys = [
-        'You read raw OCR text from a receipt or invoice and extract fields into this exact template, replacing each <...> and adding nothing else before or after it:',
-        'Vendor: <business or merchant name>',
-        'Date: <transaction or invoice date>',
-        'Invoice or receipt number: <the identifying number>',
+        'You are a receipt reader. Read the text below and reply with nothing but the fields in exactly this template, replacing each <...> and adding no other headings, sections, or commentary before or after it:',
+        'Vendor: <business name>',
+        'Date: <date>',
+        'Receipt number: <identifying number>',
         'Subtotal: <amount before tax>',
         'Tax: <tax amount>',
-        'Total: <final total amount>',
-        'Write "Not found" for any field not present in the text. Do not use markdown formatting.'
+        'Total: <total amount>',
+        'Only use information present in the text. Write "Not documented" for a field with no supporting information. Do not use markdown formatting or bullet points. Be concise.'
       ].join('\n');
       const messages = [
         { role: 'system', content: sys },
         { role: 'user', content: data.text }
       ];
-      const output = await llm(messages, { max_new_tokens: 200, temperature: 0.2, do_sample: false });
+      const output = await llm(messages, { max_new_tokens: 200, temperature: 0.4, top_p: 0.9, do_sample: true });
       const generated = output[0].generated_text;
       const kvText = Array.isArray(generated) ? generated[generated.length - 1].content : generated;
       renderKeyValue(kvText);
@@ -758,6 +803,135 @@
       setStatus('invoice-status', `Error: ${err.message}`);
     } finally {
       invoiceRunBtn.disabled = false;
+    }
+  });
+
+  /* ---------------- Demo 6: RAG (ask your document) ---------------- */
+  const MAX_RAG_BYTES = 1_000_000;
+  let ragChunks = [];
+  let ragEmbeddings = [];
+
+  document.getElementById('rag-file').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > MAX_RAG_BYTES) {
+      setStatus('rag-index-status', `That file is ${(file.size / 1_000_000).toFixed(2)} MB — please keep it under 1 MB.`);
+      return;
+    }
+    document.getElementById('rag-text').value = await file.text();
+    setStatus('rag-index-status', '');
+  });
+
+  function chunkText(text, chunkSize, overlap) {
+    const chunks = [];
+    let start = 0;
+    while (start < text.length) {
+      const end = Math.min(start + chunkSize, text.length);
+      const chunk = text.slice(start, end).trim();
+      if (chunk) chunks.push(chunk);
+      if (end === text.length) break;
+      start = end - overlap;
+    }
+    return chunks;
+  }
+
+  function dot(a, b) {
+    let s = 0;
+    for (let i = 0; i < a.length; i++) s += a[i] * b[i];
+    return s;
+  }
+
+  async function embedTexts(extractor, texts, statusId, verb) {
+    const embeddings = [];
+    const batchSize = 8;
+    for (let i = 0; i < texts.length; i += batchSize) {
+      const batch = texts.slice(i, i + batchSize);
+      const out = await extractor(batch, { pooling: 'mean', normalize: true });
+      const dim = out.dims[1];
+      for (let b = 0; b < batch.length; b++) {
+        embeddings.push(Array.from(out.data.slice(b * dim, (b + 1) * dim)));
+      }
+      busy(statusId, `${verb} — ${Math.min(i + batchSize, texts.length)}/${texts.length}`);
+    }
+    return embeddings;
+  }
+
+  document.getElementById('rag-index').addEventListener('click', async () => {
+    const btn = document.getElementById('rag-index');
+    const text = document.getElementById('rag-text').value.trim();
+    if (!text) return;
+    if (new Blob([text]).size > MAX_RAG_BYTES) {
+      setStatus('rag-index-status', 'That text is over 1 MB — please trim it down.');
+      return;
+    }
+    btn.disabled = true;
+    document.getElementById('rag-question').disabled = true;
+    document.getElementById('rag-ask').disabled = true;
+    try {
+      ragChunks = chunkText(text, 2000, 200);
+      busy('rag-index-status', 'Loading embedding model…');
+      const extractor = await loadPipeline('embed', 'feature-extraction', 'Xenova/all-MiniLM-L6-v2', { dtype: 'q8' }, 'rag-index-status');
+      ragEmbeddings = await embedTexts(extractor, ragChunks, 'rag-index-status', 'Embedding passages');
+      setStatus('rag-index-status', `Indexed ${ragChunks.length} passage${ragChunks.length === 1 ? '' : 's'}. Ask a question below.`);
+      document.getElementById('rag-question').disabled = false;
+      document.getElementById('rag-ask').disabled = false;
+    } catch (err) {
+      console.error(err);
+      setStatus('rag-index-status', `Error: ${err.message}`);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  function renderRagAnswer(answer, sources) {
+    const out = document.getElementById('rag-answer');
+    const sourceItems = sources.map((s, idx) => `
+      <li class="py-2 border-t hairline">
+        <div class="text-[12px] text-graphite mb-1">[${idx + 1}] similarity ${(s.score * 100).toFixed(1)}%</div>
+        <div class="text-[13px] text-ink/80">${escapeHtml(ragChunks[s.i].slice(0, 220))}${ragChunks[s.i].length > 220 ? '…' : ''}</div>
+      </li>`).join('');
+    out.innerHTML = `
+      <div class="p-5 border hairline rounded bg-bone text-[14.5px] leading-[1.7] whitespace-pre-wrap">${escapeHtml(answer)}</div>
+      <details class="mt-4">
+        <summary class="text-[13px] text-graphite cursor-pointer">Sources used</summary>
+        <ul class="mt-1">${sourceItems}</ul>
+      </details>`;
+  }
+
+  document.getElementById('rag-ask').addEventListener('click', async () => {
+    const btn = document.getElementById('rag-ask');
+    const question = document.getElementById('rag-question').value.trim();
+    if (!question || !ragChunks.length) return;
+    btn.disabled = true;
+    try {
+      busy('rag-answer-status', 'Loading embedding model…');
+      const extractor = await loadPipeline('embed', 'feature-extraction', 'Xenova/all-MiniLM-L6-v2', { dtype: 'q8' }, 'rag-answer-status');
+      busy('rag-answer-status', 'Finding relevant passages…');
+      const qOut = await extractor(question, { pooling: 'mean', normalize: true });
+      const qEmb = Array.from(qOut.data);
+      const scored = ragEmbeddings.map((e, i) => ({ i, score: dot(qEmb, e) }));
+      scored.sort((a, b) => b.score - a.score);
+      const top = scored.slice(0, 4);
+      const context = top.map((t, idx) => `[${idx + 1}] ${ragChunks[t.i]}`).join('\n\n');
+
+      busy('rag-answer-status', 'Loading language model…');
+      const llm = await loadPipeline('qwen', 'text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', { dtype: 'q4' }, 'rag-answer-status');
+      busy('rag-answer-status', 'Answering…');
+      const sys = 'Answer the question using only the numbered passages below. If the answer is not in the passages, say exactly: I could not find that in the document. Reference passage numbers like [1] where relevant. Do not use markdown formatting.';
+      const userMsg = `Passages:\n${context}\n\nQuestion: ${question}`;
+      const output = await llm(
+        [{ role: 'system', content: sys }, { role: 'user', content: userMsg }],
+        { max_new_tokens: 250, temperature: 0.4, top_p: 0.9, do_sample: true }
+      );
+      const generated = output[0].generated_text;
+      const answer = Array.isArray(generated) ? generated[generated.length - 1].content : generated;
+      renderRagAnswer(answer.trim(), top);
+      setStatus('rag-answer-status', 'Done.');
+    } catch (err) {
+      console.error(err);
+      setStatus('rag-answer-status', `Error: ${err.message}`);
+    } finally {
+      btn.disabled = false;
     }
   });
 </script>
