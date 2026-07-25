@@ -58,6 +58,7 @@
     .cta-outline:hover { background: #1A1A1A; color: #FAFAF7; }
     .num { font-family: 'Fraunces', Georgia, serif; font-weight: 300; letter-spacing: -0.03em; }
     textarea, input[type="file"] { font-family: inherit; }
+    input[type="range"] { accent-color: #6C8884; }
     .field {
       width: 100%; border: 1px solid rgba(0,0,0,0.15); background: #FAFAF7;
       padding: 14px 16px; font-size: 14.5px; line-height: 1.6; color: #1A1A1A;
@@ -342,6 +343,85 @@
         <div class="mt-3"><span id="rag-answer-status" class="status-line"></span></div>
         <div id="rag-answer" class="mt-4"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 7: ADVANCED RAG (CONFIGURABLE OVERLAP) ============== -->
+<section id="demo-rag-advanced" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <div class="caps mb-3">07 · Advanced RAG</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Same idea, with chunk overlap you control.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Passages are cut with a fixed size but the overlap between consecutive passages is yours to set.
+        More overlap means a fact split across a chunk boundary is less likely to be missed, at the cost of
+        indexing more redundant text. Re-indexing here updates the document used by this and the reranking
+        playground below.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">Reuses the embedding and drafting models already loaded above.</p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="flex flex-col sm:flex-row gap-4 items-start flex-wrap">
+        <label for="rag-adv-file" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
+          Choose a text file
+        </label>
+        <input type="file" id="rag-adv-file" accept=".txt,.md,text/plain" class="hidden"/>
+      </div>
+      <div class="mt-4">
+        <textarea id="rag-adv-text" class="field" rows="6" placeholder="Paste text here, or choose a .txt file above — up to 1 MB."></textarea>
+      </div>
+
+      <div class="mt-5 flex items-center gap-4 flex-wrap">
+        <label for="rag-adv-overlap" class="text-[13px] text-graphite whitespace-nowrap">Chunk overlap</label>
+        <input type="range" id="rag-adv-overlap" min="0" max="800" step="50" value="200" class="w-48"/>
+        <span id="rag-adv-overlap-value" class="text-[13px] text-ink font-medium w-24">200 characters</span>
+      </div>
+
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="rag-adv-index" class="cta-sage rounded-full text-[14px] px-6 py-3">Index document</button>
+        <span id="rag-adv-index-status" class="status-line"></span>
+      </div>
+
+      <div class="mt-8 pt-8 border-t hairline">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="rag-adv-question" class="field sm:flex-1" placeholder="Ask a question about the document above…" disabled/>
+          <button id="rag-adv-ask" class="cta-sage rounded-full text-[14px] px-6 py-3 whitespace-nowrap" disabled>Ask</button>
+        </div>
+        <div class="mt-3"><span id="rag-adv-answer-status" class="status-line"></span></div>
+        <div id="rag-adv-answer" class="mt-4"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 8: RAG WITH RERANKING ============== -->
+<section id="demo-rag-rerank" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <div class="caps mb-3">08 · RAG with reranking</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Cast a wider net, then re-score it.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Instead of trusting embedding similarity alone, this pulls a wider pool of candidate passages, then a
+        cross-encoder reranker scores each one against the question directly — a slower but more accurate second
+        pass. The top three reranked passages each generate their own answer, so you can compare which passage
+        actually answered the question best.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        Uses whichever document you indexed in Naive or Advanced RAG above. ~15 MB first run for the reranker.
+      </p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input type="text" id="rag-rerank-question" class="field sm:flex-1" placeholder="Ask a question about the document indexed above…"/>
+        <button id="rag-rerank-ask" class="cta-sage rounded-full text-[14px] px-6 py-3 whitespace-nowrap">Ask (reranked)</button>
+      </div>
+      <div class="mt-3"><span id="rag-rerank-status" class="status-line"></span></div>
+      <div id="rag-rerank-answers" class="mt-4 space-y-4"></div>
     </div>
   </div>
 </section>
@@ -883,8 +963,8 @@
     }
   });
 
-  function renderRagAnswer(answer, sources) {
-    const out = document.getElementById('rag-answer');
+  function renderRagAnswer(answer, sources, outputElId) {
+    const out = document.getElementById(outputElId);
     const sourceItems = sources.map((s, idx) => `
       <li class="py-2 border-t hairline">
         <div class="text-[12px] text-graphite mb-1">[${idx + 1}] similarity ${(s.score * 100).toFixed(1)}%</div>
@@ -898,15 +978,15 @@
       </details>`;
   }
 
-  document.getElementById('rag-ask').addEventListener('click', async () => {
-    const btn = document.getElementById('rag-ask');
-    const question = document.getElementById('rag-question').value.trim();
+  async function askRagQuestion(questionElId, btnElId, statusId, outputElId) {
+    const btn = document.getElementById(btnElId);
+    const question = document.getElementById(questionElId).value.trim();
     if (!question || !ragChunks.length) return;
     btn.disabled = true;
     try {
-      busy('rag-answer-status', 'Loading embedding model…');
-      const extractor = await loadPipeline('embed', 'feature-extraction', 'Xenova/all-MiniLM-L6-v2', { dtype: 'q8' }, 'rag-answer-status');
-      busy('rag-answer-status', 'Finding relevant passages…');
+      busy(statusId, 'Loading embedding model…');
+      const extractor = await loadPipeline('embed', 'feature-extraction', 'Xenova/all-MiniLM-L6-v2', { dtype: 'q8' }, statusId);
+      busy(statusId, 'Finding relevant passages…');
       const qOut = await extractor(question, { pooling: 'mean', normalize: true });
       const qEmb = Array.from(qOut.data);
       const scored = ragEmbeddings.map((e, i) => ({ i, score: dot(qEmb, e) }));
@@ -914,9 +994,9 @@
       const top = scored.slice(0, 4);
       const context = top.map((t, idx) => `[${idx + 1}] ${ragChunks[t.i]}`).join('\n\n');
 
-      busy('rag-answer-status', 'Loading language model…');
-      const llm = await loadPipeline('qwen', 'text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', { dtype: 'q4' }, 'rag-answer-status');
-      busy('rag-answer-status', 'Answering…');
+      busy(statusId, 'Loading language model…');
+      const llm = await loadPipeline('qwen', 'text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', { dtype: 'q4' }, statusId);
+      busy(statusId, 'Answering…');
       const sys = 'Answer the question using only the numbered passages below. If the answer is not in the passages, say exactly: I could not find that in the document. Reference passage numbers like [1] where relevant. Do not use markdown formatting.';
       const userMsg = `Passages:\n${context}\n\nQuestion: ${question}`;
       const output = await llm(
@@ -925,15 +1005,155 @@
       );
       const generated = output[0].generated_text;
       const answer = Array.isArray(generated) ? generated[generated.length - 1].content : generated;
-      renderRagAnswer(answer.trim(), top);
-      setStatus('rag-answer-status', 'Done.');
+      renderRagAnswer(answer.trim(), top, outputElId);
+      setStatus(statusId, 'Done.');
     } catch (err) {
       console.error(err);
-      setStatus('rag-answer-status', `Error: ${err.message}`);
+      setStatus(statusId, `Error: ${err.message}`);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  document.getElementById('rag-ask').addEventListener('click', () => {
+    askRagQuestion('rag-question', 'rag-ask', 'rag-answer-status', 'rag-answer');
+  });
+
+  /* ---------------- Demo 7: Advanced RAG (configurable overlap) ---------------- */
+  const ragAdvOverlapInput = document.getElementById('rag-adv-overlap');
+  ragAdvOverlapInput.addEventListener('input', () => {
+    document.getElementById('rag-adv-overlap-value').textContent = `${ragAdvOverlapInput.value} characters`;
+  });
+
+  document.getElementById('rag-adv-file').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > MAX_RAG_BYTES) {
+      setStatus('rag-adv-index-status', `That file is ${(file.size / 1_000_000).toFixed(2)} MB — please keep it under 1 MB.`);
+      return;
+    }
+    document.getElementById('rag-adv-text').value = await file.text();
+    setStatus('rag-adv-index-status', '');
+  });
+
+  document.getElementById('rag-adv-index').addEventListener('click', async () => {
+    const btn = document.getElementById('rag-adv-index');
+    const text = document.getElementById('rag-adv-text').value.trim();
+    if (!text) return;
+    if (new Blob([text]).size > MAX_RAG_BYTES) {
+      setStatus('rag-adv-index-status', 'That text is over 1 MB — please trim it down.');
+      return;
+    }
+    btn.disabled = true;
+    document.getElementById('rag-adv-question').disabled = true;
+    document.getElementById('rag-adv-ask').disabled = true;
+    try {
+      const overlap = parseInt(ragAdvOverlapInput.value, 10);
+      ragChunks = chunkText(text, 2000, overlap);
+      busy('rag-adv-index-status', 'Loading embedding model…');
+      const extractor = await loadPipeline('embed', 'feature-extraction', 'Xenova/all-MiniLM-L6-v2', { dtype: 'q8' }, 'rag-adv-index-status');
+      ragEmbeddings = await embedTexts(extractor, ragChunks, 'rag-adv-index-status', 'Embedding passages');
+      setStatus('rag-adv-index-status', `Indexed ${ragChunks.length} passage${ragChunks.length === 1 ? '' : 's'} with ${overlap}-character overlap. Ask a question below.`);
+      document.getElementById('rag-adv-question').disabled = false;
+      document.getElementById('rag-adv-ask').disabled = false;
+    } catch (err) {
+      console.error(err);
+      setStatus('rag-adv-index-status', `Error: ${err.message}`);
     } finally {
       btn.disabled = false;
     }
   });
+
+  document.getElementById('rag-adv-ask').addEventListener('click', () => {
+    askRagQuestion('rag-adv-question', 'rag-adv-ask', 'rag-adv-answer-status', 'rag-adv-answer');
+  });
+
+  /* ---------------- Demo 8: RAG with reranking ---------------- */
+  document.getElementById('rag-rerank-ask').addEventListener('click', async () => {
+    const btn = document.getElementById('rag-rerank-ask');
+    const question = document.getElementById('rag-rerank-question').value.trim();
+    if (!question) return;
+    if (!ragChunks.length) {
+      setStatus('rag-rerank-status', 'Index a document in Naive or Advanced RAG above first.');
+      return;
+    }
+    btn.disabled = true;
+    document.getElementById('rag-rerank-answers').innerHTML = '';
+    try {
+      busy('rag-rerank-status', 'Loading embedding model…');
+      const extractor = await loadPipeline('embed', 'feature-extraction', 'Xenova/all-MiniLM-L6-v2', { dtype: 'q8' }, 'rag-rerank-status');
+      busy('rag-rerank-status', 'Retrieving candidate passages…');
+      const qOut = await extractor(question, { pooling: 'mean', normalize: true });
+      const qEmb = Array.from(qOut.data);
+      const scored = ragEmbeddings.map((e, i) => ({ i, score: dot(qEmb, e) }));
+      scored.sort((a, b) => b.score - a.score);
+      const candidates = scored.slice(0, Math.min(8, scored.length));
+
+      busy('rag-rerank-status', 'Loading reranker…');
+      if (!loadPipeline.cache) loadPipeline.cache = {};
+      let rerankBundle = loadPipeline.cache.reranker;
+      if (!rerankBundle) {
+        const { AutoTokenizer, AutoModelForSequenceClassification } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3');
+        const tokenizer = await AutoTokenizer.from_pretrained('Xenova/ms-marco-MiniLM-L-6-v2');
+        const model = await AutoModelForSequenceClassification.from_pretrained('Xenova/ms-marco-MiniLM-L-6-v2', { dtype: 'q8' });
+        rerankBundle = { tokenizer, model };
+        loadPipeline.cache.reranker = rerankBundle;
+      }
+
+      busy('rag-rerank-status', 'Reranking candidates…');
+      const passages = candidates.map((c) => ragChunks[c.i]);
+      const features = rerankBundle.tokenizer(new Array(passages.length).fill(question), {
+        text_pair: passages,
+        padding: true,
+        truncation: true
+      });
+      const rerankOut = await rerankBundle.model(features);
+      const rerankScores = Array.from(rerankOut.logits.data);
+      const reranked = candidates
+        .map((c, idx) => ({ i: c.i, rerankScore: rerankScores[idx] }))
+        .sort((a, b) => b.rerankScore - a.rerankScore)
+        .slice(0, 3);
+
+      busy('rag-rerank-status', 'Loading language model…');
+      const llm = await loadPipeline('qwen', 'text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', { dtype: 'q4' }, 'rag-rerank-status');
+
+      const answers = [];
+      for (let idx = 0; idx < reranked.length; idx++) {
+        busy('rag-rerank-status', `Generating answer ${idx + 1}/${reranked.length}…`);
+        const passage = ragChunks[reranked[idx].i];
+        const sys = 'Answer the question using only the passage below. If the answer is not in the passage, say exactly: I could not find that in this passage. Do not use markdown formatting.';
+        const userMsg = `Passage:\n${passage}\n\nQuestion: ${question}`;
+        const output = await llm(
+          [{ role: 'system', content: sys }, { role: 'user', content: userMsg }],
+          { max_new_tokens: 150, temperature: 0.4, top_p: 0.9, do_sample: true }
+        );
+        const generated = output[0].generated_text;
+        const answer = Array.isArray(generated) ? generated[generated.length - 1].content : generated;
+        answers.push({ answer: answer.trim(), passage, rerankScore: reranked[idx].rerankScore });
+      }
+
+      renderRerankAnswers(answers);
+      setStatus('rag-rerank-status', 'Done.');
+    } catch (err) {
+      console.error(err);
+      setStatus('rag-rerank-status', `Error: ${err.message}`);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  function renderRerankAnswers(answers) {
+    const out = document.getElementById('rag-rerank-answers');
+    out.innerHTML = answers.map((a, idx) => `
+      <div class="p-5 border hairline rounded bg-bone">
+        <div class="caps mb-2">Variation ${idx + 1} · rerank score ${a.rerankScore.toFixed(2)}</div>
+        <div class="text-[14.5px] leading-[1.7] whitespace-pre-wrap">${escapeHtml(a.answer)}</div>
+        <details class="mt-3">
+          <summary class="text-[12.5px] text-graphite cursor-pointer">Source passage</summary>
+          <div class="mt-1 text-[13px] text-ink/80">${escapeHtml(a.passage.slice(0, 260))}${a.passage.length > 260 ? '…' : ''}</div>
+        </details>
+      </div>`).join('');
+  }
 </script>
 
 </body>
