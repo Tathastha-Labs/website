@@ -426,6 +426,112 @@
   </div>
 </section>
 
+<!-- ============== DEMO 9: CLAIMS DATA NORMALIZER ============== -->
+<section id="demo-claims" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4 min-w-0">
+      <div class="caps mb-3">09 · Claims data normalization</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Two source systems. One clean schema.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Raw claims data rarely arrives in one shape — different systems use different column names, date
+        formats, and code conventions. This maps two mock source feeds onto a single canonical schema, flags
+        rows with data-quality problems, and rolls diagnosis codes up into condition categories — the same
+        kind of standardize-then-analyze pipeline that sits underneath most healthcare analytics work.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite">Runs entirely in JavaScript — no model download.</p>
+    </div>
+    <div class="md:col-span-8 min-w-0">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <div class="caps mb-2">Source A</div>
+          <textarea id="claims-source-a" class="field" rows="6">patient_id,dob,sex,dos,icd10,cpt,npi,paid
+1001,03/14/1967,M,04/02/2026,E119,99213,1234567890,145.00
+1002,11/02/1980,Male,04/03/2026,I10,99214,,132.50
+1003,07/22/1955,F,04/03/2026,J449,99213,1861234567,98.00
+1004,01/09/1990,X,13/40/2026,N183,99215,1922334455,-40.00</textarea>
+        </div>
+        <div>
+          <div class="caps mb-2">Source B</div>
+          <textarea id="claims-source-b" class="field" rows="6">MemberID,BirthDate,Gender,ServiceDate,Diagnosis,Procedure,ProviderNPI,Amount
+2001,1972-05-30,Female,2026-04-01,I500,99223,1998877665,$210.00
+2002,1965-09-18,Male,2026-04-02,E785,80061,1745632198,$0.00
+2003,1988-12-25,F,2026-04-04,Z999,99213,1567890123,$75.50</textarea>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="claims-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Normalize &amp; check quality</button>
+        <span id="claims-status" class="status-line"></span>
+      </div>
+      <div id="claims-output" class="mt-6"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 10: PATIENT RECORD MATCHING ============== -->
+<section id="demo-empi" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4 min-w-0">
+      <div class="caps mb-3">10 · Patient record matching</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        The same patient, recorded four different ways.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Nicknames, typos, and inconsistent formatting mean the same person often shows up as several
+        "different" records across systems. This scores every pair of mock records on name, date of birth, and
+        address similarity, then clusters the matches into unique patients with a confidence score — the kind
+        of record-linkage step a master patient index performs before any downstream analytics can run.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite">Runs entirely in JavaScript — no model download.</p>
+    </div>
+    <div class="md:col-span-8 min-w-0">
+      <div class="flex items-center gap-4 flex-wrap">
+        <button id="empi-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Find matching patients</button>
+        <span id="empi-status" class="status-line"></span>
+      </div>
+      <div id="empi-output" class="mt-6"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 11: RISK SCORE CALCULATOR ============== -->
+<section id="demo-risk" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4 min-w-0">
+      <div class="caps mb-3">11 · Risk score calculator</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Diagnoses in. A risk score out.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Risk-adjustment models like CMS-HCC turn a patient's age, sex, and diagnosis codes into a single risk
+        score — but not every code counts toward it, and a more severe version of a condition "trumps" a milder
+        one so it isn't double-counted. This walks mock patients through that same shape of logic: a
+        demographic factor, condition-to-category mapping, hierarchy suppression, then a summed score.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        Uses illustrative demographic and condition weights loosely modeled on the shape of public CMS-HCC
+        risk-adjustment models — not the official CMS coefficients, and not suitable for real risk-adjustment
+        or payment calculations. Runs entirely in JavaScript — no model download.
+      </p>
+    </div>
+    <div class="md:col-span-8 min-w-0">
+      <textarea id="risk-input" class="field" rows="7">patient_id,age,gender,diagnosis_codes
+P-1,72,F,E11.9;I50.9
+P-2,45,M,I10
+P-3,68,M,N18.6;E11.22
+P-4,80,F,J44.9;I50.9
+P-5,55,F,F32.9
+P-6,63,M,E11.9;E11.22</textarea>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="risk-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Calculate risk scores</button>
+        <span id="risk-status" class="status-line"></span>
+      </div>
+      <div id="risk-output" class="mt-6"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============== FOOTER ============== -->
 <footer class="bg-noir text-paper/60 border-t border-paper/10 mt-10">
   <div class="max-w-7xl mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-[13px]">
@@ -1154,6 +1260,459 @@
         </details>
       </div>`).join('');
   }
+
+  /* ---------------- Demo 9: Claims data normalization ---------------- */
+  const CLAIMS_COLUMN_MAPS = {
+    a: { patient_id: 'patientId', dob: 'dob', sex: 'gender', dos: 'serviceDate', icd10: 'diagnosisCode', cpt: 'procedureCode', npi: 'npi', paid: 'paidAmount' },
+    b: { MemberID: 'patientId', BirthDate: 'dob', Gender: 'gender', ServiceDate: 'serviceDate', Diagnosis: 'diagnosisCode', Procedure: 'procedureCode', ProviderNPI: 'npi', Amount: 'paidAmount' }
+  };
+
+  const CONDITION_CATEGORIES = [
+    { prefix: 'E11', label: 'Type 2 diabetes' },
+    { prefix: 'E78', label: 'Hyperlipidemia' },
+    { prefix: 'I10', label: 'Hypertension' },
+    { prefix: 'I50', label: 'Heart failure' },
+    { prefix: 'J44', label: 'COPD' },
+    { prefix: 'N18', label: 'Chronic kidney disease' },
+    { prefix: 'M17', label: 'Osteoarthritis' },
+    { prefix: 'F32', label: 'Depression' }
+  ];
+
+  function parseCsv(text) {
+    const lines = text.trim().split('\n').map((l) => l.trim()).filter(Boolean);
+    const headers = lines[0].split(',').map((h) => h.trim());
+    return lines.slice(1).map((line) => {
+      const cells = line.split(',').map((c) => c.trim());
+      const row = {};
+      headers.forEach((h, i) => { row[h] = cells[i] ?? ''; });
+      return row;
+    });
+  }
+
+  // Handles the two date shapes our mock sources use (MM/DD/YYYY and YYYY-MM-DD);
+  // returns null for anything else so bad dates surface as a data-quality issue.
+  function normalizeDob(raw) {
+    if (!raw) return null;
+    let m = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if (m) {
+      const [, y, mo, d] = m;
+      if (+mo >= 1 && +mo <= 12 && +d >= 1 && +d <= 31) return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+      return null;
+    }
+    m = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (m) {
+      const [, mo, d, y] = m;
+      if (+mo >= 1 && +mo <= 12 && +d >= 1 && +d <= 31) return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+      return null;
+    }
+    return null;
+  }
+
+  function normalizeGender(raw) {
+    const v = (raw || '').trim().toLowerCase();
+    if (v === 'm' || v === 'male') return 'M';
+    if (v === 'f' || v === 'female') return 'F';
+    return null;
+  }
+
+  // Some sources write ICD-10 with the decimal, some without — this fills it back in.
+  function normalizeIcd10(raw) {
+    const v = (raw || '').trim().toUpperCase();
+    const m = v.match(/^([A-Z]\d{2})(\d+)?$/);
+    if (!m) return v || null;
+    return m[2] ? `${m[1]}.${m[2]}` : m[1];
+  }
+
+  function conditionCategory(icd10) {
+    if (!icd10) return null;
+    const prefix3 = icd10.slice(0, 3);
+    const found = CONDITION_CATEGORIES.find((c) => c.prefix === prefix3);
+    return found ? found.label : 'Other / unmapped';
+  }
+
+  function normalizePaidAmount(raw) {
+    if (raw === undefined || raw === null || raw === '') return null;
+    const cleaned = String(raw).replace(/[$,]/g, '').trim();
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? null : num;
+  }
+
+  function normalizeClaimsRows(rawRows, sourceLabel, columnMap) {
+    return rawRows.map((raw, idx) => {
+      const canonical = {};
+      for (const [srcCol, field] of Object.entries(columnMap)) canonical[field] = raw[srcCol];
+
+      const dob = normalizeDob(canonical.dob);
+      const serviceDate = normalizeDob(canonical.serviceDate);
+      const gender = normalizeGender(canonical.gender);
+      const icd10 = normalizeIcd10(canonical.diagnosisCode);
+      const npi = (canonical.npi || '').trim();
+      const paid = normalizePaidAmount(canonical.paidAmount);
+
+      const issues = [];
+      if (!serviceDate) issues.push('Unparsable service date');
+      if (!gender) issues.push(`Unrecognized gender code "${canonical.gender}"`);
+      if (!npi) issues.push('Missing provider NPI');
+      if (paid === null || paid <= 0) issues.push('Non-positive or missing paid amount');
+      if (icd10 && conditionCategory(icd10) === 'Other / unmapped') issues.push(`Unmapped diagnosis code "${icd10}"`);
+
+      return {
+        row: idx + 1, source: sourceLabel, patientId: canonical.patientId, dob, gender, serviceDate,
+        diagnosisCode: icd10, procedureCode: canonical.procedureCode, npi, paidAmount: paid, issues
+      };
+    });
+  }
+
+  function flagStyle(bad) {
+    return bad ? ' style="background:#EAD9D2"' : '';
+  }
+
+  function renderClaimsOutput(rows) {
+    const totalIssues = rows.reduce((sum, r) => sum + r.issues.length, 0);
+    const sources = new Set(rows.map((r) => r.source));
+    setStatus('claims-status', `${rows.length} claims processed across ${sources.size} source systems · ${totalIssues} issue${totalIssues === 1 ? '' : 's'} flagged.`);
+
+    const issueItems = rows.filter((r) => r.issues.length).map((r) => `
+      <li class="py-2 border-t hairline text-[13.5px]">
+        <span class="text-graphite">${escapeHtml(r.source)} row ${r.row}</span> — ${escapeHtml(r.issues.join('; '))}
+      </li>`).join('');
+
+    const tableRows = rows.map((r) => `
+      <tr class="border-t hairline">
+        <td class="py-2 pr-3 text-[13px] text-graphite">${escapeHtml(r.source)}</td>
+        <td class="py-2 pr-3 text-[13.5px]">${escapeHtml(r.patientId || '')}</td>
+        <td class="py-2 pr-3 text-[13.5px]"${flagStyle(!r.dob)}>${escapeHtml(r.dob || '—')}</td>
+        <td class="py-2 pr-3 text-[13.5px]"${flagStyle(!r.gender)}>${escapeHtml(r.gender || '—')}</td>
+        <td class="py-2 pr-3 text-[13.5px]"${flagStyle(!r.serviceDate)}>${escapeHtml(r.serviceDate || '—')}</td>
+        <td class="py-2 pr-3 text-[13.5px]">${escapeHtml(r.diagnosisCode || '—')}<br/><span class="text-graphite text-[12px]">${escapeHtml(conditionCategory(r.diagnosisCode) || '')}</span></td>
+        <td class="py-2 pr-3 text-[13.5px]"${flagStyle(!r.npi)}>${escapeHtml(r.npi || '—')}</td>
+        <td class="py-2 text-[13.5px]"${flagStyle(r.paidAmount === null || r.paidAmount <= 0)}>${r.paidAmount === null ? '—' : (r.paidAmount < 0 ? '-$' + Math.abs(r.paidAmount).toFixed(2) : '$' + r.paidAmount.toFixed(2))}</td>
+      </tr>`).join('');
+
+    const counts = {};
+    rows.forEach((r) => {
+      const cat = conditionCategory(r.diagnosisCode) || 'Other / unmapped';
+      counts[cat] = (counts[cat] || 0) + 1;
+    });
+    const maxCount = Math.max(...Object.values(counts), 1);
+    const bars = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([label, count]) => `
+      <div>
+        <div class="flex justify-between text-[13.5px] mb-1">
+          <span>${escapeHtml(label)}</span>
+          <span class="text-graphite">${count}</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(count / maxCount * 100).toFixed(1)}%"></div></div>
+      </div>`).join('');
+
+    document.getElementById('claims-output').innerHTML = `
+      ${issueItems ? `<div class="caps mb-2">Data quality issues</div><ul class="mb-6">${issueItems}</ul>` : ''}
+      <div class="caps mb-2">Canonical schema</div>
+      <div class="overflow-x-auto">
+      <table class="w-full text-left min-w-[720px]">
+        <thead><tr class="caps">
+          <th class="pb-2 pr-3">Source</th><th class="pb-2 pr-3">Patient</th><th class="pb-2 pr-3">DOB</th>
+          <th class="pb-2 pr-3">Gender</th><th class="pb-2 pr-3">Service date</th><th class="pb-2 pr-3">Diagnosis</th>
+          <th class="pb-2 pr-3">NPI</th><th class="pb-2">Paid</th>
+        </tr></thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+      </div>
+      <div class="caps mt-8 mb-3">Condition category rollup</div>
+      <div class="space-y-3 max-w-md">${bars}</div>`;
+  }
+
+  document.getElementById('claims-run').addEventListener('click', () => {
+    try {
+      const rowsA = normalizeClaimsRows(parseCsv(document.getElementById('claims-source-a').value), 'Source A', CLAIMS_COLUMN_MAPS.a);
+      const rowsB = normalizeClaimsRows(parseCsv(document.getElementById('claims-source-b').value), 'Source B', CLAIMS_COLUMN_MAPS.b);
+      renderClaimsOutput([...rowsA, ...rowsB]);
+    } catch (err) {
+      console.error(err);
+      setStatus('claims-status', `Error: ${err.message}`);
+    }
+  });
+
+  /* ---------------- Demo 10: Patient record matching ---------------- */
+  const PATIENTS = [
+    { id: 'P-1', source: 'Source A', firstName: 'Robert', lastName: 'Smith', dob: '04/12/1978', address: '482 Oak Street, Springfield' },
+    { id: 'P-2', source: 'Source B', firstName: 'Bob', lastName: 'Smith', dob: '1978-04-12', address: '482 Oak St, Springfield' },
+    { id: 'P-3', source: 'Source A', firstName: 'Elizabeth', lastName: 'Nguyen', dob: '09/03/1991', address: '17 Birchwood Ave, Rivertown' },
+    { id: 'P-4', source: 'Source C', firstName: 'Liz', lastName: 'Nguyen', dob: '1991-09-03', address: '17 Birchwood Avenue, Rivertown' },
+    { id: 'P-5', source: 'Source B', firstName: 'William', lastName: 'Turner', dob: '1965-11-27', address: '900 Lakeshore Dr, Millfield' },
+    { id: 'P-6', source: 'Source C', firstName: 'Bill', lastName: 'Turner', dob: '11/27/1965', address: '900 Lakeshore Drive, Millfield' },
+    { id: 'P-7', source: 'Source A', firstName: 'Maria', lastName: 'Alvarez', dob: '02/14/1983', address: '55 Palmetto Ct, Bay City' },
+    { id: 'P-8', source: 'Source B', firstName: 'Maria', lastName: 'Alvarez-Diaz', dob: '1983-02-14', address: '55 Palmetto Court, Bay City' },
+    { id: 'P-9', source: 'Source C', firstName: 'James', lastName: 'Ortiz', dob: '1974-06-08', address: '12 Willow Ln, Springfield' },
+    { id: 'P-10', source: 'Source A', firstName: 'David', lastName: 'Ortiz', dob: '06/09/1974', address: '14 Willow Ln, Springfield' }
+  ];
+
+  const NICKNAMES = {
+    bob: 'robert', rob: 'robert', bobby: 'robert',
+    liz: 'elizabeth', beth: 'elizabeth', eliza: 'elizabeth',
+    bill: 'william', will: 'william', billy: 'william',
+    jim: 'james', jimmy: 'james',
+    dave: 'david',
+    maggie: 'margaret', peggy: 'margaret',
+    tom: 'thomas', tommy: 'thomas',
+    mike: 'michael',
+    chris: 'christopher'
+  };
+
+  function canonicalFirstName(name) {
+    const v = name.trim().toLowerCase();
+    return NICKNAMES[v] || v;
+  }
+
+  function levenshtein(a, b) {
+    a = a.toLowerCase(); b = b.toLowerCase();
+    const m = a.length, n = b.length;
+    const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        dp[i][j] = a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+      }
+    }
+    return dp[m][n];
+  }
+
+  function stringSimilarity(a, b) {
+    if (!a && !b) return 1;
+    return 1 - levenshtein(a || '', b || '') / Math.max((a || '').length, (b || '').length, 1);
+  }
+
+  function normalizeAddress(addr) {
+    return addr.toLowerCase()
+      .replace(/\bstreet\b/g, 'st')
+      .replace(/\bavenue\b/g, 'ave')
+      .replace(/\bdrive\b/g, 'dr')
+      .replace(/\bcourt\b/g, 'ct')
+      .replace(/\blane\b/g, 'ln')
+      .replace(/[.,]/g, '')
+      .trim();
+  }
+
+  function empiMatchScore(a, b) {
+    const lastSim = stringSimilarity(a.lastName, b.lastName);
+    const firstA = canonicalFirstName(a.firstName);
+    const firstB = canonicalFirstName(b.firstName);
+    const firstSim = firstA === firstB ? 1 : stringSimilarity(firstA, firstB);
+    const dobA = normalizeDob(a.dob);
+    const dobB = normalizeDob(b.dob);
+    const dobMatch = dobA && dobB && dobA === dobB ? 1 : 0;
+    const addrSim = stringSimilarity(normalizeAddress(a.address), normalizeAddress(b.address));
+    return { score: lastSim * 0.3 + firstSim * 0.3 + dobMatch * 0.3 + addrSim * 0.1, lastSim, firstSim, dobMatch, addrSim };
+  }
+
+  function makeUnionFind(n) {
+    const parent = Array.from({ length: n }, (_, i) => i);
+    function find(x) { return parent[x] === x ? x : (parent[x] = find(parent[x])); }
+    function union(x, y) { const rx = find(x), ry = find(y); if (rx !== ry) parent[rx] = ry; }
+    return { find, union };
+  }
+
+  const EMPI_THRESHOLD = 0.75;
+
+  function renderEmpiOutput() {
+    const n = PATIENTS.length;
+    const uf = makeUnionFind(n);
+    const pairScores = [];
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        const m = empiMatchScore(PATIENTS[i], PATIENTS[j]);
+        if (m.score >= EMPI_THRESHOLD) {
+          uf.union(i, j);
+          pairScores.push({ i, j, ...m });
+        }
+      }
+    }
+    const groups = {};
+    for (let i = 0; i < n; i++) {
+      const root = uf.find(i);
+      (groups[root] = groups[root] || []).push(i);
+    }
+    const clusters = Object.values(groups);
+
+    const beforeRows = PATIENTS.map((p) => `
+      <tr class="border-t hairline">
+        <td class="py-2 pr-3 text-[13px] text-graphite">${escapeHtml(p.id)}</td>
+        <td class="py-2 pr-3 text-[13px] text-graphite">${escapeHtml(p.source)}</td>
+        <td class="py-2 pr-3 text-[13.5px]">${escapeHtml(p.firstName)} ${escapeHtml(p.lastName)}</td>
+        <td class="py-2 pr-3 text-[13.5px]">${escapeHtml(p.dob)}</td>
+        <td class="py-2 text-[13.5px]">${escapeHtml(p.address)}</td>
+      </tr>`).join('');
+
+    const clusterHtml = clusters.map((idxs, ci) => {
+      if (idxs.length === 1) {
+        const p = PATIENTS[idxs[0]];
+        return `
+          <div class="p-4 border hairline rounded">
+            <div class="text-[13.5px]">${escapeHtml(p.firstName)} ${escapeHtml(p.lastName)} <span class="text-graphite text-[12.5px]">(${escapeHtml(p.source)}, no match found)</span></div>
+          </div>`;
+      }
+      const relevantPairs = pairScores.filter((ps) => idxs.includes(ps.i) && idxs.includes(ps.j));
+      const avgScore = relevantPairs.reduce((s, p) => s + p.score, 0) / relevantPairs.length;
+      const memberList = idxs.map((i) => {
+        const p = PATIENTS[i];
+        return `${escapeHtml(p.firstName)} ${escapeHtml(p.lastName)} <span class="text-graphite">(${escapeHtml(p.source)})</span>`;
+      }).join(' ↔ ');
+      const reasons = [];
+      if (relevantPairs.some((p) => p.dobMatch === 1)) reasons.push('DOB match');
+      if (idxs.length === 2) {
+        const [pa, pb] = idxs.map((i) => PATIENTS[i]);
+        if (pa.firstName.toLowerCase() !== pb.firstName.toLowerCase() && canonicalFirstName(pa.firstName) === canonicalFirstName(pb.firstName)) {
+          reasons.push('first name via nickname');
+        }
+        if (pa.lastName.toLowerCase() !== pb.lastName.toLowerCase()) reasons.push('last name variant');
+      }
+      if (relevantPairs.some((p) => p.addrSim >= 0.99)) reasons.push('address match');
+      return `
+        <div class="p-4 border hairline rounded bg-bone">
+          <div class="caps mb-2">Cluster ${ci + 1} · ${(avgScore * 100).toFixed(0)}% confidence</div>
+          <div class="text-[13.5px] leading-[1.7]">${memberList}</div>
+          <div class="mt-1 text-[12.5px] text-graphite">${reasons.join(' · ') || 'Matched on combined similarity'}</div>
+        </div>`;
+    }).join('<div class="h-3"></div>');
+
+    const merged = n - clusters.length;
+    setStatus('empi-status', `${n} raw records → ${clusters.length} unique patients identified (${merged} duplicate${merged === 1 ? '' : 's'} merged).`);
+
+    document.getElementById('empi-output').innerHTML = `
+      <div class="caps mb-2">Raw records</div>
+      <div class="overflow-x-auto mb-8">
+      <table class="w-full text-left min-w-[600px]">
+        <thead><tr class="caps"><th class="pb-2 pr-3">ID</th><th class="pb-2 pr-3">Source</th><th class="pb-2 pr-3">Name</th><th class="pb-2 pr-3">DOB</th><th class="pb-2">Address</th></tr></thead>
+        <tbody>${beforeRows}</tbody>
+      </table>
+      </div>
+      <div class="caps mb-3">Matched patients</div>
+      <div class="space-y-3">${clusterHtml}</div>`;
+  }
+
+  document.getElementById('empi-run').addEventListener('click', () => {
+    try {
+      renderEmpiOutput();
+    } catch (err) {
+      console.error(err);
+      setStatus('empi-status', `Error: ${err.message}`);
+    }
+  });
+
+  /* ---------------- Demo 11: Risk score calculator ---------------- */
+  // Illustrative weights loosely shaped like public CMS-HCC risk models — not the
+  // official CMS coefficients. `group` marks conditions in the same hierarchy, where
+  // only the highest-weight match survives per patient (the rest are suppressed).
+  const HCC_TABLE = [
+    { test: (c) => c.startsWith('E11.2') || c.startsWith('E11.3') || c.startsWith('E11.4') || c.startsWith('E11.5'), hcc: 'HCC18', label: 'Diabetes with chronic complications', weight: 0.302, group: 'diabetes' },
+    { test: (c) => c.startsWith('E11.9') || c.startsWith('E11.8') || c === 'E11', hcc: 'HCC19', label: 'Diabetes without complications', weight: 0.105, group: 'diabetes' },
+    { test: (c) => c.startsWith('I50'), hcc: 'HCC226', label: 'Congestive heart failure', weight: 0.320, group: 'heart_failure' },
+    { test: (c) => c.startsWith('N18.6'), hcc: 'HCC327', label: 'End-stage renal disease', weight: 0.420, group: 'ckd' },
+    { test: (c) => c.startsWith('N18.3') || c.startsWith('N18.4'), hcc: 'HCC329', label: 'Chronic kidney disease, stage 4-5', weight: 0.124, group: 'ckd' },
+    { test: (c) => c.startsWith('J44'), hcc: 'HCC280', label: 'Chronic obstructive pulmonary disease', weight: 0.335, group: 'copd' },
+    { test: (c) => c.startsWith('F32') || c.startsWith('F33'), hcc: 'HCC155', label: 'Major depressive disorder', weight: 0.161, group: 'depression' }
+  ];
+
+  const DEMOGRAPHIC_BANDS = [
+    { max: 65, M: 0.30, F: 0.29 },
+    { max: 70, M: 0.40, F: 0.38 },
+    { max: 75, M: 0.46, F: 0.43 },
+    { max: 80, M: 0.52, F: 0.48 },
+    { max: 85, M: 0.58, F: 0.53 },
+    { max: 90, M: 0.64, F: 0.58 },
+    { max: Infinity, M: 0.70, F: 0.63 }
+  ];
+
+  function matchHccs(code) {
+    return HCC_TABLE.filter((h) => h.test(code));
+  }
+
+  function demographicFactor(age, gender) {
+    const band = DEMOGRAPHIC_BANDS.find((b) => age < b.max);
+    const g = (gender || '').toUpperCase() === 'F' ? 'F' : 'M';
+    return band[g];
+  }
+
+  function parseRiskCsv(text) {
+    const lines = text.trim().split('\n').map((l) => l.trim()).filter(Boolean);
+    return lines.slice(1).map((line) => {
+      const [patientId, age, gender, diagnosisCodes] = line.split(',').map((c) => c.trim());
+      return {
+        patientId, age: parseInt(age, 10), gender,
+        diagnosisCodes: (diagnosisCodes || '').split(';').map((c) => c.trim().toUpperCase()).filter(Boolean)
+      };
+    });
+  }
+
+  function calculatePatientRisk(patient) {
+    const matchesByCode = patient.diagnosisCodes.map((code) => ({ code, hccs: matchHccs(code) }));
+    const allMatches = matchesByCode.flatMap((m) => m.hccs.map((h) => ({ ...h, sourceCode: m.code })));
+
+    const byGroup = {};
+    allMatches.forEach((m) => { (byGroup[m.group] = byGroup[m.group] || []).push(m); });
+
+    const surviving = [];
+    const suppressed = [];
+    Object.values(byGroup).forEach((group) => {
+      const sorted = [...group].sort((a, b) => b.weight - a.weight);
+      surviving.push(sorted[0]);
+      suppressed.push(...sorted.slice(1));
+    });
+
+    const demoFactor = demographicFactor(patient.age, patient.gender);
+    const hccScore = surviving.reduce((s, h) => s + h.weight, 0);
+    const unmapped = matchesByCode.filter((m) => m.hccs.length === 0).map((m) => m.code);
+
+    return { ...patient, demoFactor, surviving, suppressed, unmapped, totalScore: demoFactor + hccScore };
+  }
+
+  function renderRiskOutput(patients) {
+    const results = patients.map(calculatePatientRisk).sort((a, b) => b.totalScore - a.totalScore);
+    const avg = results.reduce((s, r) => s + r.totalScore, 0) / results.length;
+    setStatus('risk-status', `${results.length} patients scored · average risk score ${avg.toFixed(3)}.`);
+
+    const maxScore = Math.max(...results.map((r) => r.totalScore), 0.01);
+    const bars = results.map((r) => `
+      <div>
+        <div class="flex justify-between text-[13.5px] mb-1">
+          <span>${escapeHtml(r.patientId)}</span>
+          <span class="text-graphite">${r.totalScore.toFixed(3)}</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(r.totalScore / maxScore * 100).toFixed(1)}%"></div></div>
+      </div>`).join('');
+
+    const detailCards = results.map((r) => {
+      const survivingRows = r.surviving.map((h) => `<li>${escapeHtml(h.hcc)} · ${escapeHtml(h.label)} <span class="text-graphite">(from ${escapeHtml(h.sourceCode)}, +${h.weight.toFixed(3)})</span></li>`).join('');
+      const suppressedRows = r.suppressed.map((h) => `<li class="text-graphite">${escapeHtml(h.hcc)} · ${escapeHtml(h.label)} — suppressed, trumped within the same condition hierarchy</li>`).join('');
+      const unmappedRows = r.unmapped.map((c) => `<li class="text-graphite">${escapeHtml(c)} — not risk-adjusting</li>`).join('');
+      return `
+        <div class="p-4 border hairline rounded bg-bone">
+          <div class="flex justify-between items-baseline gap-3">
+            <div class="caps">${escapeHtml(r.patientId)} · age ${r.age} · ${escapeHtml(r.gender)}</div>
+            <div class="text-[15px] font-medium whitespace-nowrap">${r.totalScore.toFixed(3)}</div>
+          </div>
+          <div class="mt-2 text-[13px] text-graphite">Demographic factor: ${r.demoFactor.toFixed(3)}</div>
+          ${survivingRows ? `<ul class="mt-2 text-[13.5px] space-y-1">${survivingRows}</ul>` : ''}
+          ${(suppressedRows || unmappedRows) ? `<ul class="mt-2 text-[12.5px] space-y-1">${suppressedRows}${unmappedRows}</ul>` : ''}
+        </div>`;
+    }).join('<div class="h-3"></div>');
+
+    document.getElementById('risk-output').innerHTML = `
+      <div class="caps mb-3">Risk scores by patient</div>
+      <div class="space-y-3 max-w-md mb-8">${bars}</div>
+      <div class="caps mb-3">Score breakdown</div>
+      <div class="space-y-3">${detailCards}</div>`;
+  }
+
+  document.getElementById('risk-run').addEventListener('click', () => {
+    try {
+      const patients = parseRiskCsv(document.getElementById('risk-input').value);
+      renderRiskOutput(patients);
+    } catch (err) {
+      console.error(err);
+      setStatus('risk-status', `Error: ${err.message}`);
+    }
+  });
 </script>
 
 </body>
