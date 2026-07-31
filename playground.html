@@ -432,36 +432,36 @@
     <div class="md:col-span-4 min-w-0">
       <div class="caps mb-3">09 · Claims data normalization</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
-        Two source systems. One clean schema.
+        Line-level claims. One claim-level answer.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
-        Raw claims data rarely arrives in one shape — different systems use different column names, date
-        formats, and code conventions. This maps two mock source feeds onto a single canonical schema, flags
-        rows with data-quality problems, and rolls diagnosis codes up into condition categories — the same
-        kind of standardize-then-analyze pipeline that sits underneath most healthcare analytics work.
+        A claim can arrive with several lines, and a field like admission type is sometimes coded
+        inconsistently across them. This "votes" across a claim's lines — the most-frequent value wins — to
+        pick one claim-level answer, then classifies each line-level field into valid / invalid / null,
+        exactly the three-bucket split a real data-quality pipeline uses.
       </p>
-      <p class="mt-4 text-[12.5px] text-graphite">Runs entirely in JavaScript — no model download.</p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        The voting logic, the valid/invalid/null classification, and the UB-04 admission type codes below are
+        copied from an actual open-source healthcare-data dbt project's normalization and data-quality models —
+        including a real quirk: its paid-amount check only has valid/null buckets, so a negative amount still
+        counts as "valid" there. The NPI/ICD-10 reference lists here are a small illustrative sample, not the
+        full real terminology tables. Runs entirely in JavaScript — no model download.
+      </p>
     </div>
     <div class="md:col-span-8 min-w-0">
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <div class="caps mb-2">Source A</div>
-          <textarea id="claims-source-a" class="field" rows="6">patient_id,dob,sex,dos,icd10,cpt,npi,paid
-1001,03/14/1967,M,04/02/2026,E119,99213,1234567890,145.00
-1002,11/02/1980,Male,04/03/2026,I10,99214,,132.50
-1003,07/22/1955,F,04/03/2026,J449,99213,1861234567,98.00
-1004,01/09/1990,X,13/40/2026,N183,99215,1922334455,-40.00</textarea>
-        </div>
-        <div>
-          <div class="caps mb-2">Source B</div>
-          <textarea id="claims-source-b" class="field" rows="6">MemberID,BirthDate,Gender,ServiceDate,Diagnosis,Procedure,ProviderNPI,Amount
-2001,1972-05-30,Female,2026-04-01,I500,99223,1998877665,$210.00
-2002,1965-09-18,Male,2026-04-02,E785,80061,1745632198,$0.00
-2003,1988-12-25,F,2026-04-04,Z999,99213,1567890123,$75.50</textarea>
-        </div>
+      <div class="flex items-center gap-4 flex-wrap mb-2">
+        <label for="claims-file" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">Upload claim lines CSV</label>
+        <input type="file" id="claims-file" accept=".csv,text/csv" class="hidden"/>
       </div>
+      <p class="mb-2 text-[12px] text-graphite">Column headers just need to resemble the sample below (e.g. "ClaimID" or "Claim Number" both work) — exact wording isn't required.</p>
+      <textarea id="claims-input" class="field" rows="7">claim_id,claim_line_number,admit_type_code,billing_npi,diagnosis_code_1,paid_amount
+C-1,1,1,1234567890,E11.9,145.00
+C-1,2,1,,E11.9,98.00
+C-1,3,3,9999999999,Z99.9,
+C-2,1,3,1861234567,I10,75.50
+C-2,2,3,1861234567,J44.9,-40.00</textarea>
       <div class="mt-4 flex items-center gap-4 flex-wrap">
-        <button id="claims-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Normalize &amp; check quality</button>
+        <button id="claims-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Vote &amp; check quality</button>
         <span id="claims-status" class="status-line"></span>
       </div>
       <div id="claims-output" class="mt-6"></div>
@@ -475,15 +475,20 @@
     <div class="md:col-span-4 min-w-0">
       <div class="caps mb-3">10 · Patient record matching</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
-        The same patient, recorded four different ways.
+        Probabilistic record linkage, the Fellegi-Sunter way.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
-        Nicknames, typos, and inconsistent formatting mean the same person often shows up as several
-        "different" records across systems. This scores every pair of mock records on name, date of birth, and
-        address similarity, then clusters the matches into unique patients with a confidence score — the kind
-        of record-linkage step a master patient index performs before any downstream analytics can run.
+        A pair of records only gets compared if they share a blocking key (exact match on name+DOB, or on SSN
+        alone). Each shared field then contributes a Bayes factor — how much more likely a true match is to
+        agree this way than two random people are — multiplied against a prior to get a match probability.
+        Pairs scoring ≥ 0.70 auto-link, 0.50–0.70 go to a review queue, below that they're dismissed.
       </p>
-      <p class="mt-4 text-[12.5px] text-graphite">Runs entirely in JavaScript — no model download.</p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        Uses the real blocking rules and trained comparison weights (m/u probabilities) from an actual
+        open-source Splink-based record-linkage model, not invented weights — including its real limitation:
+        first/last name similarity is plain string similarity, with no nickname dictionary. Runs entirely in
+        JavaScript — no model download.
+      </p>
     </div>
     <div class="md:col-span-8 min-w-0">
       <div class="flex items-center gap-4 flex-wrap">
@@ -501,33 +506,138 @@
     <div class="md:col-span-4 min-w-0">
       <div class="caps mb-3">11 · Risk score calculator</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
-        Diagnoses in. A risk score out.
+        Real classification logic. Your own coefficients.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
-        Risk-adjustment models like CMS-HCC turn a patient's age, sex, and diagnosis codes into a single risk
-        score — but not every code counts toward it, and a more severe version of a condition "trumps" a milder
-        one so it isn't double-counted. This walks mock patients through that same shape of logic: a
-        demographic factor, condition-to-category mapping, hierarchy suppression, then a summed score.
+        CMS-HCC risk adjustment sorts each patient into a demographic segment (community non-dual aged,
+        institutional, new enrollee, etc. — CMS's actual category codes), then sums a demographic factor with
+        disease-category factors. A condition's more-severe HCC excludes its milder version via an explicit
+        exclusion list — not "pick the bigger number" — so it isn't double-counted.
       </p>
       <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
-        Uses illustrative demographic and condition weights loosely modeled on the shape of public CMS-HCC
-        risk-adjustment models — not the official CMS coefficients, and not suitable for real risk-adjustment
-        or payment calculations. Runs entirely in JavaScript — no model download.
+        The demographic-segment logic and the exclusion-list hierarchy mechanism below are copied from an
+        actual open-source healthcare-data dbt project's CMS-HCC model. Its own coefficient seed tables ship
+        <strong>empty</strong> in that project too — CMS's official rate-table numbers aren't redistributable —
+        so the numbers below are clearly-marked placeholders for you to replace with official CMS Rate
+        Announcement values, exactly as that project requires. Runs entirely in JavaScript — no model download.
       </p>
     </div>
     <div class="md:col-span-8 min-w-0">
-      <textarea id="risk-input" class="field" rows="7">patient_id,age,gender,diagnosis_codes
-P-1,72,F,E11.9;I50.9
-P-2,45,M,I10
-P-3,68,M,N18.6;E11.22
-P-4,80,F,J44.9;I50.9
-P-5,55,F,F32.9
-P-6,63,M,E11.9;E11.22</textarea>
+      <div class="flex items-center justify-between flex-wrap gap-3 mb-2">
+        <div class="caps">Patients</div>
+        <label for="risk-patients-file" class="cta-outline rounded-full text-[13px] px-4 py-2 cursor-pointer inline-block">Upload CSV</label>
+        <input type="file" id="risk-patients-file" accept=".csv,text/csv" class="hidden"/>
+      </div>
+      <p class="mb-2 text-[12px] text-graphite">Headers just need to resemble the sample below — exact wording isn't required.</p>
+      <textarea id="risk-patients" class="field" rows="6">patient_id,age,gender,medicaid_status,dual_status,orec,institutional_status,enrollment_status,diagnosis_codes
+P-1,72,F,No,None,Aged,No,Continuing,E11.9;I50.9
+P-2,45,M,No,None,Disabled,No,Continuing,I10
+P-3,68,M,Yes,Full,Aged,No,Continuing,N18.6;E11.22
+P-4,80,F,Yes,None,Aged,Yes,Continuing,J44.9;I50.9
+P-5,63,M,No,None,Aged,No,Continuing,E11.9;E11.22</textarea>
+      <div class="mt-4 grid sm:grid-cols-2 gap-4">
+        <div>
+          <div class="flex items-center justify-between flex-wrap gap-3 mb-2">
+            <div class="caps">Demographic factor seed (PLACEHOLDER — not real CMS values)</div>
+            <label for="risk-demo-seed-file" class="cta-outline rounded-full text-[13px] px-4 py-2 cursor-pointer inline-block">Upload CSV</label>
+            <input type="file" id="risk-demo-seed-file" accept=".csv,text/csv" class="hidden"/>
+          </div>
+          <p class="mb-2 text-[12px] text-graphite">Headers just need to resemble the sample below — exact wording isn't required.</p>
+          <textarea id="risk-demo-seed" class="field" rows="6">risk_model_code,gender,age_band,coefficient
+CNA,F,65-74,0.400
+CNA,M,<65,0.300
+CND,M,<65,0.250
+CFA,M,65-74,0.450
+INS,F,75-84,0.600</textarea>
+        </div>
+        <div>
+          <div class="flex items-center justify-between flex-wrap gap-3 mb-2">
+            <div class="caps">Disease/hierarchy seed (PLACEHOLDER — not real CMS values)</div>
+            <label for="risk-disease-seed-file" class="cta-outline rounded-full text-[13px] px-4 py-2 cursor-pointer inline-block">Upload CSV</label>
+            <input type="file" id="risk-disease-seed-file" accept=".csv,text/csv" class="hidden"/>
+          </div>
+          <p class="mb-2 text-[12px] text-graphite">Headers just need to resemble the sample below — exact wording isn't required.</p>
+          <textarea id="risk-disease-seed" class="field" rows="6">hcc_code,label,coefficient,excludes,icd10_codes
+HCC18,Diabetes with chronic complications,0.300,HCC19,E11.22
+HCC19,Diabetes without complications,0.100,,E11.9
+HCC226,Congestive heart failure,0.320,,I50.9
+HCC327,End-stage renal disease,0.420,,N18.6</textarea>
+        </div>
+      </div>
       <div class="mt-4 flex items-center gap-4 flex-wrap">
         <button id="risk-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Calculate risk scores</button>
         <span id="risk-status" class="status-line"></span>
       </div>
       <div id="risk-output" class="mt-6"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 12: ENCOUNTER GROUPING ACROSS SOURCES ============== -->
+<section id="demo-encounter" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
+  <div class="grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4 min-w-0">
+      <div class="caps mb-3">12 · Encounter grouping across sources</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Two claims, two sources, one visit.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        A single ED visit often produces two separate claims — an institutional (facility) claim and a
+        professional (physician) claim — and today those might arrive as a claims flat file from one system
+        and a FHIR feed from another. This runs claims from both source shapes through the same chaining rules
+        for deciding which claims belong to one emergency-department encounter: an exact same-day/same-facility
+        match, a next-day transfer, a general date overlap at the same facility, or — since professional claims
+        don't carry facility or discharge fields — a looser overlap-or-adjacent-day rule when either claim is
+        professional.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        The four chaining rules are copied from an actual open-source healthcare-data dbt project's real
+        emergency-department encounter-grouping model, applied here with a union-find over the same pairwise
+        conditions instead of that model's original row-closure SQL — same rules, same resulting groups. The
+        FHIR shape uses the standard public FHIR Encounter resource fields, not that project's own
+        FHIR-ingestion connector code (which lives in separate repositories this build didn't have access to).
+        Worth flagging directly: that project's real connectors cover claims flat files, FHIR feeds, EHR
+        database extracts, and ADT feeds — no CCDA support was found anywhere in its actual code, so it's left
+        out here rather than invented. Runs entirely in JavaScript — no model download.
+      </p>
+    </div>
+    <div class="md:col-span-8 min-w-0">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <div class="flex items-center justify-between flex-wrap gap-3 mb-2">
+            <div class="caps">Claims file (Source A)</div>
+            <label for="encounter-claims-file" class="cta-outline rounded-full text-[13px] px-4 py-2 cursor-pointer inline-block">Upload CSV</label>
+            <input type="file" id="encounter-claims-file" accept=".csv,text/csv" class="hidden"/>
+          </div>
+          <p class="mb-2 text-[12px] text-graphite">Headers just need to resemble the sample below — exact wording isn't required.</p>
+          <textarea id="encounter-claims-input" class="field" rows="7">claim_id,person_id,claim_type,start_date,end_date,facility_npi,discharge_disposition_code
+C-1,P-1,institutional,2026-04-02,2026-04-02,1111111111,01
+C-6,P-1,institutional,2026-04-02,2026-04-02,1111111111,01
+C-3,P-1,institutional,2026-04-05,2026-04-05,1111111111,30
+C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
+        </div>
+        <div>
+          <div class="flex items-center justify-between flex-wrap gap-3 mb-2">
+            <div class="caps">FHIR Encounter feed (Source B)</div>
+            <label for="encounter-fhir-file" class="cta-outline rounded-full text-[13px] px-4 py-2 cursor-pointer inline-block">Upload JSON</label>
+            <input type="file" id="encounter-fhir-file" accept=".json,application/json" class="hidden"/>
+          </div>
+          <textarea id="encounter-fhir-input" class="field" rows="7">[
+  {
+    "resourceType": "Encounter",
+    "id": "C-2",
+    "subject": { "reference": "Patient/P-1" },
+    "class": { "code": "AMB" },
+    "period": { "start": "2026-04-02", "end": "2026-04-02" }
+  }
+]</textarea>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="encounter-run" class="cta-sage rounded-full text-[14px] px-6 py-3">Group into encounters</button>
+        <span id="encounter-status" class="status-line"></span>
+      </div>
+      <div id="encounter-output" class="mt-6"></div>
     </div>
   </div>
 </section>
@@ -653,6 +763,31 @@ P-6,63,M,E11.9;E11.22</textarea>
 
   function escapeHtml(s) {
     return s.replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // Demo-only convenience for CSV uploads below (demos 9, 11, 12) — not ported from
+  // the reference project's real logic. Its real connectors (Aetna, Cerner, Epic,
+  // etc.) are hand-written dbt SQL that explicitly maps one specific source system's
+  // exact column names; there's no fuzzy/automatic header matching anywhere in its
+  // actual code. This just lets an uploaded CSV use a slightly different (but
+  // recognizable) header name for
+  // each expected field instead of erroring.
+  function normalizeHeaderName(h) {
+    return (h || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  function autoMapHeaders(headers, fieldSynonyms) {
+    const pool = headers.map((h) => ({ original: h, normalized: normalizeHeaderName(h) }));
+    const map = {};
+    Object.entries(fieldSynonyms).forEach(([field, synonyms]) => {
+      const normSynonyms = synonyms.map(normalizeHeaderName);
+      const idx = pool.findIndex((p) => normSynonyms.includes(p.normalized));
+      if (idx !== -1) {
+        map[field] = pool[idx].original;
+        pool.splice(idx, 1);
+      }
+    });
+    return map;
   }
 
   document.getElementById('ner-run').addEventListener('click', async () => {
@@ -1262,170 +1397,164 @@ P-6,63,M,E11.9;E11.22</textarea>
   }
 
   /* ---------------- Demo 9: Claims data normalization ---------------- */
-  const CLAIMS_COLUMN_MAPS = {
-    a: { patient_id: 'patientId', dob: 'dob', sex: 'gender', dos: 'serviceDate', icd10: 'diagnosisCode', cpt: 'procedureCode', npi: 'npi', paid: 'paidAmount' },
-    b: { MemberID: 'patientId', BirthDate: 'dob', Gender: 'gender', ServiceDate: 'serviceDate', Diagnosis: 'diagnosisCode', Procedure: 'procedureCode', ProviderNPI: 'npi', Amount: 'paidAmount' }
+  // Voting logic and the valid/invalid/null classification below are copied from an
+  // actual open-source healthcare-data dbt project's normalization and data-quality
+  // models, not invented rules.
+
+  // Real UB-04 institutional admission type codes (a public claims-standard code set).
+  const ADMIT_TYPE_TERMINOLOGY = {
+    '1': 'Emergency', '2': 'Urgent', '3': 'Elective',
+    '4': 'Newborn', '5': 'Trauma', '9': 'Information not available'
   };
 
-  const CONDITION_CATEGORIES = [
-    { prefix: 'E11', label: 'Type 2 diabetes' },
-    { prefix: 'E78', label: 'Hyperlipidemia' },
-    { prefix: 'I10', label: 'Hypertension' },
-    { prefix: 'I50', label: 'Heart failure' },
-    { prefix: 'J44', label: 'COPD' },
-    { prefix: 'N18', label: 'Chronic kidney disease' },
-    { prefix: 'M17', label: 'Osteoarthritis' },
-    { prefix: 'F32', label: 'Depression' }
-  ];
+  // Small illustrative reference lists standing in for the real terminology tables
+  // (full NPPES provider registry / full ICD-10-CM code set) an atomic check joins to.
+  const SAMPLE_NPI_TERMINOLOGY = new Set(['1234567890', '1861234567']);
+  const SAMPLE_ICD10_TERMINOLOGY = new Set(['E119', 'I10', 'J449', 'I500', 'E785', 'N186', 'F329']);
 
-  function parseCsv(text) {
+  const CLAIM_LINE_FIELD_SYNONYMS = {
+    claim_id: ['claim_id', 'claimid', 'claim number', 'claim_number'],
+    claim_line_number: ['claim_line_number', 'line_number', 'linenumber', 'claim_line', 'line'],
+    admit_type_code: ['admit_type_code', 'admission_type_code', 'admit_type', 'admission_type'],
+    billing_npi: ['billing_npi', 'billing_provider_npi', 'npi'],
+    diagnosis_code_1: ['diagnosis_code_1', 'diagnosis_code', 'diagnosiscode', 'icd10', 'icd_10', 'dx_code', 'dx1'],
+    paid_amount: ['paid_amount', 'amount_paid', 'paid', 'amount']
+  };
+
+  function parseClaimLines(text) {
     const lines = text.trim().split('\n').map((l) => l.trim()).filter(Boolean);
     const headers = lines[0].split(',').map((h) => h.trim());
+    const map = autoMapHeaders(headers, CLAIM_LINE_FIELD_SYNONYMS);
     return lines.slice(1).map((line) => {
       const cells = line.split(',').map((c) => c.trim());
+      const raw = {};
+      headers.forEach((h, i) => { raw[h] = cells[i] ?? ''; });
       const row = {};
-      headers.forEach((h, i) => { row[h] = cells[i] ?? ''; });
+      Object.keys(CLAIM_LINE_FIELD_SYNONYMS).forEach((field) => { row[field] = map[field] ? raw[map[field]] : ''; });
       return row;
     });
   }
 
-  // Handles the two date shapes our mock sources use (MM/DD/YYYY and YYYY-MM-DD);
-  // returns null for anything else so bad dates surface as a data-quality issue.
-  function normalizeDob(raw) {
-    if (!raw) return null;
-    let m = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-    if (m) {
-      const [, y, mo, d] = m;
-      if (+mo >= 1 && +mo <= 12 && +d >= 1 && +d <= 31) return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
-      return null;
-    }
-    m = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-    if (m) {
-      const [, mo, d, y] = m;
-      if (+mo >= 1 && +mo <= 12 && +d >= 1 && +d <= 31) return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
-      return null;
-    }
-    return null;
-  }
-
-  function normalizeGender(raw) {
-    const v = (raw || '').trim().toLowerCase();
-    if (v === 'm' || v === 'male') return 'M';
-    if (v === 'f' || v === 'female') return 'F';
-    return null;
-  }
-
-  // Some sources write ICD-10 with the decimal, some without — this fills it back in.
-  function normalizeIcd10(raw) {
-    const v = (raw || '').trim().toUpperCase();
-    const m = v.match(/^([A-Z]\d{2})(\d+)?$/);
-    if (!m) return v || null;
-    return m[2] ? `${m[1]}.${m[2]}` : m[1];
-  }
-
-  function conditionCategory(icd10) {
-    if (!icd10) return null;
-    const prefix3 = icd10.slice(0, 3);
-    const found = CONDITION_CATEGORIES.find((c) => c.prefix === prefix3);
-    return found ? found.label : 'Other / unmapped';
-  }
-
-  function normalizePaidAmount(raw) {
-    if (raw === undefined || raw === null || raw === '') return null;
-    const cleaned = String(raw).replace(/[$,]/g, '').trim();
-    const num = parseFloat(cleaned);
-    return isNaN(num) ? null : num;
-  }
-
-  function normalizeClaimsRows(rawRows, sourceLabel, columnMap) {
-    return rawRows.map((raw, idx) => {
-      const canonical = {};
-      for (const [srcCol, field] of Object.entries(columnMap)) canonical[field] = raw[srcCol];
-
-      const dob = normalizeDob(canonical.dob);
-      const serviceDate = normalizeDob(canonical.serviceDate);
-      const gender = normalizeGender(canonical.gender);
-      const icd10 = normalizeIcd10(canonical.diagnosisCode);
-      const npi = (canonical.npi || '').trim();
-      const paid = normalizePaidAmount(canonical.paidAmount);
-
-      const issues = [];
-      if (!serviceDate) issues.push('Unparsable service date');
-      if (!gender) issues.push(`Unrecognized gender code "${canonical.gender}"`);
-      if (!npi) issues.push('Missing provider NPI');
-      if (paid === null || paid <= 0) issues.push('Non-positive or missing paid amount');
-      if (icd10 && conditionCategory(icd10) === 'Other / unmapped') issues.push(`Unmapped diagnosis code "${icd10}"`);
-
-      return {
-        row: idx + 1, source: sourceLabel, patientId: canonical.patientId, dob, gender, serviceDate,
-        diagnosisCode: icd10, procedureCode: canonical.procedureCode, npi, paidAmount: paid, issues
-      };
+  // Real logic: when a claim-level field is coded per line, count how often each
+  // distinct value occurs across the claim's lines and take the most frequent one —
+  // a plurality vote, with ties broken arbitrarily (the real SQL has no tiebreaker
+  // column either, so a genuine tie is a real ambiguity, not just a demo shortcut).
+  function voteClaimLevelField(lines, claimIdKey, valueKey) {
+    const byClaim = {};
+    lines.forEach((l) => { (byClaim[l[claimIdKey]] = byClaim[l[claimIdKey]] || []).push(l); });
+    const result = {};
+    Object.entries(byClaim).forEach(([claimId, claimLines]) => {
+      const counts = {};
+      claimLines.forEach((l) => {
+        const v = l[valueKey];
+        if (v) counts[v] = (counts[v] || 0) + 1;
+      });
+      const tally = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+      result[claimId] = { winner: tally.length ? tally[0][0] : null, tally, lineCount: claimLines.length };
     });
+    return result;
   }
 
-  function flagStyle(bad) {
-    return bad ? ' style="background:#EAD9D2"' : '';
+  // Real logic: every atomic check classifies a field into exactly one bucket —
+  // valid (joins to the terminology reference), invalid (present but doesn't join),
+  // or null (missing). Paid amount has no terminology to join to, so it only ever
+  // gets valid/null — a negative amount is still "valid" at this check, faithfully.
+  function npiBucket(npi) { return !npi ? 'null' : SAMPLE_NPI_TERMINOLOGY.has(npi) ? 'valid' : 'invalid'; }
+  function diagnosisBucket(code) {
+    if (!code) return 'null';
+    return SAMPLE_ICD10_TERMINOLOGY.has(code.replace(/\./g, '').toUpperCase()) ? 'valid' : 'invalid';
   }
+  function paidAmountBucket(amount) { return (amount === undefined || amount === null || amount === '') ? 'null' : 'valid'; }
 
-  function renderClaimsOutput(rows) {
-    const totalIssues = rows.reduce((sum, r) => sum + r.issues.length, 0);
-    const sources = new Set(rows.map((r) => r.source));
-    setStatus('claims-status', `${rows.length} claims processed across ${sources.size} source systems · ${totalIssues} issue${totalIssues === 1 ? '' : 's'} flagged.`);
+  const BUCKET_STYLE = { valid: '', invalid: ' style="background:#EAD9D2"', null: ' style="background:#F2F0EA"' };
 
-    const issueItems = rows.filter((r) => r.issues.length).map((r) => `
-      <li class="py-2 border-t hairline text-[13.5px]">
-        <span class="text-graphite">${escapeHtml(r.source)} row ${r.row}</span> — ${escapeHtml(r.issues.join('; '))}
-      </li>`).join('');
+  function renderClaimsOutput(lines) {
+    const votes = voteClaimLevelField(lines, 'claim_id', 'admit_type_code');
 
-    const tableRows = rows.map((r) => `
+    const voteRows = Object.entries(votes).map(([claimId, v]) => {
+      const tallyText = v.tally.map(([code, count]) => `${escapeHtml(ADMIT_TYPE_TERMINOLOGY[code] || code)} (${escapeHtml(code)}) × ${count}`).join(', ');
+      const isTie = v.tally.length > 1 && v.tally[0][1] === v.tally[1][1];
+      return `
+        <div class="p-4 border hairline rounded bg-bone">
+          <div class="caps mb-1">${escapeHtml(claimId)} · ${v.lineCount} line${v.lineCount === 1 ? '' : 's'}</div>
+          <div class="text-[13.5px]">Votes: ${tallyText}</div>
+          <div class="mt-1 text-[13.5px]">Claim-level admission type: <strong>${escapeHtml(ADMIT_TYPE_TERMINOLOGY[v.winner] || v.winner || '—')}</strong>${isTie ? ' <span class="text-graphite text-[12.5px]">(tie — real SQL has no tiebreaker either)</span>' : ''}</div>
+        </div>`;
+    }).join('<div class="h-3"></div>');
+
+    const checkedLines = lines.map((l) => ({
+      ...l,
+      npiBucket: npiBucket(l.billing_npi),
+      diagnosisBucket: diagnosisBucket(l.diagnosis_code_1),
+      paidBucket: paidAmountBucket(l.paid_amount)
+    }));
+
+    const lineRows = checkedLines.map((l) => `
       <tr class="border-t hairline">
-        <td class="py-2 pr-3 text-[13px] text-graphite">${escapeHtml(r.source)}</td>
-        <td class="py-2 pr-3 text-[13.5px]">${escapeHtml(r.patientId || '')}</td>
-        <td class="py-2 pr-3 text-[13.5px]"${flagStyle(!r.dob)}>${escapeHtml(r.dob || '—')}</td>
-        <td class="py-2 pr-3 text-[13.5px]"${flagStyle(!r.gender)}>${escapeHtml(r.gender || '—')}</td>
-        <td class="py-2 pr-3 text-[13.5px]"${flagStyle(!r.serviceDate)}>${escapeHtml(r.serviceDate || '—')}</td>
-        <td class="py-2 pr-3 text-[13.5px]">${escapeHtml(r.diagnosisCode || '—')}<br/><span class="text-graphite text-[12px]">${escapeHtml(conditionCategory(r.diagnosisCode) || '')}</span></td>
-        <td class="py-2 pr-3 text-[13.5px]"${flagStyle(!r.npi)}>${escapeHtml(r.npi || '—')}</td>
-        <td class="py-2 text-[13.5px]"${flagStyle(r.paidAmount === null || r.paidAmount <= 0)}>${r.paidAmount === null ? '—' : (r.paidAmount < 0 ? '-$' + Math.abs(r.paidAmount).toFixed(2) : '$' + r.paidAmount.toFixed(2))}</td>
+        <td class="py-2 pr-3 text-[13px] text-graphite">${escapeHtml(l.claim_id)}</td>
+        <td class="py-2 pr-3 text-[13px] text-graphite">${escapeHtml(l.claim_line_number)}</td>
+        <td class="py-2 pr-3 text-[13.5px]"${BUCKET_STYLE[l.npiBucket]}>${escapeHtml(l.billing_npi || '—')} <span class="text-graphite text-[12px]">(${l.npiBucket})</span></td>
+        <td class="py-2 pr-3 text-[13.5px]"${BUCKET_STYLE[l.diagnosisBucket]}>${escapeHtml(l.diagnosis_code_1 || '—')} <span class="text-graphite text-[12px]">(${l.diagnosisBucket})</span></td>
+        <td class="py-2 text-[13.5px]"${BUCKET_STYLE[l.paidBucket]}>${l.paid_amount ? '$' + parseFloat(l.paid_amount).toFixed(2) : '—'} <span class="text-graphite text-[12px]">(${l.paidBucket})</span></td>
       </tr>`).join('');
 
-    const counts = {};
-    rows.forEach((r) => {
-      const cat = conditionCategory(r.diagnosisCode) || 'Other / unmapped';
-      counts[cat] = (counts[cat] || 0) + 1;
-    });
-    const maxCount = Math.max(...Object.values(counts), 1);
-    const bars = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([label, count]) => `
-      <div>
-        <div class="flex justify-between text-[13.5px] mb-1">
-          <span>${escapeHtml(label)}</span>
-          <span class="text-graphite">${count}</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill" style="width:${(count / maxCount * 100).toFixed(1)}%"></div></div>
-      </div>`).join('');
+    // Real DQI summary formula: valid_num (bucket = valid), fill_num (bucket != null), denom (total rows).
+    function fieldSummary(bucketKey) {
+      const denom = checkedLines.length;
+      const validNum = checkedLines.filter((l) => l[bucketKey] === 'valid').length;
+      const fillNum = checkedLines.filter((l) => l[bucketKey] !== 'null').length;
+      return { validNum, fillNum, denom };
+    }
+    const summaryRows = [
+      ['BILLING_NPI', 'npiBucket'],
+      ['DIAGNOSIS_CODE_1', 'diagnosisBucket'],
+      ['PAID_AMOUNT', 'paidBucket']
+    ].map(([label, key]) => {
+      const s = fieldSummary(key);
+      return `
+        <tr class="border-t hairline">
+          <td class="py-2 pr-3 text-[13.5px]">${label}</td>
+          <td class="py-2 pr-3 text-[13.5px]">${s.validNum} / ${s.denom} <span class="text-graphite text-[12px]">(${(s.validNum / s.denom * 100).toFixed(0)}% valid)</span></td>
+          <td class="py-2 text-[13.5px]">${s.fillNum} / ${s.denom} <span class="text-graphite text-[12px]">(${(s.fillNum / s.denom * 100).toFixed(0)}% filled)</span></td>
+        </tr>`;
+    }).join('');
+
+    setStatus('claims-status', `${lines.length} claim lines across ${Object.keys(votes).length} claims processed.`);
 
     document.getElementById('claims-output').innerHTML = `
-      ${issueItems ? `<div class="caps mb-2">Data quality issues</div><ul class="mb-6">${issueItems}</ul>` : ''}
-      <div class="caps mb-2">Canonical schema</div>
-      <div class="overflow-x-auto">
-      <table class="w-full text-left min-w-[720px]">
-        <thead><tr class="caps">
-          <th class="pb-2 pr-3">Source</th><th class="pb-2 pr-3">Patient</th><th class="pb-2 pr-3">DOB</th>
-          <th class="pb-2 pr-3">Gender</th><th class="pb-2 pr-3">Service date</th><th class="pb-2 pr-3">Diagnosis</th>
-          <th class="pb-2 pr-3">NPI</th><th class="pb-2">Paid</th>
-        </tr></thead>
-        <tbody>${tableRows}</tbody>
+      <div class="caps mb-3">Claim-level voting (admission type)</div>
+      <div class="space-y-3 mb-8">${voteRows}</div>
+      <div class="caps mb-2">Line-level data-quality buckets</div>
+      <div class="overflow-x-auto mb-8">
+      <table class="w-full text-left min-w-[600px]">
+        <thead><tr class="caps"><th class="pb-2 pr-3">Claim</th><th class="pb-2 pr-3">Line</th><th class="pb-2 pr-3">Billing NPI</th><th class="pb-2 pr-3">Diagnosis</th><th class="pb-2">Paid amount</th></tr></thead>
+        <tbody>${lineRows}</tbody>
       </table>
       </div>
-      <div class="caps mt-8 mb-3">Condition category rollup</div>
-      <div class="space-y-3 max-w-md">${bars}</div>`;
+      <div class="caps mb-2">Data-quality summary</div>
+      <div class="overflow-x-auto">
+      <table class="w-full text-left min-w-[480px]">
+        <thead><tr class="caps"><th class="pb-2 pr-3">Field</th><th class="pb-2 pr-3">Valid / total</th><th class="pb-2">Filled / total</th></tr></thead>
+        <tbody>${summaryRows}</tbody>
+      </table>
+      </div>`;
   }
+
+  // Reused by every CSV/JSON upload button in demos 9, 11, and 12: reads the chosen
+  // file's text into the paired textarea, which stays editable either way.
+  function wireFileUpload(fileInputId, textareaId) {
+    document.getElementById(fileInputId).addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      document.getElementById(textareaId).value = await file.text();
+    });
+  }
+
+  wireFileUpload('claims-file', 'claims-input');
 
   document.getElementById('claims-run').addEventListener('click', () => {
     try {
-      const rowsA = normalizeClaimsRows(parseCsv(document.getElementById('claims-source-a').value), 'Source A', CLAIMS_COLUMN_MAPS.a);
-      const rowsB = normalizeClaimsRows(parseCsv(document.getElementById('claims-source-b').value), 'Source B', CLAIMS_COLUMN_MAPS.b);
-      renderClaimsOutput([...rowsA, ...rowsB]);
+      renderClaimsOutput(parseClaimLines(document.getElementById('claims-input').value));
     } catch (err) {
       console.error(err);
       setStatus('claims-status', `Error: ${err.message}`);
@@ -1433,38 +1562,97 @@ P-6,63,M,E11.9;E11.22</textarea>
   });
 
   /* ---------------- Demo 10: Patient record matching ---------------- */
-  const PATIENTS = [
-    { id: 'P-1', source: 'Source A', firstName: 'Robert', lastName: 'Smith', dob: '04/12/1978', address: '482 Oak Street, Springfield' },
-    { id: 'P-2', source: 'Source B', firstName: 'Bob', lastName: 'Smith', dob: '1978-04-12', address: '482 Oak St, Springfield' },
-    { id: 'P-3', source: 'Source A', firstName: 'Elizabeth', lastName: 'Nguyen', dob: '09/03/1991', address: '17 Birchwood Ave, Rivertown' },
-    { id: 'P-4', source: 'Source C', firstName: 'Liz', lastName: 'Nguyen', dob: '1991-09-03', address: '17 Birchwood Avenue, Rivertown' },
-    { id: 'P-5', source: 'Source B', firstName: 'William', lastName: 'Turner', dob: '1965-11-27', address: '900 Lakeshore Dr, Millfield' },
-    { id: 'P-6', source: 'Source C', firstName: 'Bill', lastName: 'Turner', dob: '11/27/1965', address: '900 Lakeshore Drive, Millfield' },
-    { id: 'P-7', source: 'Source A', firstName: 'Maria', lastName: 'Alvarez', dob: '02/14/1983', address: '55 Palmetto Ct, Bay City' },
-    { id: 'P-8', source: 'Source B', firstName: 'Maria', lastName: 'Alvarez-Diaz', dob: '1983-02-14', address: '55 Palmetto Court, Bay City' },
-    { id: 'P-9', source: 'Source C', firstName: 'James', lastName: 'Ortiz', dob: '1974-06-08', address: '12 Willow Ln, Springfield' },
-    { id: 'P-10', source: 'Source A', firstName: 'David', lastName: 'Ortiz', dob: '06/09/1974', address: '14 Willow Ln, Springfield' }
-  ];
+  // Blocking rules and m/u probabilities below are copied from a real trained Splink
+  // model shipped as a test fixture in an open-source Splink-based EMPI project —
+  // not invented weights. Splink implements the classic
+  // Fellegi-Sunter probabilistic record-linkage model: every comparison level carries
+  // an m probability (how often true matches look this way) and a u probability (how
+  // often random non-matches look this way); their ratio is a Bayes factor, and
+  // multiplying the prior odds of a match by every field's Bayes factor gives a
+  // posterior match probability.
+  const EMPI_PRIOR = 0.00022159115356482079; // probability_two_random_records_match
 
-  const NICKNAMES = {
-    bob: 'robert', rob: 'robert', bobby: 'robert',
-    liz: 'elizabeth', beth: 'elizabeth', eliza: 'elizabeth',
-    bill: 'william', will: 'william', billy: 'william',
-    jim: 'james', jimmy: 'james',
-    dave: 'david',
-    maggie: 'margaret', peggy: 'margaret',
-    tom: 'thomas', tommy: 'thomas',
-    mike: 'michael',
-    chris: 'christopher'
+  const EMPI_COMPARISONS = {
+    firstName: [
+      { test: (a, b) => a === b, m: 0.56069653590478, u: 0.004043715846994536 },
+      { test: (a, b) => jaroWinkler(a, b) >= 0.9, m: 0.2415504423219833, u: 0.002431909126113334 },
+      { test: (a, b) => jaroWinkler(a, b) >= 0.7, m: 0.19148494935340832, u: 0.02421840712533884 },
+      { test: () => true, m: 0.006268072419828449, u: 0.9693059679015533 }
+    ],
+    lastName: [
+      { test: (a, b) => a === b, m: 0.4392918302450588, u: 0.0027941999053397015 },
+      { test: (a, b) => jaroWinkler(a, b) >= 0.9, m: 0.5544398925109798, u: 0.0021453465857751387 },
+      { test: (a, b) => jaroWinkler(a, b) >= 0.7, m: 0.0062682772427918075, u: 0.01973753280839895 },
+      { test: () => true, m: 1.1696353537026662e-12, u: 0.9753229207004862 }
+    ],
+    dob: [
+      { test: (a, b) => a === b, m: 0.48679787289097814, u: 0.0007176971730992642 },
+      { test: (a, b) => levenshtein(a, b) <= 1, m: 0.4659410555968632, u: 0.0012968460909599416 },
+      { test: (a, b) => levenshtein(a, b) <= 2, m: 0.04687199607499394, u: 0.014402134159459576 },
+      { test: (a, b) => levenshtein(a, b) <= 4, m: 0.00006616527376443376, u: 0.3746026418828794 },
+      { test: () => true, m: 0.0003229101634003576, u: 0.6089806806936018 }
+    ],
+    ssn: [
+      { test: (a, b) => a === b, m: 0.6664240995234721, u: 0.0006944623725313024 },
+      { test: () => true, m: 0.33357590047652785, u: 0.9993055376274687 }
+    ]
   };
 
-  function canonicalFirstName(name) {
-    const v = name.trim().toLowerCase();
-    return NICKNAMES[v] || v;
+  // Real documented thresholds for auto-match / review queue / dismiss.
+  const EMPI_MATCH_THRESHOLD = 0.70;
+  const EMPI_REVIEW_THRESHOLD_LOW = 0.50;
+  const EMPI_REVIEW_THRESHOLD_HIGH = 0.69;
+
+  const PATIENTS = [
+    { id: 'P-1', source: 'Source A', firstName: 'John', lastName: 'Carter', dob: '1978-04-12', ssn: '123-45-6781' },
+    { id: 'P-2', source: 'Source B', firstName: 'Jon', lastName: 'Carter', dob: '1978-04-12', ssn: '' },
+    { id: 'P-3', source: 'Source A', firstName: 'Maria', lastName: 'Alvarez', dob: '1983-02-14', ssn: '234-56-7892' },
+    { id: 'P-4', source: 'Source C', firstName: 'Maria', lastName: 'Alvarez', dob: '1983-02-15', ssn: '' },
+    { id: 'P-5', source: 'Source A', firstName: 'Robert', lastName: 'Smith', dob: '1965-11-27', ssn: '' },
+    { id: 'P-6', source: 'Source B', firstName: 'Bob', lastName: 'Smith', dob: '1965-11-27', ssn: '' },
+    { id: 'P-7', source: 'Source B', firstName: 'Angela', lastName: 'Reyes', dob: '1990-06-08', ssn: '345-67-8903' },
+    { id: 'P-8', source: 'Source C', firstName: 'Angela', lastName: 'Reyz', dob: '1955-01-01', ssn: '345-67-8903' },
+    { id: 'P-9', source: 'Source A', firstName: 'David', lastName: 'Ortiz', dob: '1974-06-08', ssn: '' },
+    { id: 'P-10', source: 'Source C', firstName: 'James', lastName: 'Ortiz', dob: '1974-06-09', ssn: '' }
+  ];
+
+  // Standard Jaro-Winkler string similarity — the exact metric Splink/DuckDB use here.
+  function jaroSimilarity(s1, s2) {
+    if (s1 === s2) return 1;
+    const len1 = s1.length, len2 = s2.length;
+    if (!len1 || !len2) return 0;
+    const matchDistance = Math.max(0, Math.floor(Math.max(len1, len2) / 2) - 1);
+    const s1Matches = new Array(len1).fill(false);
+    const s2Matches = new Array(len2).fill(false);
+    let matches = 0;
+    for (let i = 0; i < len1; i++) {
+      const start = Math.max(0, i - matchDistance);
+      const end = Math.min(i + matchDistance + 1, len2);
+      for (let j = start; j < end; j++) {
+        if (s2Matches[j] || s1[i] !== s2[j]) continue;
+        s1Matches[i] = true; s2Matches[j] = true; matches++; break;
+      }
+    }
+    if (!matches) return 0;
+    let transpositions = 0, k = 0;
+    for (let i = 0; i < len1; i++) {
+      if (!s1Matches[i]) continue;
+      while (!s2Matches[k]) k++;
+      if (s1[i] !== s2[k]) transpositions++;
+      k++;
+    }
+    transpositions /= 2;
+    return (matches / len1 + matches / len2 + (matches - transpositions) / matches) / 3;
+  }
+
+  function jaroWinkler(s1, s2, p = 0.1) {
+    const jaro = jaroSimilarity(s1, s2);
+    let prefix = 0;
+    while (prefix < 4 && prefix < s1.length && prefix < s2.length && s1[prefix] === s2[prefix]) prefix++;
+    return jaro + prefix * p * (1 - jaro);
   }
 
   function levenshtein(a, b) {
-    a = a.toLowerCase(); b = b.toLowerCase();
     const m = a.length, n = b.length;
     const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
     for (let i = 0; i <= m; i++) dp[i][0] = i;
@@ -1477,32 +1665,41 @@ P-6,63,M,E11.9;E11.22</textarea>
     return dp[m][n];
   }
 
-  function stringSimilarity(a, b) {
-    if (!a && !b) return 1;
-    return 1 - levenshtein(a || '', b || '') / Math.max((a || '').length, (b || '').length, 1);
+  function normalizePatient(p) {
+    return {
+      ...p,
+      firstNameNorm: p.firstName.trim().toLowerCase(),
+      lastNameNorm: p.lastName.trim().toLowerCase(),
+      ssnDigits: (p.ssn || '').replace(/\D/g, '') || null
+    };
   }
 
-  function normalizeAddress(addr) {
-    return addr.toLowerCase()
-      .replace(/\bstreet\b/g, 'st')
-      .replace(/\bavenue\b/g, 'ave')
-      .replace(/\bdrive\b/g, 'dr')
-      .replace(/\bcourt\b/g, 'ct')
-      .replace(/\blane\b/g, 'ln')
-      .replace(/[.,]/g, '')
-      .trim();
+  // Blocking: only pairs sharing at least one key ever get scored — this is what
+  // makes probabilistic matching tractable at scale (avoids comparing every pair).
+  function sharesBlockingKey(a, b) {
+    return (a.firstNameNorm === b.firstNameNorm && a.lastNameNorm === b.lastNameNorm)
+      || (a.firstNameNorm === b.firstNameNorm && a.dob === b.dob)
+      || (a.lastNameNorm === b.lastNameNorm && a.dob === b.dob)
+      || (a.ssnDigits && b.ssnDigits && a.ssnDigits === b.ssnDigits);
   }
 
-  function empiMatchScore(a, b) {
-    const lastSim = stringSimilarity(a.lastName, b.lastName);
-    const firstA = canonicalFirstName(a.firstName);
-    const firstB = canonicalFirstName(b.firstName);
-    const firstSim = firstA === firstB ? 1 : stringSimilarity(firstA, firstB);
-    const dobA = normalizeDob(a.dob);
-    const dobB = normalizeDob(b.dob);
-    const dobMatch = dobA && dobB && dobA === dobB ? 1 : 0;
-    const addrSim = stringSimilarity(normalizeAddress(a.address), normalizeAddress(b.address));
-    return { score: lastSim * 0.3 + firstSim * 0.3 + dobMatch * 0.3 + addrSim * 0.1, lastSim, firstSim, dobMatch, addrSim };
+  function bayesFactor(levels, a, b) {
+    if (!a || !b) return { bf: 1, level: 'null (missing on one side)' };
+    for (const lvl of levels) {
+      if (lvl.test(a, b)) return { bf: lvl.m / lvl.u, level: lvl.test.toString() === '() => true' ? 'else (no meaningful similarity)' : 'matched' };
+    }
+    return { bf: 1, level: 'null' };
+  }
+
+  function splinkMatchProbability(a, b) {
+    const first = bayesFactor(EMPI_COMPARISONS.firstName, a.firstNameNorm, b.firstNameNorm);
+    const last = bayesFactor(EMPI_COMPARISONS.lastName, a.lastNameNorm, b.lastNameNorm);
+    const dob = bayesFactor(EMPI_COMPARISONS.dob, a.dob, b.dob);
+    const ssn = bayesFactor(EMPI_COMPARISONS.ssn, a.ssnDigits, b.ssnDigits);
+    const priorOdds = EMPI_PRIOR / (1 - EMPI_PRIOR);
+    const posteriorOdds = priorOdds * first.bf * last.bf * dob.bf * ssn.bf;
+    const probability = posteriorOdds / (1 + posteriorOdds);
+    return { probability, first, last, dob, ssn };
   }
 
   function makeUnionFind(n) {
@@ -1512,27 +1709,38 @@ P-6,63,M,E11.9;E11.22</textarea>
     return { find, union };
   }
 
-  const EMPI_THRESHOLD = 0.75;
-
   function renderEmpiOutput() {
-    const n = PATIENTS.length;
+    const patients = PATIENTS.map(normalizePatient);
+    const n = patients.length;
     const uf = makeUnionFind(n);
-    const pairScores = [];
+    const autoMatched = [];
+    const reviewQueue = [];
+    let dismissedCount = 0, notCompared = 0;
+
     for (let i = 0; i < n; i++) {
       for (let j = i + 1; j < n; j++) {
-        const m = empiMatchScore(PATIENTS[i], PATIENTS[j]);
-        if (m.score >= EMPI_THRESHOLD) {
+        if (!sharesBlockingKey(patients[i], patients[j])) { notCompared++; continue; }
+        const result = splinkMatchProbability(patients[i], patients[j]);
+        if (result.probability >= EMPI_MATCH_THRESHOLD) {
           uf.union(i, j);
-          pairScores.push({ i, j, ...m });
+          autoMatched.push({ i, j, ...result });
+        } else if (result.probability >= EMPI_REVIEW_THRESHOLD_LOW) {
+          reviewQueue.push({ i, j, ...result });
+        } else {
+          dismissedCount++;
         }
       }
     }
+
     const groups = {};
     for (let i = 0; i < n; i++) {
       const root = uf.find(i);
       (groups[root] = groups[root] || []).push(i);
     }
     const clusters = Object.values(groups);
+    const merged = n - clusters.length;
+
+    setStatus('empi-status', `${n} raw records → ${clusters.length} unique patients (${merged} auto-linked) · ${reviewQueue.length} pair${reviewQueue.length === 1 ? '' : 's'} sent to review · ${dismissedCount} dismissed · ${notCompared} never compared (no shared blocking key).`);
 
     const beforeRows = PATIENTS.map((p) => `
       <tr class="border-t hairline">
@@ -1540,54 +1748,49 @@ P-6,63,M,E11.9;E11.22</textarea>
         <td class="py-2 pr-3 text-[13px] text-graphite">${escapeHtml(p.source)}</td>
         <td class="py-2 pr-3 text-[13.5px]">${escapeHtml(p.firstName)} ${escapeHtml(p.lastName)}</td>
         <td class="py-2 pr-3 text-[13.5px]">${escapeHtml(p.dob)}</td>
-        <td class="py-2 text-[13.5px]">${escapeHtml(p.address)}</td>
+        <td class="py-2 text-[13.5px]">${escapeHtml(p.ssn || '—')}</td>
       </tr>`).join('');
 
     const clusterHtml = clusters.map((idxs, ci) => {
       if (idxs.length === 1) {
         const p = PATIENTS[idxs[0]];
-        return `
-          <div class="p-4 border hairline rounded">
-            <div class="text-[13.5px]">${escapeHtml(p.firstName)} ${escapeHtml(p.lastName)} <span class="text-graphite text-[12.5px]">(${escapeHtml(p.source)}, no match found)</span></div>
-          </div>`;
+        return `<div class="p-4 border hairline rounded"><div class="text-[13.5px]">${escapeHtml(p.firstName)} ${escapeHtml(p.lastName)} <span class="text-graphite text-[12.5px]">(${escapeHtml(p.source)}, no auto-match)</span></div></div>`;
       }
-      const relevantPairs = pairScores.filter((ps) => idxs.includes(ps.i) && idxs.includes(ps.j));
-      const avgScore = relevantPairs.reduce((s, p) => s + p.score, 0) / relevantPairs.length;
+      const relevant = autoMatched.filter((m) => idxs.includes(m.i) && idxs.includes(m.j));
+      const avgProb = relevant.reduce((s, m) => s + m.probability, 0) / relevant.length;
       const memberList = idxs.map((i) => {
         const p = PATIENTS[i];
         return `${escapeHtml(p.firstName)} ${escapeHtml(p.lastName)} <span class="text-graphite">(${escapeHtml(p.source)})</span>`;
       }).join(' ↔ ');
-      const reasons = [];
-      if (relevantPairs.some((p) => p.dobMatch === 1)) reasons.push('DOB match');
-      if (idxs.length === 2) {
-        const [pa, pb] = idxs.map((i) => PATIENTS[i]);
-        if (pa.firstName.toLowerCase() !== pb.firstName.toLowerCase() && canonicalFirstName(pa.firstName) === canonicalFirstName(pb.firstName)) {
-          reasons.push('first name via nickname');
-        }
-        if (pa.lastName.toLowerCase() !== pb.lastName.toLowerCase()) reasons.push('last name variant');
-      }
-      if (relevantPairs.some((p) => p.addrSim >= 0.99)) reasons.push('address match');
       return `
         <div class="p-4 border hairline rounded bg-bone">
-          <div class="caps mb-2">Cluster ${ci + 1} · ${(avgScore * 100).toFixed(0)}% confidence</div>
+          <div class="caps mb-2">Cluster ${ci + 1} · match probability ${(avgProb * 100).toFixed(1)}%</div>
           <div class="text-[13.5px] leading-[1.7]">${memberList}</div>
-          <div class="mt-1 text-[12.5px] text-graphite">${reasons.join(' · ') || 'Matched on combined similarity'}</div>
         </div>`;
     }).join('<div class="h-3"></div>');
 
-    const merged = n - clusters.length;
-    setStatus('empi-status', `${n} raw records → ${clusters.length} unique patients identified (${merged} duplicate${merged === 1 ? '' : 's'} merged).`);
+    const reviewHtml = reviewQueue.map((r) => {
+      const pa = PATIENTS[r.i], pb = PATIENTS[r.j];
+      const priority = r.probability > EMPI_REVIEW_THRESHOLD_HIGH ? 'HIGH' : 'MEDIUM/LOW';
+      return `
+        <div class="p-4 border hairline rounded">
+          <div class="caps mb-2">${priority} priority · ${(r.probability * 100).toFixed(1)}%</div>
+          <div class="text-[13.5px]">${escapeHtml(pa.firstName)} ${escapeHtml(pa.lastName)} (${escapeHtml(pa.source)}) ↔ ${escapeHtml(pb.firstName)} ${escapeHtml(pb.lastName)} (${escapeHtml(pb.source)})</div>
+        </div>`;
+    }).join('<div class="h-3"></div>') || '<p class="text-[13.5px] text-graphite">None.</p>';
 
     document.getElementById('empi-output').innerHTML = `
       <div class="caps mb-2">Raw records</div>
       <div class="overflow-x-auto mb-8">
-      <table class="w-full text-left min-w-[600px]">
-        <thead><tr class="caps"><th class="pb-2 pr-3">ID</th><th class="pb-2 pr-3">Source</th><th class="pb-2 pr-3">Name</th><th class="pb-2 pr-3">DOB</th><th class="pb-2">Address</th></tr></thead>
+      <table class="w-full text-left min-w-[560px]">
+        <thead><tr class="caps"><th class="pb-2 pr-3">ID</th><th class="pb-2 pr-3">Source</th><th class="pb-2 pr-3">Name</th><th class="pb-2 pr-3">DOB</th><th class="pb-2">SSN</th></tr></thead>
         <tbody>${beforeRows}</tbody>
       </table>
       </div>
-      <div class="caps mb-3">Matched patients</div>
-      <div class="space-y-3">${clusterHtml}</div>`;
+      <div class="caps mb-3">Auto-matched (≥ ${(EMPI_MATCH_THRESHOLD * 100).toFixed(0)}%)</div>
+      <div class="space-y-3 mb-8">${clusterHtml}</div>
+      <div class="caps mb-3">Review queue (${(EMPI_REVIEW_THRESHOLD_LOW * 100).toFixed(0)}–${(EMPI_MATCH_THRESHOLD * 100).toFixed(0)}%)</div>
+      <div class="space-y-3">${reviewHtml}</div>`;
   }
 
   document.getElementById('empi-run').addEventListener('click', () => {
@@ -1600,74 +1803,157 @@ P-6,63,M,E11.9;E11.22</textarea>
   });
 
   /* ---------------- Demo 11: Risk score calculator ---------------- */
-  // Illustrative weights loosely shaped like public CMS-HCC risk models — not the
-  // official CMS coefficients. `group` marks conditions in the same hierarchy, where
-  // only the highest-weight match survives per patient (the rest are suppressed).
-  const HCC_TABLE = [
-    { test: (c) => c.startsWith('E11.2') || c.startsWith('E11.3') || c.startsWith('E11.4') || c.startsWith('E11.5'), hcc: 'HCC18', label: 'Diabetes with chronic complications', weight: 0.302, group: 'diabetes' },
-    { test: (c) => c.startsWith('E11.9') || c.startsWith('E11.8') || c === 'E11', hcc: 'HCC19', label: 'Diabetes without complications', weight: 0.105, group: 'diabetes' },
-    { test: (c) => c.startsWith('I50'), hcc: 'HCC226', label: 'Congestive heart failure', weight: 0.320, group: 'heart_failure' },
-    { test: (c) => c.startsWith('N18.6'), hcc: 'HCC327', label: 'End-stage renal disease', weight: 0.420, group: 'ckd' },
-    { test: (c) => c.startsWith('N18.3') || c.startsWith('N18.4'), hcc: 'HCC329', label: 'Chronic kidney disease, stage 4-5', weight: 0.124, group: 'ckd' },
-    { test: (c) => c.startsWith('J44'), hcc: 'HCC280', label: 'Chronic obstructive pulmonary disease', weight: 0.335, group: 'copd' },
-    { test: (c) => c.startsWith('F32') || c.startsWith('F33'), hcc: 'HCC155', label: 'Major depressive disorder', weight: 0.161, group: 'depression' }
-  ];
+  // The risk_model_code derivation and the exclusion-list hierarchy mechanism below
+  // are copied from an actual open-source healthcare-data dbt project's CMS-HCC
+  // model — not invented logic. Its own coefficient seeds ship empty (CMS's official
+  // rate-table numbers aren't redistributable), so the seed values here are clearly
+  // marked placeholders, editable in the textareas above, exactly as that project
+  // requires you to supply your own.
 
-  const DEMOGRAPHIC_BANDS = [
-    { max: 65, M: 0.30, F: 0.29 },
-    { max: 70, M: 0.40, F: 0.38 },
-    { max: 75, M: 0.46, F: 0.43 },
-    { max: 80, M: 0.52, F: 0.48 },
-    { max: 85, M: 0.58, F: 0.53 },
-    { max: 90, M: 0.64, F: 0.58 },
-    { max: Infinity, M: 0.70, F: 0.63 }
-  ];
+  const DEMOGRAPHIC_SEED_FIELD_SYNONYMS = {
+    risk_model_code: ['risk_model_code', 'model_code', 'segment', 'risk_segment'],
+    gender: ['gender', 'sex'],
+    age_band: ['age_band', 'ageband', 'age_group', 'age_range'],
+    coefficient: ['coefficient', 'weight', 'factor', 'value']
+  };
 
-  function matchHccs(code) {
-    return HCC_TABLE.filter((h) => h.test(code));
-  }
+  const DISEASE_SEED_FIELD_SYNONYMS = {
+    hcc_code: ['hcc_code', 'hcc', 'code'],
+    label: ['label', 'description', 'name'],
+    coefficient: ['coefficient', 'weight', 'factor', 'value'],
+    excludes: ['excludes', 'excluded_hccs', 'hccs_to_exclude', 'exclude'],
+    icd10_codes: ['icd10_codes', 'icd_10_codes', 'diagnosis_codes', 'codes']
+  };
 
-  function demographicFactor(age, gender) {
-    const band = DEMOGRAPHIC_BANDS.find((b) => age < b.max);
-    const g = (gender || '').toUpperCase() === 'F' ? 'F' : 'M';
-    return band[g];
-  }
-
-  function parseRiskCsv(text) {
+  function parseSeedCsv(text, fieldSynonyms) {
     const lines = text.trim().split('\n').map((l) => l.trim()).filter(Boolean);
+    const headers = lines[0].split(',').map((h) => h.trim());
+    const map = autoMapHeaders(headers, fieldSynonyms);
     return lines.slice(1).map((line) => {
-      const [patientId, age, gender, diagnosisCodes] = line.split(',').map((c) => c.trim());
-      return {
-        patientId, age: parseInt(age, 10), gender,
-        diagnosisCodes: (diagnosisCodes || '').split(';').map((c) => c.trim().toUpperCase()).filter(Boolean)
-      };
+      const cells = line.split(',').map((c) => c.trim());
+      const raw = {};
+      headers.forEach((h, i) => { raw[h] = cells[i] ?? ''; });
+      const row = {};
+      Object.keys(fieldSynonyms).forEach((field) => { row[field] = map[field] ? raw[map[field]] : ''; });
+      return row;
     });
   }
 
-  function calculatePatientRisk(patient) {
-    const matchesByCode = patient.diagnosisCodes.map((code) => ({ code, hccs: matchHccs(code) }));
-    const allMatches = matchesByCode.flatMap((m) => m.hccs.map((h) => ({ ...h, sourceCode: m.code })));
+  function ageBand(age) {
+    if (age < 65) return '<65';
+    if (age < 75) return '65-74';
+    if (age < 85) return '75-84';
+    return '85+';
+  }
 
-    const byGroup = {};
-    allMatches.forEach((m) => { (byGroup[m.group] = byGroup[m.group] || []).push(m); });
+  // Real CASE WHEN order from the actual model: ESRD and new-enrollee segments take
+  // priority, then institutional, then community non-dual vs. dual, split by OREC
+  // (aged vs. disabled). A combination this doesn't cover (e.g. medicaid_status=Yes
+  // with dual_status=None) falls through unmatched — a real gap in the actual logic,
+  // not something this demo papers over.
+  function riskModelCode(p) {
+    if (p.enrollment_status === 'ESRD') return 'ESRD';
+    if (p.enrollment_status === 'New') return 'E';
+    if (p.institutional_status === 'Yes') return 'INS';
+    if (p.medicaid_status === 'No' && p.orec === 'Aged') return 'CNA';
+    if (p.medicaid_status === 'No' && p.orec === 'Disabled') return 'CND';
+    if (p.dual_status === 'Full' && p.orec === 'Aged') return 'CFA';
+    if (p.dual_status === 'Full' && p.orec === 'Disabled') return 'CFD';
+    if (p.dual_status === 'Partial' && p.orec === 'Aged') return 'CPA';
+    if (p.dual_status === 'Partial' && p.orec === 'Disabled') return 'CPD';
+    return null;
+  }
 
-    const surviving = [];
+  // Real mechanism: a top-level (more severe) HCC lists which milder HCCs it
+  // excludes. A milder HCC is only suppressed if the patient ALSO has the top-level
+  // HCC coded — otherwise it survives and counts on its own. This is a lookup against
+  // an explicit exclusion list, not a comparison of coefficient values.
+  function applyHierarchy(hccCodesForPatient, diseaseSeed) {
+    const excludedBy = {};
+    diseaseSeed.forEach((h) => {
+      (h.excludes || '').split(';').map((x) => x.trim()).filter(Boolean).forEach((lower) => {
+        excludedBy[lower] = h.hcc_code;
+      });
+    });
+    const present = new Set(hccCodesForPatient);
+    const survivors = new Set();
     const suppressed = [];
-    Object.values(byGroup).forEach((group) => {
-      const sorted = [...group].sort((a, b) => b.weight - a.weight);
-      surviving.push(sorted[0]);
-      suppressed.push(...sorted.slice(1));
+    hccCodesForPatient.forEach((code) => {
+      const topLevel = excludedBy[code];
+      if (topLevel && present.has(topLevel)) {
+        survivors.add(topLevel);
+        suppressed.push({ code, supersededBy: topLevel });
+      } else {
+        survivors.add(code);
+      }
     });
-
-    const demoFactor = demographicFactor(patient.age, patient.gender);
-    const hccScore = surviving.reduce((s, h) => s + h.weight, 0);
-    const unmapped = matchesByCode.filter((m) => m.hccs.length === 0).map((m) => m.code);
-
-    return { ...patient, demoFactor, surviving, suppressed, unmapped, totalScore: demoFactor + hccScore };
+    return { survivors: Array.from(survivors), suppressed };
   }
 
-  function renderRiskOutput(patients) {
-    const results = patients.map(calculatePatientRisk).sort((a, b) => b.totalScore - a.totalScore);
+  function calculatePatientRisk(patient, demoSeed, diseaseSeed) {
+    const modelCode = riskModelCode(patient);
+    const band = ageBand(patient.age);
+    const demoRow = demoSeed.find((d) => d.risk_model_code === modelCode && d.gender === patient.gender && d.age_band === band);
+    const demoFactor = demoRow ? parseFloat(demoRow.coefficient) : 0;
+
+    const icd10ToHcc = {};
+    diseaseSeed.forEach((h) => {
+      (h.icd10_codes || '').split(';').map((c) => c.trim().toUpperCase()).filter(Boolean).forEach((code) => {
+        icd10ToHcc[code] = h.hcc_code;
+      });
+    });
+
+    const mappedHccs = [];
+    const unmapped = [];
+    patient.diagnosisCodes.forEach((code) => {
+      const hcc = icd10ToHcc[code];
+      if (hcc) mappedHccs.push(hcc); else unmapped.push(code);
+    });
+
+    const { survivors, suppressed } = applyHierarchy(mappedHccs, diseaseSeed);
+    const diseaseScore = survivors.reduce((sum, hcc) => {
+      const row = diseaseSeed.find((d) => d.hcc_code === hcc);
+      return sum + (row ? parseFloat(row.coefficient) : 0);
+    }, 0);
+
+    return {
+      ...patient, modelCode, band, demoRow, demoFactor,
+      survivors: survivors.map((hcc) => diseaseSeed.find((d) => d.hcc_code === hcc)),
+      suppressed, unmapped,
+      totalScore: demoFactor + diseaseScore
+    };
+  }
+
+  const PATIENT_FIELD_SYNONYMS = {
+    patient_id: ['patient_id', 'patientid', 'member_id', 'person_id'],
+    age: ['age'],
+    gender: ['gender', 'sex'],
+    medicaid_status: ['medicaid_status', 'medicaid'],
+    dual_status: ['dual_status', 'dual'],
+    orec: ['orec', 'original_reason_entitlement_code'],
+    institutional_status: ['institutional_status', 'institutional'],
+    enrollment_status: ['enrollment_status', 'enrollment'],
+    diagnosis_codes: ['diagnosis_codes', 'diagnoses', 'icd10_codes', 'dx_codes']
+  };
+
+  function parsePatientsCsv(text) {
+    const lines = text.trim().split('\n').map((l) => l.trim()).filter(Boolean);
+    const headers = lines[0].split(',').map((h) => h.trim());
+    const map = autoMapHeaders(headers, PATIENT_FIELD_SYNONYMS);
+    return lines.slice(1).map((line) => {
+      const cells = line.split(',').map((c) => c.trim());
+      const raw = {};
+      headers.forEach((h, i) => { raw[h] = cells[i] ?? ''; });
+      const row = {};
+      Object.keys(PATIENT_FIELD_SYNONYMS).forEach((field) => { row[field] = map[field] ? raw[map[field]] : ''; });
+      row.age = parseInt(row.age, 10);
+      row.diagnosisCodes = (row.diagnosis_codes || '').split(';').map((c) => c.trim().toUpperCase()).filter(Boolean);
+      return row;
+    });
+  }
+
+  function renderRiskOutput(patients, demoSeed, diseaseSeed) {
+    const results = patients.map((p) => calculatePatientRisk(p, demoSeed, diseaseSeed)).sort((a, b) => b.totalScore - a.totalScore);
     const avg = results.reduce((s, r) => s + r.totalScore, 0) / results.length;
     setStatus('risk-status', `${results.length} patients scored · average risk score ${avg.toFixed(3)}.`);
 
@@ -1675,23 +1961,23 @@ P-6,63,M,E11.9;E11.22</textarea>
     const bars = results.map((r) => `
       <div>
         <div class="flex justify-between text-[13.5px] mb-1">
-          <span>${escapeHtml(r.patientId)}</span>
+          <span>${escapeHtml(r.patient_id)}</span>
           <span class="text-graphite">${r.totalScore.toFixed(3)}</span>
         </div>
         <div class="bar-track"><div class="bar-fill" style="width:${(r.totalScore / maxScore * 100).toFixed(1)}%"></div></div>
       </div>`).join('');
 
     const detailCards = results.map((r) => {
-      const survivingRows = r.surviving.map((h) => `<li>${escapeHtml(h.hcc)} · ${escapeHtml(h.label)} <span class="text-graphite">(from ${escapeHtml(h.sourceCode)}, +${h.weight.toFixed(3)})</span></li>`).join('');
-      const suppressedRows = r.suppressed.map((h) => `<li class="text-graphite">${escapeHtml(h.hcc)} · ${escapeHtml(h.label)} — suppressed, trumped within the same condition hierarchy</li>`).join('');
-      const unmappedRows = r.unmapped.map((c) => `<li class="text-graphite">${escapeHtml(c)} — not risk-adjusting</li>`).join('');
+      const survivingRows = r.survivors.map((h) => `<li>${escapeHtml(h.hcc_code)} · ${escapeHtml(h.label)} <span class="text-graphite">(+${parseFloat(h.coefficient).toFixed(3)})</span></li>`).join('');
+      const suppressedRows = r.suppressed.map((s) => `<li class="text-graphite">${escapeHtml(s.code)} — suppressed, superseded by ${escapeHtml(s.supersededBy)} (real exclusion list)</li>`).join('');
+      const unmappedRows = r.unmapped.map((c) => `<li class="text-graphite">${escapeHtml(c)} — no HCC in this sample crosswalk</li>`).join('');
       return `
         <div class="p-4 border hairline rounded bg-bone">
           <div class="flex justify-between items-baseline gap-3">
-            <div class="caps">${escapeHtml(r.patientId)} · age ${r.age} · ${escapeHtml(r.gender)}</div>
+            <div class="caps">${escapeHtml(r.patient_id)} · age ${r.age} · ${escapeHtml(r.gender)}</div>
             <div class="text-[15px] font-medium whitespace-nowrap">${r.totalScore.toFixed(3)}</div>
           </div>
-          <div class="mt-2 text-[13px] text-graphite">Demographic factor: ${r.demoFactor.toFixed(3)}</div>
+          <div class="mt-2 text-[13px] text-graphite">Risk model segment: ${escapeHtml(r.modelCode || 'unmatched — no segment for this combination')} · age band ${escapeHtml(r.band)} · demographic factor ${r.demoFactor.toFixed(3)}${r.demoRow ? '' : ' (no seed row found)'}</div>
           ${survivingRows ? `<ul class="mt-2 text-[13.5px] space-y-1">${survivingRows}</ul>` : ''}
           ${(suppressedRows || unmappedRows) ? `<ul class="mt-2 text-[12.5px] space-y-1">${suppressedRows}${unmappedRows}</ul>` : ''}
         </div>`;
@@ -1704,13 +1990,150 @@ P-6,63,M,E11.9;E11.22</textarea>
       <div class="space-y-3">${detailCards}</div>`;
   }
 
+  wireFileUpload('risk-patients-file', 'risk-patients');
+  wireFileUpload('risk-demo-seed-file', 'risk-demo-seed');
+  wireFileUpload('risk-disease-seed-file', 'risk-disease-seed');
+
   document.getElementById('risk-run').addEventListener('click', () => {
     try {
-      const patients = parseRiskCsv(document.getElementById('risk-input').value);
-      renderRiskOutput(patients);
+      const patients = parsePatientsCsv(document.getElementById('risk-patients').value);
+      const demoSeed = parseSeedCsv(document.getElementById('risk-demo-seed').value, DEMOGRAPHIC_SEED_FIELD_SYNONYMS);
+      const diseaseSeed = parseSeedCsv(document.getElementById('risk-disease-seed').value, DISEASE_SEED_FIELD_SYNONYMS);
+      renderRiskOutput(patients, demoSeed, diseaseSeed);
     } catch (err) {
       console.error(err);
       setStatus('risk-status', `Error: ${err.message}`);
+    }
+  });
+
+  /* ---------------- Demo 12: Encounter grouping across sources ---------------- */
+  // The four chaining rules below are copied from an actual open-source healthcare-
+  // data dbt project's real emergency-department encounter-grouping model. That
+  // model computes connected groups via a row-closure SQL trick (rank claims per
+  // patient, then find each claim's nearest later "closing" claim); a union-find
+  // over the same pairwise merge conditions produces identical groupings.
+
+  const ENCOUNTER_CLAIM_FIELD_SYNONYMS = {
+    claim_id: ['claim_id', 'claimid', 'claim number', 'claim_number'],
+    person_id: ['person_id', 'patient_id', 'member_id'],
+    claim_type: ['claim_type', 'type'],
+    start_date: ['start_date', 'service_start_date', 'from_date'],
+    end_date: ['end_date', 'service_end_date', 'thru_date', 'to_date'],
+    facility_npi: ['facility_npi', 'billing_npi', 'npi'],
+    discharge_disposition_code: ['discharge_disposition_code', 'discharge_disposition', 'discharge_code']
+  };
+
+  function parseEncounterClaimsFile(text) {
+    const lines = text.trim().split('\n').map((l) => l.trim()).filter(Boolean);
+    const headers = lines[0].split(',').map((h) => h.trim());
+    const map = autoMapHeaders(headers, ENCOUNTER_CLAIM_FIELD_SYNONYMS);
+    return lines.slice(1).map((line) => {
+      const cells = line.split(',').map((c) => c.trim());
+      const raw = {};
+      headers.forEach((h, i) => { raw[h] = cells[i] ?? ''; });
+      const row = {};
+      Object.keys(ENCOUNTER_CLAIM_FIELD_SYNONYMS).forEach((field) => { row[field] = map[field] ? raw[map[field]] : ''; });
+      return {
+        claimId: row.claim_id, personId: row.person_id, claimType: row.claim_type,
+        startDate: row.start_date, endDate: row.end_date,
+        facilityNpi: row.facility_npi || null, dischargeDispositionCode: row.discharge_disposition_code || null,
+        source: 'Claims file'
+      };
+    });
+  }
+
+  // Maps the standard public FHIR Encounter resource shape into the same canonical
+  // fields — a simplified stand-in for the project's own FHIR-ingestion connectors.
+  function parseFhirEncounters(text) {
+    const resources = JSON.parse(text);
+    return resources.map((r) => ({
+      claimId: r.id,
+      personId: (r.subject && r.subject.reference || '').replace('Patient/', ''),
+      claimType: r.class && r.class.code === 'AMB' ? 'professional' : 'institutional',
+      startDate: r.period && r.period.start,
+      endDate: r.period && r.period.end,
+      facilityNpi: r.serviceProvider && r.serviceProvider.identifier ? r.serviceProvider.identifier.value : null,
+      dischargeDispositionCode: r.hospitalization && r.hospitalization.dischargeDisposition
+        ? (r.hospitalization.dischargeDisposition.coding || [])[0]?.code : null,
+      source: 'FHIR Encounter feed'
+    }));
+  }
+
+  function oneDayLater(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() + 1);
+    return d.toISOString().slice(0, 10);
+  }
+
+  // Real rules, checked in order, aa always earlier than bb in date/claim_id order.
+  function claimsShouldMerge(aa, bb) {
+    if (aa.endDate === bb.endDate && aa.facilityNpi && bb.facilityNpi && aa.facilityNpi === bb.facilityNpi) return true;
+    if (aa.facilityNpi && bb.facilityNpi && aa.facilityNpi === bb.facilityNpi
+      && aa.dischargeDispositionCode === '30' && oneDayLater(aa.endDate) === bb.startDate) return true;
+    if (aa.endDate !== bb.endDate && aa.facilityNpi && bb.facilityNpi && aa.facilityNpi === bb.facilityNpi
+      && aa.endDate >= bb.startDate) return true;
+    if ((aa.claimType === 'professional' || bb.claimType === 'professional') && oneDayLater(aa.endDate) >= bb.startDate) return true;
+    return false;
+  }
+
+  function groupIntoEncounters(claims) {
+    const byPerson = {};
+    claims.forEach((c) => { (byPerson[c.personId] = byPerson[c.personId] || []).push(c); });
+    const allGroups = [];
+    Object.values(byPerson).forEach((personClaims) => {
+      const sorted = [...personClaims].sort((a, b) =>
+        a.endDate !== b.endDate ? a.endDate.localeCompare(b.endDate)
+          : a.startDate !== b.startDate ? a.startDate.localeCompare(b.startDate)
+            : a.claimId.localeCompare(b.claimId));
+      const uf = makeUnionFind(sorted.length);
+      for (let i = 0; i < sorted.length; i++) {
+        for (let j = i + 1; j < sorted.length; j++) {
+          if (claimsShouldMerge(sorted[i], sorted[j])) uf.union(i, j);
+        }
+      }
+      const groups = {};
+      for (let i = 0; i < sorted.length; i++) {
+        const root = uf.find(i);
+        (groups[root] = groups[root] || []).push(sorted[i]);
+      }
+      allGroups.push(...Object.values(groups));
+    });
+    return allGroups;
+  }
+
+  function renderEncounterOutput(claims) {
+    const groups = groupIntoEncounters(claims);
+    const sources = new Set(claims.map((c) => c.source));
+    setStatus('encounter-status', `${claims.length} claims across ${sources.size} source shapes → ${groups.length} encounter${groups.length === 1 ? '' : 's'}.`);
+
+    const groupHtml = groups.map((g, idx) => {
+      const rows = g.map((c) => `
+        <li class="py-2 border-t hairline text-[13.5px]">
+          <span class="text-graphite">${escapeHtml(c.source)}</span> — ${escapeHtml(c.claimId)} (${escapeHtml(c.claimType)}), ${escapeHtml(c.startDate)} to ${escapeHtml(c.endDate)}${c.dischargeDispositionCode ? `, discharge ${escapeHtml(c.dischargeDispositionCode)}` : ''}
+        </li>`).join('');
+      return `
+        <div class="p-4 border hairline rounded bg-bone">
+          <div class="caps mb-2">Encounter ${idx + 1} · ${g.length} claim${g.length === 1 ? '' : 's'}</div>
+          <ul>${rows}</ul>
+        </div>`;
+    }).join('<div class="h-3"></div>');
+
+    document.getElementById('encounter-output').innerHTML = `
+      <div class="caps mb-3">Grouped encounters</div>
+      <div class="space-y-3">${groupHtml}</div>`;
+  }
+
+  wireFileUpload('encounter-claims-file', 'encounter-claims-input');
+  wireFileUpload('encounter-fhir-file', 'encounter-fhir-input');
+
+  document.getElementById('encounter-run').addEventListener('click', () => {
+    try {
+      const claimsFileRows = parseEncounterClaimsFile(document.getElementById('encounter-claims-input').value);
+      const fhirRows = parseFhirEncounters(document.getElementById('encounter-fhir-input').value);
+      renderEncounterOutput([...claimsFileRows, ...fhirRows]);
+    } catch (err) {
+      console.error(err);
+      setStatus('encounter-status', `Error: ${err.message}`);
     }
   });
 </script>
