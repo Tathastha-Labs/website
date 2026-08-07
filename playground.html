@@ -12,17 +12,21 @@
   <meta property="og:url" content="https://tathastha.com/playground.html"/>
   <meta property="og:title" content="Tathastha Labs — Playground"/>
   <meta property="og:description" content="An in-browser AI playground: clinical NER, image classification, disease detection, speech-to-note generation, and invoice processing. Everything runs locally in your browser."/>
+  <meta property="og:image" content="https://tathastha.com/img/demo-ner.jpg"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="https://tathastha.com/img/demo-ner.jpg"/>
 
   <link rel="icon" type="image/svg+xml" href="/tathastha-labs-icon-light.svg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Material+Symbols+Outlined:wght,FILL@100..500,0..1&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
+            // Original page tokens (kept — every existing class in this file uses these).
             ink:      '#1A1A1A',
             graphite: '#6B6B6B',
             mist:     '#A8A8A8',
@@ -30,11 +34,54 @@
             bone:     '#F2F0EA',
             noir:     '#0E0E0E',
             sage:     '#6C8884',
-            sageink:  '#3F5552'
+            sageink:  '#3F5552',
+            // Exact Stitch design-system palette, added alongside (same hex values under the
+            // original names above) so the full token set matches the shared design.
+            'text-muted': '#6B6B6B',
+            'botanical-green': '#6C8884',
+            'ink-black': '#1A1A1A',
+            'surface-cream': '#F2F0EA',
+            'surface': '#f9f9f6',
+            'background': '#f9f9f6',
+            'on-surface': '#1a1c1b',
+            'on-surface-variant': '#414847',
+            'outline': '#727877',
+            'outline-variant': '#c1c8c6',
+            'on-primary': '#ffffff',
+            // Light-blue accent, added alongside the existing botanical-green (kept as-is).
+            'sky-blue': '#7FA6C4',
+            'sky-blue-tint': '#E7EEF2',
+            'error': '#ba1a1a',
+            'error-container': '#ffdad6',
+            'surface-container-low': '#f4f4f1'
+          },
+          // Exact Stitch shape language: soft, near-square radii rather than true pills —
+          // this reskins every existing `rounded-full` button/label in this file automatically.
+          borderRadius: {
+            DEFAULT: '0.125rem',
+            lg: '0.25rem',
+            xl: '0.5rem',
+            full: '0.75rem'
+          },
+          spacing: {
+            'container-max': '1280px',
+            'gutter': '24px',
+            'margin-desktop': '64px',
+            'margin-mobile': '16px',
+            'base': '8px',
+            'section-gap': '120px'
           },
           fontFamily: {
             sans: ['Inter', 'Helvetica Neue', 'Segoe UI', 'Arial', 'sans-serif'],
-            serif: ['Fraunces', 'Georgia', 'Times New Roman', 'serif']
+            serif: ['EB Garamond', 'Georgia', 'Times New Roman', 'serif'],
+            'title-lg': ['Inter'],
+            'label-md': ['Inter'],
+            'label-sm': ['Inter']
+          },
+          fontSize: {
+            'title-lg': ['20px', { lineHeight: '28px', fontWeight: '600' }],
+            'label-md': ['14px', { lineHeight: '20px', letterSpacing: '0.05em', fontWeight: '600' }],
+            'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.08em', fontWeight: '500' }]
           },
           letterSpacing: {
             'tight-1': '-0.01em',
@@ -56,7 +103,17 @@
     .cta-sage:disabled { background: #A8A8A8; cursor: not-allowed; }
     .cta-outline { border: 1px solid rgba(0,0,0,0.55); color: #1A1A1A; transition: background 220ms ease, color 220ms ease; }
     .cta-outline:hover { background: #1A1A1A; color: #FAFAF7; }
-    .num { font-family: 'Fraunces', Georgia, serif; font-weight: 300; letter-spacing: -0.03em; }
+    .num { font-family: 'EB Garamond', Georgia, serif; font-weight: 400; letter-spacing: -0.03em; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.5,0,0,1), transform 0.8s cubic-bezier(0.5,0,0,1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .bento-card { transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease; }
+    .bento-card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(108,136,132,0.12); border-color: rgba(108,136,132,0.30); }
+    .demo-thumb { aspect-ratio: 16/9; object-fit: cover; border-radius: 6px; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .gallery-card { transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease; }
+    .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(108,136,132,0.14); border-color: rgba(108,136,132,0.35); }
+    .gallery-card:hover .gallery-img { transform: scale(1.05); }
+    .gallery-img { transition: transform 700ms ease; }
     textarea, input[type="file"] { font-family: inherit; }
     input[type="range"] { accent-color: #6C8884; }
     .field {
@@ -79,7 +136,7 @@
     .soap-note h4:first-child { margin-top: 0; }
   </style>
 </head>
-<body class="bg-paper text-ink font-sans antialiased">
+<body class="bg-bone text-ink font-sans antialiased">
 
 <!-- ============== NAV ============== -->
 <header class="sticky top-0 z-40 bg-paper/85 backdrop-blur border-b hairline">
@@ -120,24 +177,204 @@
 
 <!-- ============== HERO ============== -->
 <section class="max-w-7xl mx-auto px-6 md:px-10 pt-20 pb-14">
-  <div class="caps mb-6">Playground</div>
-  <h1 class="font-serif font-light text-[38px] sm:text-[50px] md:text-[62px] leading-[1.05] tracking-tight-2 max-w-4xl">
-    In-browser AI, running on your machine — not ours.
-  </h1>
-  <p class="mt-6 max-w-2xl text-[16px] md:text-[17px] leading-[1.7] text-graphite">
-    Nothing you type, record, or upload here is sent to Tathastha Labs or any server.
-  </p>
-  <div class="mt-8 border-l-2 border-sage/60 pl-5 max-w-2xl text-[13.5px] text-graphite leading-[1.7]">
-    <strong class="text-ink">Not a medical device.</strong> These tools illustrate the underlying AI capabilities in a
-    general way. They are not validated for clinical or diagnostic use, and none of the sample outputs should
-    inform real patient care.
+  <header class="max-w-3xl mx-auto text-center reveal">
+    <div class="inline-block px-4 py-1 border border-outline/20 rounded-full font-label-sm text-label-sm text-text-muted mb-8 uppercase tracking-widest">
+      <span class="material-symbols-outlined text-[16px] align-middle mr-1">science</span>Experimental AI Laboratory
+    </div>
+    <h1 class="font-serif font-light text-[38px] sm:text-[46px] md:text-[54px] leading-[1.05] tracking-tight-2">
+      In-browser AI, running on your machine — not ours.
+    </h1>
+    <p class="mt-6 max-w-2xl mx-auto text-[16px] md:text-[17px] leading-[1.7] text-graphite">
+      Nothing you type, record, or upload here is sent to Tathastha Labs or any server.
+    </p>
+    <div class="mt-8 bg-error-container/20 border border-error-container text-error px-6 py-4 rounded inline-block max-w-lg mx-auto">
+      <p class="font-label-sm text-label-sm uppercase flex items-center justify-center">
+        <span class="material-symbols-outlined mr-2 text-[18px]">warning</span>
+        Not a medical device — for demonstration only, not clinical or diagnostic use
+      </p>
+    </div>
+  </header>
+</section>
+
+<!-- ============== DEMO GALLERY (index into the full demos below) ============== -->
+<section class="max-w-7xl mx-auto px-6 md:px-10 pb-20">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/demo-ner.jpg" alt="A clinical named-entity recognition interface" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>45MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">01 — Transformers.js</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Clinical NER</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Extract patient, clinician, and facility names from raw clinical text using a named-entity model.</p>
+        <a href="#demo-ner" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/cap-computer-vision.jpg" alt="A workspace with a scanner and monitor for computer-vision pipelines" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>90MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">02 — Transformers.js</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Image Classification</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Classify any photo in-browser — upload, preprocess, inference, ranked output.</p>
+        <a href="#demo-image" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/hc-medical-data.jpg" alt="A clean clinical data visualization" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>65MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">03 — Transformers.js</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Disease Detection</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Recognize disease and condition mentions in clinical notes with a biomedical NER model.</p>
+        <a href="#demo-disease" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/demo-speech.jpg" alt="A minimalist speech-to-text medical interface with a live waveform" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>340MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">04 — Whisper + Qwen2.5</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Speech to SOAP Note</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Record a visit and get a structured note — transcription, then drafting, all on-device.</p>
+        <a href="#demo-soap" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/cap-finetune.jpg" alt="A professional document-processing scene with receipts being scanned" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>20MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">05 — OCR + Structuring</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Invoice Processing</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Photograph a receipt and extract vendor, date, and totals via OCR and a small instruct model.</p>
+        <a href="#demo-invoice" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>25MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">06 — Naive RAG</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Retrieval-Augmented Q&amp;A</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Upload a document and ask it questions — retrieve, then generate, entirely on-device.</p>
+        <a href="#demo-rag" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation with configurable overlap" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>Local
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">07 — Advanced RAG</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Controlled Chunk Overlap</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">The same retrieval pattern, with chunk overlap you control so split facts aren't missed.</p>
+        <a href="#demo-rag-advanced" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/demo-rag.jpg" alt="A cross-encoder reranking data visualization" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>15MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">08 — Reranking</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">RAG with Reranking</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Cast a wider net, then re-score candidates with a cross-encoder for a stronger final answer.</p>
+        <a href="#demo-rag-rerank" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/hc-data-engineering.jpg" alt="A clean, structured data-engineering pipeline visualization" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>JS Only
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">09 — Data Quality</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Claims Normalization</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Vote across claim lines and classify fields valid/invalid/null — real logic from an open-source healthcare-data project.</p>
+        <a href="#demo-claims" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/demo-patient-matching.jpg" alt="A probabilistic record-linkage visualization: two digital patient records being compared" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>JS Only
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">10 — Splink Model</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Patient Record Matching</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Probabilistic record linkage with real trained weights — the same math behind patient-matching engines.</p>
+        <a href="#demo-empi" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/hc-risk-scoring.jpg" alt="A translucent panel showing a healthcare risk-scoring model with an overall risk score" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>JS Only
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">11 — CMS-HCC</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Risk Score Calculator</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Real CMS-HCC demographic and hierarchy logic, with your own coefficients — no invented numbers.</p>
+        <a href="#demo-risk" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/hc-data-architecture.jpg" alt="Abstract visualization of interconnected data nodes, representing linked records across sources" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>JS Only
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">12 — Data Chaining</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Encounter Grouping</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Group claims from a flat file and a FHIR feed into one real-world encounter using real chaining rules.</p>
+        <a href="#demo-encounter" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ============== DEMO 1: CLINICAL NER ============== -->
-<section id="demo-ner" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-ner" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4">
+      <img src="img/demo-ner.jpg" alt="A clinical named-entity recognition interface highlighting disease and condition mentions in a note" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">01 · Clinical NER</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Extract clinical entities from a note.
@@ -161,9 +398,10 @@
 </section>
 
 <!-- ============== DEMO 2: IMAGE CLASSIFICATION ============== -->
-<section id="demo-image" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-image" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4">
+      <img src="img/cap-computer-vision.jpg" alt="A professional workspace with a desktop scanner and monitor used for computer-vision pipelines" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">02 · Image classification</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Classify any image, in-browser.
@@ -181,7 +419,7 @@
           Choose an image
         </label>
         <input type="file" id="img-input" accept="image/*" class="hidden"/>
-        <img id="img-preview" class="hidden w-40 h-40 object-cover rounded border hairline"/>
+        <img id="img-preview" alt="Preview of the image you selected" class="hidden w-40 h-40 object-cover rounded border hairline"/>
       </div>
       <div class="mt-4 flex items-center gap-4 flex-wrap">
         <button id="img-run" class="cta-sage rounded-full text-[14px] px-6 py-3" disabled>Classify image</button>
@@ -193,9 +431,10 @@
 </section>
 
 <!-- ============== DEMO 3: DISEASE ENTITY DETECTION ============== -->
-<section id="demo-disease" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-disease" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4">
+      <img src="img/hc-medical-data.jpg" alt="A clean clinical data visualization highlighting disease and condition entities" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">03 · Disease detection</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Find disease mentions in a note.
@@ -218,9 +457,10 @@
 </section>
 
 <!-- ============== DEMO 4: SPEECH -> SOAP ============== -->
-<section id="demo-soap" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-soap" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4">
+      <img src="img/demo-speech.jpg" alt="A minimalist speech-to-text medical interface with a live waveform" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">04 · Speech to SOAP note</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Record a visit. Get a structured note.
@@ -258,9 +498,10 @@
 </section>
 
 <!-- ============== DEMO 5: INVOICE / RECEIPT PROCESSING ============== -->
-<section id="demo-invoice" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-invoice" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4">
+      <img src="img/cap-finetune.jpg" alt="A professional document-processing scene with receipts and invoices being scanned" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">05 · Invoice &amp; receipt processing</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Photograph a receipt. Get structured fields.
@@ -303,9 +544,10 @@
 </section>
 
 <!-- ============== DEMO 6: RAG (ASK YOUR DOCUMENT) ============== -->
-<section id="demo-rag" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-rag" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4">
+      <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation, matching passages to a question" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">06 · Retrieval-augmented Q&amp;A</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Upload a document. Ask it questions.
@@ -348,9 +590,10 @@
 </section>
 
 <!-- ============== DEMO 7: ADVANCED RAG (CONFIGURABLE OVERLAP) ============== -->
-<section id="demo-rag-advanced" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-rag-advanced" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4">
+      <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation, matching passages to a question" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">07 · Advanced RAG</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Same idea, with chunk overlap you control.
@@ -398,9 +641,10 @@
 </section>
 
 <!-- ============== DEMO 8: RAG WITH RERANKING ============== -->
-<section id="demo-rag-rerank" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-rag-rerank" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4">
+      <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation, matching passages to a question" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">08 · RAG with reranking</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Cast a wider net, then re-score it.
@@ -427,9 +671,10 @@
 </section>
 
 <!-- ============== DEMO 9: CLAIMS DATA NORMALIZER ============== -->
-<section id="demo-claims" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-claims" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4 min-w-0">
+      <img src="img/hc-data-engineering.jpg" alt="A sophisticated, clean data-engineering pipeline visualization" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">09 · Claims data normalization</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Line-level claims. One claim-level answer.
@@ -470,9 +715,10 @@ C-2,2,3,1861234567,J44.9,-40.00</textarea>
 </section>
 
 <!-- ============== DEMO 10: PATIENT RECORD MATCHING ============== -->
-<section id="demo-empi" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-empi" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4 min-w-0">
+      <img src="img/demo-patient-matching.jpg" alt="A probabilistic record-linkage visualization: two digital patient records being compared" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">10 · Patient record matching</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Probabilistic record linkage, the Fellegi-Sunter way.
@@ -501,9 +747,10 @@ C-2,2,3,1861234567,J44.9,-40.00</textarea>
 </section>
 
 <!-- ============== DEMO 11: RISK SCORE CALCULATOR ============== -->
-<section id="demo-risk" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-risk" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4 min-w-0">
+      <img src="img/hc-risk-scoring.jpg" alt="A translucent panel showing a healthcare risk-scoring model with condition-level contributions and an overall risk score" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">11 · Risk score calculator</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Real classification logic. Your own coefficients.
@@ -574,9 +821,10 @@ HCC327,End-stage renal disease,0.420,,N18.6</textarea>
 </section>
 
 <!-- ============== DEMO 12: ENCOUNTER GROUPING ACROSS SOURCES ============== -->
-<section id="demo-encounter" class="max-w-7xl mx-auto px-6 md:px-10 py-14 border-t hairline">
-  <div class="grid md:grid-cols-12 gap-10">
+<section id="demo-encounter" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
     <div class="md:col-span-4 min-w-0">
+      <img src="img/hc-data-architecture.jpg" alt="Abstract visualization of interconnected data nodes, representing linked records across sources" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">12 · Encounter grouping across sources</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
         Two claims, two sources, one visit.
@@ -2136,6 +2384,73 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       setStatus('encounter-status', `Error: ${err.message}`);
     }
   });
+</script>
+
+<!-- ============== SCROLL REVEAL + HERO ANIMATION (purely visual, no demo logic) ============== -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { root: null, rootMargin: '0px', threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+  });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<script>
+  (function () {
+    var container = document.getElementById('hero-sphere-container');
+    if (!container || typeof THREE === 'undefined') return;
+
+    var width = container.clientWidth || 300;
+    var height = container.clientHeight || 280;
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio || 1);
+    container.appendChild(renderer.domElement);
+
+    var geometry = new THREE.IcosahedronGeometry(2, 2);
+    var material = new THREE.MeshPhongMaterial({ color: 0x6c8884, wireframe: true, transparent: true, opacity: 0.6, shininess: 100 });
+    var sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+
+    var coreGeometry = new THREE.IcosahedronGeometry(1.2, 1);
+    var coreMaterial = new THREE.MeshLambertMaterial({ color: 0x7fa6c4, transparent: true, opacity: 0.35 });
+    var core = new THREE.Mesh(coreGeometry, coreMaterial);
+    scene.add(core);
+
+    scene.add(new THREE.AmbientLight(0x404040, 2));
+    var pointLight = new THREE.PointLight(0xffffff, 2, 100);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    camera.position.z = 5;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      sphere.rotation.y += 0.004;
+      sphere.rotation.x += 0.0015;
+      core.rotation.y -= 0.0025;
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', function () {
+      var w = container.clientWidth || width;
+      var h = container.clientHeight || height;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+
+    animate();
+  })();
 </script>
 
 </body>

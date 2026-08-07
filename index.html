@@ -13,12 +13,15 @@
   <meta property="og:url" content="https://tathastha.com/"/>
   <meta property="og:title" content="Tathastha Labs — Neutral intelligence for data &amp; AI"/>
   <meta property="og:description" content="Tathastha Labs builds evidence-led data science and applied AI for regulated, high-stakes industries. Interoperable, audited, and quietly fast."/>
-  <meta property="og:image" content="https://tathastha.com/tathastha-labs-logo-preview.html"/>
+  <meta property="og:image" content="https://tathastha.com/img/hero-lab.jpg"/>
+  <meta property="og:image:width" content="1376"/>
+  <meta property="og:image:height" content="768"/>
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Tathastha Labs — Neutral intelligence for data &amp; AI"/>
   <meta name="twitter:description" content="Tathastha Labs builds evidence-led data science and applied AI for regulated, high-stakes industries. Interoperable, audited, and quietly fast."/>
+  <meta name="twitter:image" content="https://tathastha.com/img/hero-lab.jpg"/>
 
   <!-- Schema.org Organization -->
   <script type="application/ld+json">
@@ -37,34 +40,144 @@
   }
   </script>
 
+  <!-- Schema.org FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do you handle data privacy and de-identification?",
+        "acceptedAnswer": { "@type": "Answer", "text": "All engagements operate under a data processing agreement suited to your regulatory environment — a BAA in healthcare, equivalent frameworks elsewhere. We use industry-standard de-identification methods with documented re-identification risk assessments regardless of domain." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you integrate with our existing systems?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — we integrate with the systems of record you already run, whatever the domain: EHRs in healthcare, or their equivalents elsewhere. If you don't have an interoperability layer, we can stand one up." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you train your own models, or wrap third-party APIs?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Whichever is right for the problem. We fine-tune and train where data and risk justify it; we use frontier APIs (with proper data agreements) where they're the better tool. Either way you get the evaluation evidence to back the choice." }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a typical engagement look like?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A two-week Discovery, an 8–12 week pilot, and — if outcomes hold — a Pod engagement that scales the program. We commit to a no-fault exit at the end of each phase." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you publish or open-source your work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "We publish methodology and tooling where it's ours to publish, and we open-source the parts that benefit the broader ecosystem — never client data or differentiated IP. We'll always tell you what we'd like to share before we share it." }
+      }
+    ]
+  }
+  </script>
+
   <link rel="icon" type="image/svg+xml" href="tathastha-labs-icon-light.svg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: "class",
       theme: {
         extend: {
           colors: {
-            ink:      '#1A1A1A',
-            graphite: '#6B6B6B',
-            mist:     '#A8A8A8',
-            paper:    '#FAFAF7',
-            bone:     '#F2F0EA',
-            noir:     '#0E0E0E',
-            sage:     '#6C8884',   // single subtle accent
-            sageink:  '#3F5552'
+            "text-muted": "#6B6B6B",
+            "on-tertiary-fixed-variant": "#474746",
+            "error": "#ba1a1a",
+            "botanical-green": "#6C8884",
+            "surface-container-high": "#e8e8e5",
+            "error-container": "#ffdad6",
+            "secondary-container": "#fed65b",
+            "surface-bright": "#f9f9f6",
+            "on-error-container": "#93000a",
+            "on-error": "#ffffff",
+            "ink-black": "#1A1A1A",
+            "background": "#f9f9f6",
+            "on-surface": "#1a1c1b",
+            "on-tertiary-fixed": "#1c1b1b",
+            "tertiary-container": "#757474",
+            "outline-variant": "#c1c8c6",
+            "on-surface-variant": "#414847",
+            "on-tertiary-container": "#f7feff",
+            "on-secondary-fixed": "#241a00",
+            "surface-tint": "#486460",
+            "primary": "#46615d",
+            "primary-container": "#5e7a76",
+            "primary-fixed": "#cbe9e4",
+            "on-primary-container": "#f3fffc",
+            "primary-fixed-dim": "#afccc8",
+            "tertiary-fixed-dim": "#c8c6c5",
+            "surface-variant": "#e2e3e0",
+            "secondary-fixed-dim": "#e9c349",
+            "outline": "#727877",
+            "inverse-surface": "#2f312f",
+            "tertiary-fixed": "#e5e2e1",
+            "inverse-on-surface": "#f1f1ee",
+            "surface-container-low": "#f4f4f1",
+            "on-primary-fixed": "#03201d",
+            "on-secondary-fixed-variant": "#574500",
+            "on-background": "#1a1c1b",
+            "on-secondary": "#ffffff",
+            "surface-dim": "#dadad7",
+            "surface-container-highest": "#e2e3e0",
+            "secondary-fixed": "#ffe088",
+            "on-primary-fixed-variant": "#314c48",
+            "tertiary": "#5d5c5b",
+            "surface-container": "#eeeeeb",
+            "surface-cream": "#F2F0EA",
+            "inverse-primary": "#afccc8",
+            "on-primary": "#ffffff",
+            "on-secondary-container": "#745c00",
+            "surface-container-lowest": "#ffffff",
+            "secondary": "#735c00",
+            "on-tertiary": "#ffffff",
+            "surface": "#f9f9f6",
+            // Light-blue accent, added alongside the existing botanical-green (kept as-is).
+            "sky-blue": "#7FA6C4",
+            "sky-blue-dim": "#5F86A4",
+            "sky-blue-tint": "#E7EEF2",
+            "on-sky-blue": "#ffffff"
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          spacing: {
+            "container-max": "1280px",
+            "gutter": "24px",
+            "margin-desktop": "64px",
+            "margin-mobile": "16px",
+            "base": "8px",
+            "section-gap": "120px"
           },
           fontFamily: {
-            sans: ['Inter', 'Helvetica Neue', 'Segoe UI', 'Arial', 'sans-serif'],
-            serif: ['Fraunces', 'Georgia', 'Times New Roman', 'serif']
+            "headline-md": ["EB Garamond"],
+            "body-lg": ["Inter"],
+            "display-lg": ["EB Garamond"],
+            "display-lg-mobile": ["EB Garamond"],
+            "body-md": ["Inter"],
+            "title-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["EB Garamond"]
           },
-          letterSpacing: {
-            'tight-1': '-0.01em',
-            'tight-2': '-0.02em',
-            'wide-3':  '0.18em',
-            'wide-4':  '0.28em'
+          fontSize: {
+            "headline-md": ["32px", { lineHeight: "40px", fontWeight: "500" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "500" }],
+            "display-lg-mobile": ["36px", { lineHeight: "42px", fontWeight: "500" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "title-lg": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+            "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+            "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "500" }],
+            "headline-sm": ["24px", { lineHeight: "32px", fontWeight: "600" }]
           }
         }
       }
@@ -73,43 +186,25 @@
   <style>
     html { scroll-behavior: smooth; }
     body { font-feature-settings: "ss01","cv11"; }
-    .rule { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.12), transparent); height: 1px; }
-    .hairline { border-color: rgba(0,0,0,0.10); }
     .caps { text-transform: uppercase; letter-spacing: 0.28em; font-size: 11px; font-weight: 500; color: #6B6B6B; }
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(0,0,0,0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,0.045) 1px, transparent 1px);
-      background-size: 56px 56px;
-      background-position: -1px -1px;
-    }
-    .cta-sage {
-      background: #1A1A1A; color: #FAFAF7;
-      transition: background 220ms ease, transform 220ms ease;
-    }
-    .cta-sage:hover { background: #3F5552; }
-    .cta-outline {
-      border: 1px solid rgba(0,0,0,0.55); color: #1A1A1A;
-      transition: background 220ms ease, color 220ms ease, border-color 220ms ease;
-    }
-    .cta-outline:hover { background: #1A1A1A; color: #FAFAF7; border-color: #1A1A1A; }
-    .underline-sage { box-shadow: inset 0 -0.32em 0 rgba(108,136,132,0.35); }
-    .num {
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 300; letter-spacing: -0.03em;
-    }
-    .cap-card:hover .cap-indicator { background: #6C8884; }
     details > summary { list-style: none; cursor: pointer; }
     details > summary::-webkit-details-marker { display: none; }
     details[open] .chev { transform: rotate(45deg); }
     .chev { transition: transform 220ms ease; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.5,0,0,1), transform 0.8s cubic-bezier(0.5,0,0,1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .bento-card { transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease; }
+    .bento-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(108,136,132,0.14); border-color: rgba(108,136,132,0.35); }
+    .bento-img { aspect-ratio: 16/10; object-fit: cover; }
   </style>
 </head>
-<body class="bg-paper text-ink font-sans antialiased">
+<body class="bg-background text-on-surface font-body-md antialiased">
 
 <!-- ============== NAV ============== -->
-<header class="sticky top-0 z-40 bg-paper/85 backdrop-blur border-b hairline">
-  <div class="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+<header class="sticky top-0 z-40 bg-surface/85 backdrop-blur-md border-b border-outline/10">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-16 flex items-center justify-between">
     <a href="#top" class="flex items-center gap-3 group">
       <svg viewBox="0 0 220 220" class="w-9 h-9" aria-hidden="true">
         <g transform="translate(110,110)">
@@ -133,213 +228,254 @@
           <circle cx="0" cy="0" r="7" fill="#FAFAF7"/>
         </g>
       </svg>
-      <span class="font-light text-[19px] tracking-tight-1">Tathastha <span class="text-graphite">Labs</span></span>
+      <span class="font-headline-sm text-headline-sm text-ink-black tracking-tight">Tathastha <span class="text-text-muted">Labs</span></span>
     </a>
-    <nav class="hidden md:flex items-center gap-8 text-[14px] text-graphite">
-      <a href="#ai" class="hover:text-ink">Capabilities</a>
-      <a href="#industries" class="hover:text-ink">Industries</a>
-      <a href="#outcomes" class="hover:text-ink">Outcomes</a>
-      <a href="#process" class="hover:text-ink">Process</a>
-      <a href="playground.html" class="hover:text-ink">Playground</a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#ai" class="text-on-surface-variant hover:text-ink-black transition-colors font-label-md text-label-md">Capabilities</a>
+      <a href="#industries" class="text-on-surface-variant hover:text-ink-black transition-colors font-label-md text-label-md">Industries</a>
+      <a href="#outcomes" class="text-on-surface-variant hover:text-ink-black transition-colors font-label-md text-label-md">Outcomes</a>
+      <a href="#process" class="text-on-surface-variant hover:text-ink-black transition-colors font-label-md text-label-md">Process</a>
+      <a href="playground.html" class="text-on-surface-variant hover:text-ink-black transition-colors font-label-md text-label-md">Playground</a>
     </nav>
-    <a href="#contact" class="cta-sage rounded-full text-[13px] px-4 py-2 tracking-tight-1">Start a sprint</a>
+    <a href="#contact" class="inline-flex items-center justify-center bg-botanical-green text-on-primary px-4 py-2 rounded font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-opacity">Start a sprint</a>
   </div>
 </header>
 
 <!-- ============== HERO ============== -->
-<section id="top" class="relative overflow-hidden">
-  <div class="absolute inset-0 grid-bg opacity-70 pointer-events-none"></div>
-  <div class="relative max-w-7xl mx-auto px-6 md:px-10 pt-24 pb-28 md:pt-32 md:pb-36">
-    <div class="caps mb-8">Data science · Applied AI · Domain engineering</div>
-    <h1 class="font-serif font-light text-[44px] sm:text-[58px] md:text-[78px] leading-[1.02] tracking-tight-2 max-w-5xl">
-      An impartial laboratory<br/>
-      for data
-      <span class="underline-sage">and AI.</span>
-    </h1>
-    <p class="mt-8 max-w-2xl text-[17px] md:text-[18px] leading-[1.65] text-graphite">
-      We design evidence-led data systems and applied AI for regulated, high-stakes industries —
-      engineered for accuracy, audited for trust, and tuned to the domain in front of you.
-      We started in healthcare; the same engine travels.
-    </p>
-    <div class="mt-10 flex flex-col sm:flex-row gap-3">
-      <a href="#contact" class="cta-sage rounded-full text-[14px] px-6 py-3 tracking-tight-1">Start a discovery sprint</a>
-      <a href="#ai" class="cta-outline rounded-full text-[14px] px-6 py-3">See what we build →</a>
-    </div>
-
-    <!-- Trust strip -->
-    <div class="mt-16 pt-10 border-t hairline">
-      <div class="caps mb-4">Built for regulated environments</div>
-      <div class="flex flex-wrap gap-x-10 gap-y-3 text-[13px] text-ink/80 font-medium">
-        <span>SOC 2 Type II</span><span>ISO 27001</span><span>GDPR</span><span>Data processing agreements</span><span>Encryption at rest &amp; in transit</span>
+<section id="top" class="relative min-h-[80vh] flex items-center px-margin-mobile md:px-margin-desktop py-section-gap overflow-hidden">
+  <div class="absolute inset-0 z-0 opacity-20">
+    <img src="img/hero-lab.jpg" alt="Abstract wireframe data-network installation, rendered in the brand's botanical green, evoking an AI research lab" class="w-full h-full object-cover"/>
+  </div>
+  <div class="w-full max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter relative z-10">
+    <div class="lg:col-span-7 flex flex-col justify-center reveal">
+      <div class="flex flex-wrap gap-3 items-center mb-6">
+        <span class="font-label-sm text-label-sm text-text-muted uppercase tracking-widest border border-outline/20 rounded-full px-3 py-1">Data science</span>
+        <span class="font-label-sm text-label-sm text-text-muted uppercase tracking-widest border border-outline/20 rounded-full px-3 py-1">Applied AI</span>
+        <span class="font-label-sm text-label-sm text-text-muted uppercase tracking-widest border border-outline/20 rounded-full px-3 py-1">Domain engineering</span>
       </div>
+      <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-ink-black mb-8 max-w-3xl">
+        An impartial laboratory<br/>
+        <span class="text-text-muted">for data and AI.</span>
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-12">
+        We design evidence-led data systems and applied AI for regulated, high-stakes industries —
+        engineered for accuracy, audited for trust, and tuned to the domain in front of you.
+        We started in healthcare; the same engine travels.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+        <a href="#contact" class="inline-flex items-center justify-center bg-botanical-green text-on-primary px-8 py-4 rounded font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-opacity">Start a discovery sprint</a>
+        <a href="#ai" class="inline-flex items-center gap-2 text-ink-black font-label-md text-label-md border-b border-ink-black pb-1 hover:text-botanical-green hover:border-botanical-green transition-colors">
+          See what we build
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+    <div class="hidden lg:block lg:col-span-5 relative h-[440px] reveal" style="transition-delay: 150ms;">
+      <div class="absolute inset-0 overflow-hidden" id="hero-sphere-container" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== TRUST STRIP ============== -->
+<section class="py-12 border-y border-outline/10 bg-surface-cream reveal">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+    <p class="font-label-sm text-label-sm text-text-muted uppercase text-center mb-8 tracking-widest">Built for regulated environments</p>
+    <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center opacity-80">
+      <span class="font-label-md text-label-md text-ink-black flex items-center gap-2"><span class="material-symbols-outlined">verified_user</span> SOC 2 Type II</span>
+      <span class="font-label-md text-label-md text-ink-black flex items-center gap-2"><span class="material-symbols-outlined">policy</span> ISO 27001</span>
+      <span class="font-label-md text-label-md text-ink-black flex items-center gap-2"><span class="material-symbols-outlined">gavel</span> GDPR</span>
+      <span class="font-label-md text-label-md text-ink-black flex items-center gap-2"><span class="material-symbols-outlined">description</span> Data processing agreements</span>
+      <span class="font-label-md text-label-md text-ink-black flex items-center gap-2"><span class="material-symbols-outlined">lock</span> Encryption at rest &amp; in transit</span>
     </div>
   </div>
 </section>
 
 <!-- ============== ANCHOR STRIP ============== -->
-<section class="border-y hairline bg-bone">
-  <div class="max-w-7xl mx-auto px-6 md:px-10 py-10 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-6 text-[13px]">
+<section class="border-b border-outline/10 bg-surface-cream">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-6">
     <a href="#ai-decision" class="group flex items-start gap-3">
-      <span class="cap-indicator mt-[7px] w-1.5 h-1.5 rounded-full bg-mist transition-colors"></span>
-      <span class="block">
-        <span class="caps mb-1 block">01</span>
-        <span class="text-ink group-hover:underline">Decision Intelligence</span>
-      </span>
+      <span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-botanical-green transition-colors"></span>
+      <span class="block"><span class="caps mb-1 block">01</span><span class="font-body-md text-body-md text-ink-black group-hover:underline">Decision Intelligence</span></span>
     </a>
     <a href="#ai-imaging" class="group flex items-start gap-3">
-      <span class="cap-indicator mt-[7px] w-1.5 h-1.5 rounded-full bg-mist transition-colors"></span>
-      <span class="block">
-        <span class="caps mb-1 block">02</span>
-        <span class="text-ink group-hover:underline">Computer Vision &amp; Imaging</span>
-      </span>
+      <span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-botanical-green transition-colors"></span>
+      <span class="block"><span class="caps mb-1 block">02</span><span class="font-body-md text-body-md text-ink-black group-hover:underline">Computer Vision &amp; Imaging</span></span>
     </a>
     <a href="#ai-monitoring" class="group flex items-start gap-3">
-      <span class="cap-indicator mt-[7px] w-1.5 h-1.5 rounded-full bg-mist transition-colors"></span>
-      <span class="block">
-        <span class="caps mb-1 block">03</span>
-        <span class="text-ink group-hover:underline">Predictive Monitoring</span>
-      </span>
+      <span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-botanical-green transition-colors"></span>
+      <span class="block"><span class="caps mb-1 block">03</span><span class="font-body-md text-body-md text-ink-black group-hover:underline">Predictive Monitoring</span></span>
     </a>
     <a href="#ai-genai" class="group flex items-start gap-3">
-      <span class="cap-indicator mt-[7px] w-1.5 h-1.5 rounded-full bg-mist transition-colors"></span>
-      <span class="block">
-        <span class="caps mb-1 block">04</span>
-        <span class="text-ink group-hover:underline">Generative Assistants</span>
-      </span>
+      <span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-botanical-green transition-colors"></span>
+      <span class="block"><span class="caps mb-1 block">04</span><span class="font-body-md text-body-md text-ink-black group-hover:underline">Generative Assistants</span></span>
     </a>
     <a href="#ai-data" class="group flex items-start gap-3">
-      <span class="cap-indicator mt-[7px] w-1.5 h-1.5 rounded-full bg-mist transition-colors"></span>
-      <span class="block">
-        <span class="caps mb-1 block">05</span>
-        <span class="text-ink group-hover:underline">Data Engineering</span>
-      </span>
+      <span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-botanical-green transition-colors"></span>
+      <span class="block"><span class="caps mb-1 block">05</span><span class="font-body-md text-body-md text-ink-black group-hover:underline">Data Engineering</span></span>
     </a>
     <a href="#ai-llm" class="group flex items-start gap-3">
-      <span class="cap-indicator mt-[7px] w-1.5 h-1.5 rounded-full bg-mist transition-colors"></span>
-      <span class="block">
-        <span class="caps mb-1 block">06</span>
-        <span class="text-ink group-hover:underline">LLM Integration</span>
-      </span>
+      <span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-botanical-green transition-colors"></span>
+      <span class="block"><span class="caps mb-1 block">06</span><span class="font-body-md text-body-md text-ink-black group-hover:underline">LLM Integration</span></span>
     </a>
     <a href="#ai-agentic" class="group flex items-start gap-3">
-      <span class="cap-indicator mt-[7px] w-1.5 h-1.5 rounded-full bg-mist transition-colors"></span>
-      <span class="block">
-        <span class="caps mb-1 block">07</span>
-        <span class="text-ink group-hover:underline">Agentic Systems</span>
-      </span>
+      <span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-botanical-green transition-colors"></span>
+      <span class="block"><span class="caps mb-1 block">07</span><span class="font-body-md text-body-md text-ink-black group-hover:underline">Agentic Systems</span></span>
     </a>
     <a href="#ai-finetune" class="group flex items-start gap-3">
-      <span class="cap-indicator mt-[7px] w-1.5 h-1.5 rounded-full bg-mist transition-colors"></span>
-      <span class="block">
-        <span class="caps mb-1 block">08</span>
-        <span class="text-ink group-hover:underline">Fine-tuning &amp; Adaptation</span>
-      </span>
+      <span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-outline-variant group-hover:bg-botanical-green transition-colors"></span>
+      <span class="block"><span class="caps mb-1 block">08</span><span class="font-body-md text-body-md text-ink-black group-hover:underline">Fine-tuning &amp; Adaptation</span></span>
     </a>
   </div>
 </section>
 
-<!-- ============== AI SECTION ============== -->
-<section id="ai" class="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-32">
-  <div class="grid md:grid-cols-12 gap-10">
-    <div class="md:col-span-4">
+<!-- ============== AI / OPERATIONAL REALITY SECTION ============== -->
+<section id="ai" class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface">
+  <div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+    <div class="lg:col-span-5 reveal">
       <div class="caps mb-4">Capabilities</div>
-      <h2 class="font-serif font-light text-[36px] md:text-[46px] leading-[1.08] tracking-tight-2">
-        AI built around operational reality,<br/> not benchmarks.
+      <h2 class="font-headline-md text-headline-md text-ink-black mb-6">
+        AI built around operational reality,<br/><span class="text-text-muted">not benchmarks.</span>
       </h2>
-    </div>
-    <div class="md:col-span-7 md:col-start-6 self-end">
-      <p class="text-[16px] md:text-[17px] leading-[1.7] text-graphite max-w-xl">
+      <p class="font-body-md text-body-md text-on-surface-variant mb-8">
         Every model we ship has to earn its place in a workflow. We start from the front line, the record,
         and the constraints — then bring the math to meet them. Models arrive with their assumptions
         documented, their failure modes mapped, and a human in the loop wherever it matters.
       </p>
+      <div class="flex items-center gap-4 text-botanical-green font-label-sm text-label-sm uppercase tracking-widest border border-botanical-green/30 rounded-full px-4 py-2 w-max">
+        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">eco</span>
+        Evidence-led
+      </div>
+    </div>
+    <div class="lg:col-span-6 lg:col-start-7 reveal" style="transition-delay: 150ms;">
+      <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-outline/10 bg-surface-cream">
+        <img src="img/office-desk.jpg" alt="A data workstation in a bright office, with dashboards for applied AI and domain engineering on a wide monitor" class="w-full h-full object-cover"/>
+      </div>
     </div>
   </div>
 
-  <div class="mt-16 grid md:grid-cols-2 gap-x-12 gap-y-14">
+  <!-- Capability bento grid -->
+  <div class="max-w-container-max mx-auto mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Cap 1 -->
-    <article id="ai-decision" class="cap-card group">
-      <div class="flex items-baseline gap-4 mb-4">
-        <span class="num text-[42px] text-graphite">01</span>
-        <h3 class="text-[20px] tracking-tight-1 font-medium">Decision Intelligence</h3>
+    <article id="ai-decision" class="bento-card border border-outline/10 rounded-xl overflow-hidden bg-surface reveal">
+      <img src="img/cap-decision-intelligence.jpg" alt="A framed glass display in a lab showing a decision-intelligence framework: data ingest, model flow, and a verification log" class="bento-img w-full"/>
+      <div class="p-7">
+        <span class="font-label-sm text-label-sm text-text-muted mb-4 border border-outline/20 rounded-full px-2 py-1 inline-block">01</span>
+        <h3 class="font-headline-sm text-headline-sm text-ink-black mb-4">Decision Intelligence</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-4">
+          Risk-stratification and recommendation engines built on graded evidence, with the reasoning surfaced
+          so a domain expert can agree, override, or audit at a glance.
+        </p>
+        <ul class="space-y-2 font-body-md text-body-md text-on-surface-variant">
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Segment-level risk scoring with calibration reports</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Policy-grounded recommendation engines</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Explainability built into every output</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Human-in-the-loop review surfaces inside your systems of record</li>
+        </ul>
       </div>
-      <p class="text-graphite text-[15px] leading-[1.7] mb-4">
-        Risk-stratification and recommendation engines built on graded evidence, with the reasoning surfaced
-        so a domain expert can agree, override, or audit at a glance.
-      </p>
-      <ul class="text-[14px] text-ink/85 space-y-2 border-l hairline pl-5">
-        <li>Segment-level risk scoring with calibration reports</li>
-        <li>Policy-grounded recommendation engines</li>
-        <li>Explainability built into every output</li>
-        <li>Human-in-the-loop review surfaces inside your systems of record</li>
-      </ul>
     </article>
     <!-- Cap 2 -->
-    <article id="ai-imaging" class="cap-card group">
-      <div class="flex items-baseline gap-4 mb-4">
-        <span class="num text-[42px] text-graphite">02</span>
-        <h3 class="text-[20px] tracking-tight-1 font-medium">Computer Vision &amp; Imaging</h3>
+    <article id="ai-imaging" class="bento-card border border-outline/10 rounded-xl overflow-hidden bg-surface reveal" style="transition-delay: 80ms;">
+      <img src="img/cap-computer-vision.jpg" alt="A professional workspace with a desktop scanner and monitor used for computer-vision and imaging pipelines" class="bento-img w-full"/>
+      <div class="p-7">
+        <span class="font-label-sm text-label-sm text-text-muted mb-4 border border-outline/20 rounded-full px-2 py-1 inline-block">02</span>
+        <h3 class="font-headline-sm text-headline-sm text-ink-black mb-4">Computer Vision &amp; Imaging</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-4">
+          Detection, segmentation, and triage models trained on domain-native pipelines, with drift monitoring
+          for the population you actually serve.
+        </p>
+        <ul class="space-y-2 font-body-md text-body-md text-on-surface-variant">
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Modality-aware preprocessing for structured and unstructured imagery</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>De-identification and sensitive-data scrubbing at ingest</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Continuous recalibration against population and data drift</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>UIs co-designed with the specialists who'll read the output</li>
+        </ul>
       </div>
-      <p class="text-graphite text-[15px] leading-[1.7] mb-4">
-        Detection, segmentation, and triage models trained on domain-native pipelines, with drift monitoring
-        for the population you actually serve.
-      </p>
-      <ul class="text-[14px] text-ink/85 space-y-2 border-l hairline pl-5">
-        <li>Modality-aware preprocessing for structured and unstructured imagery</li>
-        <li>De-identification and sensitive-data scrubbing at ingest</li>
-        <li>Continuous recalibration against population and data drift</li>
-        <li>UIs co-designed with the specialists who'll read the output</li>
-      </ul>
     </article>
     <!-- Cap 3 -->
-    <article id="ai-monitoring" class="cap-card group">
-      <div class="flex items-baseline gap-4 mb-4">
-        <span class="num text-[42px] text-graphite">03</span>
-        <h3 class="text-[20px] tracking-tight-1 font-medium">Predictive Monitoring</h3>
+    <article id="ai-monitoring" class="bento-card border border-outline/10 rounded-xl overflow-hidden bg-surface reveal" style="transition-delay: 160ms;">
+      <img src="img/cap-predictive-monitoring.jpg" alt="A sleek dashboard showing real-time predictive-monitoring signals and confidence intervals" class="bento-img w-full"/>
+      <div class="p-7">
+        <span class="font-label-sm text-label-sm text-text-muted mb-4 border border-outline/20 rounded-full px-2 py-1 inline-block">03</span>
+        <h3 class="font-headline-sm text-headline-sm text-ink-black mb-4">Predictive Monitoring</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-4">
+          Early-warning signals on streaming operational data — anomalies, degradation, risk —
+          delivered at the right place in the workflow with the right confidence interval.
+        </p>
+        <ul class="space-y-2 font-body-md text-body-md text-on-surface-variant">
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Streaming inference at edge and cloud</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Closed-loop alerts wired into the systems you already run</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Alert-fatigue budgets baked into model thresholds</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Outcome dashboards for the quality and ops team</li>
+        </ul>
       </div>
-      <p class="text-graphite text-[15px] leading-[1.7] mb-4">
-        Early-warning signals on streaming operational data — anomalies, degradation, risk —
-        delivered at the right place in the workflow with the right confidence interval.
-      </p>
-      <ul class="text-[14px] text-ink/85 space-y-2 border-l hairline pl-5">
-        <li>Streaming inference at edge and cloud</li>
-        <li>Closed-loop alerts wired into the systems you already run</li>
-        <li>Alert-fatigue budgets baked into model thresholds</li>
-        <li>Outcome dashboards for the quality and ops team</li>
-      </ul>
     </article>
-    <!-- Cap 4 -->
-    <article id="ai-genai" class="cap-card group">
-      <div class="flex items-baseline gap-4 mb-4">
-        <span class="num text-[42px] text-graphite">04</span>
-        <h3 class="text-[20px] tracking-tight-1 font-medium">Generative Assistants</h3>
+    <!-- Cap 4 (accent) -->
+    <article id="ai-genai" class="bento-card border border-outline/10 rounded-xl overflow-hidden bg-botanical-green text-on-primary reveal">
+      <img src="img/cap-generative-assistants.jpg" alt="A clean workspace showing a generative assistant drafting structured notes and workflow copy" class="bento-img w-full"/>
+      <div class="p-7">
+        <span class="font-label-sm text-label-sm text-primary-fixed mb-4 border border-primary-fixed/30 rounded-full px-2 py-1 inline-block">04</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-primary mb-4">Generative Assistants</h3>
+        <p class="font-body-md text-body-md text-on-primary-container mb-4">
+          Ambient documentation, multilingual support copy, and workflow copilots — grounded
+          in your sources, evaluated against safety rubrics before they ever ship.
+        </p>
+        <ul class="space-y-2 font-body-md text-body-md text-on-primary-container">
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-on-primary text-sm mt-1">check</span>Ambient assistants drafting structured records and summaries</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-on-primary text-sm mt-1">check</span>Retrieval-grounded triage and support over your own protocols</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-on-primary text-sm mt-1">check</span>Audience-facing copy in 30+ languages</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-on-primary text-sm mt-1">check</span>Red-team and hallucination evaluation suites</li>
+        </ul>
       </div>
-      <p class="text-graphite text-[15px] leading-[1.7] mb-4">
-        Ambient documentation, multilingual support copy, and workflow copilots — grounded
-        in your sources, evaluated against safety rubrics before they ever ship.
-      </p>
-      <ul class="text-[14px] text-ink/85 space-y-2 border-l hairline pl-5">
-        <li>Ambient assistants drafting structured records and summaries</li>
-        <li>Retrieval-grounded triage and support over your own protocols</li>
-        <li>Audience-facing copy in 30+ languages</li>
-        <li>Red-team and hallucination evaluation suites</li>
-      </ul>
     </article>
-    <!-- Cap 5 (full width) -->
-    <article id="ai-data" class="cap-card group md:col-span-2 mt-2 pt-10 border-t hairline">
-      <div class="grid md:grid-cols-12 gap-10">
+    <!-- Cap 5 -->
+    <article id="ai-llm" class="bento-card border border-outline/10 rounded-xl overflow-hidden bg-surface reveal" style="transition-delay: 80ms;">
+      <img src="img/cap-llm-integration.jpg" alt="A high-end workstation showing a large language model integration running inside a private environment" class="bento-img w-full"/>
+      <div class="p-7">
+        <span class="font-label-sm text-label-sm text-text-muted mb-4 border border-outline/20 rounded-full px-2 py-1 inline-block">06</span>
+        <h3 class="font-headline-sm text-headline-sm text-ink-black mb-4">LLM Integration</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-4">
+          Frontier and open-source large language models deployed safely inside your environment —
+          grounded in your sources, evaluated against accuracy rubrics, and privacy-preserving by design.
+        </p>
+        <ul class="space-y-2 font-body-md text-body-md text-on-surface-variant">
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>On-prem and VPC inference for privacy-safe deployments</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>RAG pipelines over your guidelines, policies, and reference material</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Structured output extraction from unstructured documents</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-botanical-green text-sm mt-1">check</span>Evaluation suites benchmarked against domain accuracy</li>
+        </ul>
+      </div>
+    </article>
+    <!-- Cap 6 -->
+    <article id="ai-agentic" class="bento-card border border-outline/10 rounded-xl overflow-hidden bg-sky-blue text-on-sky-blue reveal" style="transition-delay: 160ms;">
+      <img src="img/cap-agentic-systems.jpg" alt="A glass panel diagram of an agentic system: an autonomous workflow routed through human-review checkpoints" class="bento-img w-full"/>
+      <div class="p-7">
+        <span class="font-label-sm text-label-sm text-sky-blue-tint mb-4 border border-sky-blue-tint/30 rounded-full px-2 py-1 inline-block">07</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-sky-blue mb-4">Agentic Systems</h3>
+        <p class="font-body-md text-body-md text-sky-blue-tint mb-4">
+          Multi-step autonomous agents that navigate line-of-business workflows, coordinate cross-team tasks, and handle
+          approvals — with human-in-the-loop guardrails and a full audit trail on every action.
+        </p>
+        <ul class="space-y-2 font-body-md text-body-md text-sky-blue-tint">
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-on-sky-blue text-sm mt-1">check</span>Tool-using agents for system navigation and coding or classification tasks</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-on-sky-blue text-sm mt-1">check</span>Multi-agent orchestration (LangGraph, AutoGen, custom)</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-on-sky-blue text-sm mt-1">check</span>Cross-team coordination workflows with escalation logic</li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-on-sky-blue text-sm mt-1">check</span>Explainable action logs for compliance and review</li>
+        </ul>
+      </div>
+    </article>
+    <!-- Cap 7 (full width) -->
+    <article id="ai-data" class="bento-card md:col-span-2 lg:col-span-3 border-t border-outline/10 pt-10 mt-2 reveal">
+      <div class="grid md:grid-cols-12 gap-gutter">
         <div class="md:col-span-5">
-          <div class="flex items-baseline gap-4 mb-4">
-            <span class="num text-[42px] text-graphite">05</span>
-            <h3 class="text-[20px] tracking-tight-1 font-medium">Data Engineering</h3>
-          </div>
-          <p class="text-graphite text-[15px] leading-[1.7]">
+          <span class="font-label-sm text-label-sm text-text-muted mb-4 border border-outline/20 rounded-full px-2 py-1 inline-block">05</span>
+          <h3 class="font-headline-sm text-headline-sm text-ink-black mb-4">Data Engineering</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">
             The unglamorous foundation: pipelines that handle your industry's data standards without
             silent data loss, with audit logs on every transformation and feature stores tuned for
             the way your signals actually behave.
           </p>
         </div>
-        <ul class="md:col-span-7 grid sm:grid-cols-2 gap-x-8 gap-y-2 text-[14px] text-ink/85 border-l hairline pl-6">
+        <ul class="md:col-span-7 grid sm:grid-cols-2 gap-x-8 gap-y-2 font-body-md text-body-md text-on-surface-variant border-l border-outline/10 pl-6">
           <li>Standards-native ingest, whatever your domain's format</li>
           <li>De-identification and synthetic cohort generation</li>
           <li>Feature stores for time-varying signals</li>
@@ -349,55 +485,19 @@
         </ul>
       </div>
     </article>
-    <!-- Cap 6 -->
-    <article id="ai-llm" class="cap-card group pt-10 border-t hairline">
-      <div class="flex items-baseline gap-4 mb-4">
-        <span class="num text-[42px] text-graphite">06</span>
-        <h3 class="text-[20px] tracking-tight-1 font-medium">LLM Integration</h3>
-      </div>
-      <p class="text-graphite text-[15px] leading-[1.7] mb-4">
-        Frontier and open-source large language models deployed safely inside your environment —
-        grounded in your sources, evaluated against accuracy rubrics, and privacy-preserving by design.
-      </p>
-      <ul class="text-[14px] text-ink/85 space-y-2 border-l hairline pl-5">
-        <li>On-prem and VPC inference for privacy-safe deployments</li>
-        <li>RAG pipelines over your guidelines, policies, and reference material</li>
-        <li>Structured output extraction from unstructured documents</li>
-        <li>Evaluation suites benchmarked against domain accuracy</li>
-      </ul>
-    </article>
-    <!-- Cap 7 -->
-    <article id="ai-agentic" class="cap-card group pt-10 border-t hairline">
-      <div class="flex items-baseline gap-4 mb-4">
-        <span class="num text-[42px] text-graphite">07</span>
-        <h3 class="text-[20px] tracking-tight-1 font-medium">Agentic Systems</h3>
-      </div>
-      <p class="text-graphite text-[15px] leading-[1.7] mb-4">
-        Multi-step autonomous agents that navigate line-of-business workflows, coordinate cross-team tasks, and handle
-        approvals — with human-in-the-loop guardrails and a full audit trail on every action.
-      </p>
-      <ul class="text-[14px] text-ink/85 space-y-2 border-l hairline pl-5">
-        <li>Tool-using agents for system navigation and coding or classification tasks</li>
-        <li>Multi-agent orchestration (LangGraph, AutoGen, custom)</li>
-        <li>Cross-team coordination workflows with escalation logic</li>
-        <li>Explainable action logs for compliance and review</li>
-      </ul>
-    </article>
     <!-- Cap 8 (full width) -->
-    <article id="ai-finetune" class="cap-card group md:col-span-2 pt-10 border-t hairline">
-      <div class="grid md:grid-cols-12 gap-10">
+    <article id="ai-finetune" class="bento-card md:col-span-2 lg:col-span-3 border-t border-outline/10 pt-10 reveal">
+      <div class="grid md:grid-cols-12 gap-gutter">
         <div class="md:col-span-5">
-          <div class="flex items-baseline gap-4 mb-4">
-            <span class="num text-[42px] text-graphite">08</span>
-            <h3 class="text-[20px] tracking-tight-1 font-medium">Fine-tuning &amp; Adaptation</h3>
-          </div>
-          <p class="text-graphite text-[15px] leading-[1.7]">
+          <span class="font-label-sm text-label-sm text-text-muted mb-4 border border-outline/20 rounded-full px-2 py-1 inline-block">08</span>
+          <h3 class="font-headline-sm text-headline-sm text-ink-black mb-4">Fine-tuning &amp; Adaptation</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">
             Domain-specific model adaptation on your data — from efficient LoRA runs to
             full RLHF alignment — so the model reflects your protocols, your population, and your
             standards of practice.
           </p>
         </div>
-        <ul class="md:col-span-7 grid sm:grid-cols-2 gap-x-8 gap-y-2 text-[14px] text-ink/85 border-l hairline pl-6">
+        <ul class="md:col-span-7 grid sm:grid-cols-2 gap-x-8 gap-y-2 font-body-md text-body-md text-on-surface-variant border-l border-outline/10 pl-6">
           <li>PEFT / LoRA fine-tuning on domain corpora</li>
           <li>RLHF and expert-feedback alignment</li>
           <li>Synthetic data generation for training augmentation</li>
@@ -411,31 +511,31 @@
 </section>
 
 <!-- ============== MID-PAGE CTA ============== -->
-<section class="bg-ink text-paper">
-  <div class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 grid md:grid-cols-12 gap-8 items-end">
+<section class="bg-ink-black text-surface-bright">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-20 grid md:grid-cols-12 gap-gutter items-end">
     <div class="md:col-span-8">
-      <div class="caps text-paper/60 mb-3">From whiteboard to pilot</div>
-      <h3 class="font-serif font-light text-[30px] md:text-[42px] leading-[1.08] tracking-tight-2">
+      <div class="font-label-sm text-label-sm text-surface-bright/60 uppercase tracking-widest mb-3">From whiteboard to pilot</div>
+      <h3 class="font-headline-md text-headline-md">
         A working pilot in about eight weeks —<br/>or a clear, honest answer that it isn't the right time.
       </h3>
     </div>
     <div class="md:col-span-4 md:text-right">
-      <a href="#contact" class="inline-block rounded-full px-6 py-3 text-[14px] bg-paper text-ink hover:bg-sage hover:text-paper transition">Book a discovery call</a>
+      <a href="#contact" class="inline-flex items-center justify-center bg-botanical-green text-on-primary px-6 py-3 rounded font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-opacity">Book a discovery call</a>
     </div>
   </div>
 </section>
 
 <!-- ============== INDUSTRIES SECTION ============== -->
-<section id="industries" class="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-32">
-  <div class="grid md:grid-cols-12 gap-10">
-    <div class="md:col-span-4">
+<section id="industries" class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface">
+  <div class="max-w-container-max mx-auto grid md:grid-cols-12 gap-gutter">
+    <div class="md:col-span-4 reveal">
       <div class="caps mb-4">Industries</div>
-      <h2 class="font-serif font-light text-[36px] md:text-[46px] leading-[1.08] tracking-tight-2">
+      <h2 class="font-headline-md text-headline-md text-ink-black">
         One engine, applied where the stakes are highest.
       </h2>
     </div>
-    <div class="md:col-span-7 md:col-start-6 self-end">
-      <p class="text-[16px] md:text-[17px] leading-[1.7] text-graphite max-w-xl">
+    <div class="md:col-span-7 md:col-start-6 self-end reveal">
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">
         We built our practice inside healthcare because it rewards rigor and punishes shortcuts.
         The same engine — evidence-led data systems, audited AI, quiet reliability — travels.
         Here's where we're active, and where we're headed.
@@ -443,191 +543,258 @@
     </div>
   </div>
 
-  <div class="mt-16 grid md:grid-cols-2 gap-px bg-ink/10">
-    <a href="industries/healthcare.html" class="group bg-paper p-10 flex flex-col justify-between hover:bg-bone transition-colors">
+  <div class="max-w-container-max mx-auto mt-16 grid md:grid-cols-2 gap-px bg-outline/10">
+    <a href="industries/healthcare.html" class="group bg-surface p-10 flex flex-col justify-between hover:bg-surface-cream transition-colors reveal">
       <div>
         <div class="caps mb-6">Active</div>
-        <h3 class="font-serif font-light text-[26px] tracking-tight-2 mb-4">Healthcare &amp; Life Sciences</h3>
-        <p class="text-[14.5px] text-graphite leading-[1.7]">
+        <h3 class="font-headline-sm text-headline-sm text-ink-black mb-4">Healthcare &amp; Life Sciences</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant">
           EHR modernisation, clinical decision support, imaging, interoperability, remote monitoring,
           and revenue-cycle intelligence — for hospitals, providers, and health-tech teams.
         </p>
       </div>
-      <div class="mt-8 text-[14px] text-ink font-medium group-hover:underline">Explore healthcare →</div>
+      <div class="mt-8 font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1">Explore healthcare <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
     </a>
-    <div class="bg-paper p-10 flex flex-col justify-between">
+    <div class="bg-surface p-10 flex flex-col justify-between reveal">
       <div>
         <div class="caps mb-6">In development</div>
-        <h3 class="font-serif font-light text-[26px] tracking-tight-2 mb-4 text-graphite">Your industry, next</h3>
-        <p class="text-[14.5px] text-graphite leading-[1.7]">
+        <h3 class="font-headline-sm text-headline-sm text-text-muted mb-4">Your industry, next</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant">
           We're scoping our second vertical now. If your industry runs on regulated, high-stakes data —
           finance, insurance, energy, public sector, or something else entirely — we'd like to hear the problem.
         </p>
       </div>
-      <a href="#contact" class="mt-8 text-[14px] text-ink font-medium hover:underline">Tell us about your industry →</a>
+      <a href="#contact" class="mt-8 font-label-md text-label-md text-ink-black hover:underline flex items-center gap-1">Tell us about your industry <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
     </div>
   </div>
 </section>
 
 <!-- ============== OUTCOMES / METRICS ============== -->
-<section id="outcomes" class="border-y hairline bg-bone">
-  <div class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-24">
-    <div class="caps mb-6">Selected outcomes</div>
-    <h3 class="font-serif font-light text-[28px] md:text-[36px] leading-[1.1] tracking-tight-2 max-w-3xl mb-6">
+<section id="outcomes" class="border-y border-outline/10 bg-surface-cream">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-20 md:py-24">
+    <div class="caps mb-6 reveal">Selected outcomes</div>
+    <h3 class="font-headline-md text-headline-md text-ink-black max-w-3xl mb-6 reveal">
       Numbers from work we've shipped — directional, measured, and verifiable on request.
     </h3>
-    <p class="text-[14px] text-graphite max-w-2xl mb-14">
+    <p class="font-body-md text-body-md text-text-muted max-w-2xl mb-14 reveal">
       Our outcomes to date are all from healthcare engagements, our first and currently only fully-built
-      vertical. <a href="industries/healthcare.html#outcomes" class="underline hover:text-ink">See the full breakdown →</a>
+      vertical. <a href="industries/healthcare.html#outcomes" class="underline hover:text-ink-black">See the full breakdown →</a>
     </p>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10">
-      <div class="bg-bone p-8">
-        <div class="num text-[64px] leading-none">38<span class="text-graphite text-[36px]">%</span></div>
-        <div class="mt-3 text-[14px] text-ink/85 leading-snug">less documentation time for clinicians at a 220-bed network using our ambient scribe</div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-outline/10">
+      <div class="bg-surface-cream p-8 reveal">
+        <div class="font-headline-md text-headline-md text-botanical-green">38%</div>
+        <div class="mt-3 font-body-md text-body-md text-on-surface leading-snug">less documentation time for clinicians at a 220-bed network using our ambient scribe</div>
       </div>
-      <div class="bg-bone p-8">
-        <div class="num text-[64px] leading-none">51<span class="text-graphite text-[36px]">%</span></div>
-        <div class="mt-3 text-[14px] text-ink/85 leading-snug">earlier sepsis flagging vs. rule-based baselines on a pilot ICU dataset</div>
+      <div class="bg-surface-cream p-8 reveal" style="transition-delay: 80ms;">
+        <div class="font-headline-md text-headline-md text-botanical-green">51%</div>
+        <div class="mt-3 font-body-md text-body-md text-on-surface leading-snug">earlier sepsis flagging vs. rule-based baselines on a pilot ICU dataset</div>
       </div>
-      <div class="bg-bone p-8">
-        <div class="num text-[64px] leading-none">4<span class="text-graphite text-[36px]">×</span></div>
-        <div class="mt-3 text-[14px] text-ink/85 leading-snug">faster claims adjudication for a value-based-care plan after RCM copilot rollout</div>
+      <div class="bg-surface-cream p-8 reveal" style="transition-delay: 160ms;">
+        <div class="font-headline-md text-headline-md text-botanical-green">4×</div>
+        <div class="mt-3 font-body-md text-body-md text-on-surface leading-snug">faster claims adjudication for a value-based-care plan after RCM copilot rollout</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============== PROCESS ============== -->
-<section id="process" class="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-28">
-  <div class="grid md:grid-cols-12 gap-10">
-    <div class="md:col-span-4">
+<section id="process" class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface">
+  <div class="max-w-container-max mx-auto reveal">
+    <div class="mb-16">
       <div class="caps mb-4">Process</div>
-      <h3 class="font-serif font-light text-[32px] md:text-[42px] leading-[1.08] tracking-tight-2">
-        Four steps. No surprises in any of them.
-      </h3>
+      <h3 class="font-headline-md text-headline-md text-ink-black">Four steps. No surprises in any of them.</h3>
     </div>
-    <div class="md:col-span-8 grid sm:grid-cols-2 gap-8">
-      <div class="border-t hairline pt-6">
-        <div class="num text-graphite text-[32px] leading-none">01</div>
-        <h4 class="mt-2 text-[18px] font-medium tracking-tight-1">Discover</h4>
-        <p class="text-[14.5px] text-graphite leading-[1.7] mt-2">We sit with the data, the workflow, and the constraints — and write down what we think before we touch a line of code.</p>
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="relative reveal">
+        <div class="hidden md:block absolute top-4 left-6 w-full h-[1px] bg-outline/20 z-0"></div>
+        <div class="relative z-10 w-8 h-8 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-label-sm text-label-sm text-ink-black mb-6">01</div>
+        <h4 class="font-title-lg text-title-lg text-ink-black mb-2">Discover</h4>
+        <p class="font-body-md text-body-md text-on-surface-variant">We sit with the data, the workflow, and the constraints — and write down what we think before we touch a line of code.</p>
       </div>
-      <div class="border-t hairline pt-6">
-        <div class="num text-graphite text-[32px] leading-none">02</div>
-        <h4 class="mt-2 text-[18px] font-medium tracking-tight-1">Design</h4>
-        <p class="text-[14.5px] text-graphite leading-[1.7] mt-2">Architecture, model selection, evaluation rubric, and the UI — designed together so they don't fight each other later.</p>
+      <div class="relative reveal" style="transition-delay: 80ms;">
+        <div class="hidden md:block absolute top-4 left-6 w-full h-[1px] bg-outline/20 z-0"></div>
+        <div class="relative z-10 w-8 h-8 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-label-sm text-label-sm text-ink-black mb-6">02</div>
+        <h4 class="font-title-lg text-title-lg text-ink-black mb-2">Design</h4>
+        <p class="font-body-md text-body-md text-on-surface-variant">Architecture, model selection, evaluation rubric, and the UI — designed together so they don't fight each other later.</p>
       </div>
-      <div class="border-t hairline pt-6">
-        <div class="num text-graphite text-[32px] leading-none">03</div>
-        <h4 class="mt-2 text-[18px] font-medium tracking-tight-1">Deliver</h4>
-        <p class="text-[14.5px] text-graphite leading-[1.7] mt-2">Two-week cadences, demo every Friday, production environments behind your firewall or in ours.</p>
+      <div class="relative reveal" style="transition-delay: 160ms;">
+        <div class="hidden md:block absolute top-4 left-6 w-full h-[1px] bg-outline/20 z-0"></div>
+        <div class="relative z-10 w-8 h-8 rounded-full bg-surface border border-outline/20 flex items-center justify-center font-label-sm text-label-sm text-ink-black mb-6">03</div>
+        <h4 class="font-title-lg text-title-lg text-ink-black mb-2">Deliver</h4>
+        <p class="font-body-md text-body-md text-on-surface-variant">Two-week cadences, demo every Friday, production environments behind your firewall or in ours.</p>
       </div>
-      <div class="border-t hairline pt-6">
-        <div class="num text-graphite text-[32px] leading-none">04</div>
-        <h4 class="mt-2 text-[18px] font-medium tracking-tight-1">Steward</h4>
-        <p class="text-[14.5px] text-graphite leading-[1.7] mt-2">Drift monitoring, periodic re-evaluation, and a clear path to hand the work back when you're ready to own it.</p>
+      <div class="relative reveal" style="transition-delay: 240ms;">
+        <div class="relative z-10 w-8 h-8 rounded-full bg-botanical-green flex items-center justify-center font-label-sm text-label-sm text-on-primary mb-6">04</div>
+        <h4 class="font-title-lg text-title-lg text-ink-black mb-2">Steward</h4>
+        <p class="font-body-md text-body-md text-on-surface-variant">Drift monitoring, periodic re-evaluation, and a clear path to hand the work back when you're ready to own it.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============== FAQ ============== -->
-<section class="bg-paper border-t hairline">
-  <div class="max-w-4xl mx-auto px-6 md:px-10 py-24">
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface border-t border-outline/10">
+  <div class="max-w-3xl mx-auto reveal">
     <div class="caps mb-4">Frequently asked</div>
-    <h3 class="font-serif font-light text-[28px] md:text-[36px] leading-[1.1] tracking-tight-2 mb-10">A few of the questions we hear most.</h3>
-    <div class="divide-y hairline border-y hairline">
+    <h3 class="font-headline-md text-headline-md text-ink-black mb-10">A few of the questions we hear most.</h3>
+    <div class="divide-y divide-outline/10 border-y border-outline/10">
       <details class="py-5 group">
-        <summary class="flex items-center justify-between text-[16px] font-medium">
+        <summary class="flex items-center justify-between font-title-lg text-title-lg text-ink-black">
           <span>How do you handle data privacy and de-identification?</span>
-          <span class="chev text-graphite text-xl leading-none">+</span>
+          <span class="material-symbols-outlined chev text-text-muted">add</span>
         </summary>
-        <p class="mt-3 text-[14.5px] text-graphite leading-[1.7]">All engagements operate under a data processing agreement suited to your regulatory environment — a BAA in healthcare, equivalent frameworks elsewhere. We use industry-standard de-identification methods with documented re-identification risk assessments regardless of domain.</p>
+        <p class="mt-3 font-body-md text-body-md text-on-surface-variant pb-4">All engagements operate under a data processing agreement suited to your regulatory environment — a BAA in healthcare, equivalent frameworks elsewhere. We use industry-standard de-identification methods with documented re-identification risk assessments regardless of domain.</p>
       </details>
       <details class="py-5 group">
-        <summary class="flex items-center justify-between text-[16px] font-medium">
+        <summary class="flex items-center justify-between font-title-lg text-title-lg text-ink-black">
           <span>Can you integrate with our existing systems?</span>
-          <span class="chev text-graphite text-xl leading-none">+</span>
+          <span class="material-symbols-outlined chev text-text-muted">add</span>
         </summary>
-        <p class="mt-3 text-[14.5px] text-graphite leading-[1.7]">Yes — we integrate with the systems of record you already run, whatever the domain: EHRs in healthcare, or their equivalents elsewhere. If you don't have an interoperability layer, we can stand one up.</p>
+        <p class="mt-3 font-body-md text-body-md text-on-surface-variant pb-4">Yes — we integrate with the systems of record you already run, whatever the domain: EHRs in healthcare, or their equivalents elsewhere. If you don't have an interoperability layer, we can stand one up.</p>
       </details>
       <details class="py-5 group">
-        <summary class="flex items-center justify-between text-[16px] font-medium">
+        <summary class="flex items-center justify-between font-title-lg text-title-lg text-ink-black">
           <span>Do you train your own models, or wrap third-party APIs?</span>
-          <span class="chev text-graphite text-xl leading-none">+</span>
+          <span class="material-symbols-outlined chev text-text-muted">add</span>
         </summary>
-        <p class="mt-3 text-[14.5px] text-graphite leading-[1.7]">Whichever is right for the problem. We fine-tune and train where data and risk justify it; we use frontier APIs (with proper data agreements) where they're the better tool. Either way you get the evaluation evidence to back the choice.</p>
+        <p class="mt-3 font-body-md text-body-md text-on-surface-variant pb-4">Whichever is right for the problem. We fine-tune and train where data and risk justify it; we use frontier APIs (with proper data agreements) where they're the better tool. Either way you get the evaluation evidence to back the choice.</p>
       </details>
       <details class="py-5 group">
-        <summary class="flex items-center justify-between text-[16px] font-medium">
+        <summary class="flex items-center justify-between font-title-lg text-title-lg text-ink-black">
           <span>What does a typical engagement look like?</span>
-          <span class="chev text-graphite text-xl leading-none">+</span>
+          <span class="material-symbols-outlined chev text-text-muted">add</span>
         </summary>
-        <p class="mt-3 text-[14.5px] text-graphite leading-[1.7]">A two-week Discovery, an 8–12 week pilot, and — if outcomes hold — a Pod engagement that scales the program. We commit to a no-fault exit at the end of each phase.</p>
+        <p class="mt-3 font-body-md text-body-md text-on-surface-variant pb-4">A two-week Discovery, an 8–12 week pilot, and — if outcomes hold — a Pod engagement that scales the program. We commit to a no-fault exit at the end of each phase.</p>
       </details>
       <details class="py-5 group">
-        <summary class="flex items-center justify-between text-[16px] font-medium">
+        <summary class="flex items-center justify-between font-title-lg text-title-lg text-ink-black">
           <span>Do you publish or open-source your work?</span>
-          <span class="chev text-graphite text-xl leading-none">+</span>
+          <span class="material-symbols-outlined chev text-text-muted">add</span>
         </summary>
-        <p class="mt-3 text-[14.5px] text-graphite leading-[1.7]">We publish methodology and tooling where it's ours to publish, and we open-source the parts that benefit the broader ecosystem — never client data or differentiated IP. We'll always tell you what we'd like to share before we share it.</p>
+        <p class="mt-3 font-body-md text-body-md text-on-surface-variant pb-4">We publish methodology and tooling where it's ours to publish, and we open-source the parts that benefit the broader ecosystem — never client data or differentiated IP. We'll always tell you what we'd like to share before we share it.</p>
       </details>
     </div>
   </div>
 </section>
 
 <!-- ============== FINAL CTA / CONTACT ============== -->
-<section id="contact" class="bg-noir text-paper">
-  <div class="max-w-5xl mx-auto px-6 md:px-10 py-24 text-center">
-    <div class="caps text-paper/55 mb-4">Talk to the team</div>
-    <h3 class="font-serif font-light text-[36px] md:text-[52px] leading-[1.06] tracking-tight-2">
-      Have a problem worth getting right?
-    </h3>
-    <p class="mt-6 max-w-xl mx-auto text-paper/70 text-[16px] leading-[1.7]">
+<section id="contact" class="py-section-gap px-margin-mobile md:px-margin-desktop bg-ink-black text-surface-bright text-center reveal">
+  <div class="max-w-2xl mx-auto">
+    <div class="font-label-sm text-label-sm text-surface-bright/55 uppercase tracking-widest mb-4">Talk to the team</div>
+    <h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6">Have a problem worth getting right?</h2>
+    <p class="font-body-lg text-body-lg text-surface-dim mb-12">
       Send the one paragraph you'd normally write to a colleague. We'll reply within two working days
       with whether we think we can help — and what we'd do first if we could.
     </p>
-    <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-      <a href="mailto:hello@tathasthalabs.com" class="rounded-full bg-paper text-ink px-6 py-3 text-[14px] hover:bg-sage hover:text-paper transition">hello@tathasthalabs.com</a>
-      <a href="#top" class="rounded-full border border-paper/40 text-paper px-6 py-3 text-[14px] hover:bg-paper hover:text-ink transition">Back to top</a>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="mailto:hello@tathasthalabs.com" class="inline-flex items-center justify-center bg-botanical-green text-on-primary px-6 py-3 rounded font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-opacity">hello@tathasthalabs.com</a>
+      <a href="#top" class="inline-flex items-center justify-center rounded border border-surface-bright/40 text-surface-bright px-6 py-3 font-label-md text-label-md uppercase tracking-widest hover:bg-surface-bright hover:text-ink-black transition-colors">Back to top</a>
     </div>
   </div>
 </section>
 
 <!-- ============== FOOTER ============== -->
-<footer class="bg-noir text-paper/60 border-t border-paper/10">
-  <div class="max-w-7xl mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-[13px]">
+<footer class="border-t border-outline/10 bg-surface-container-lowest">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 font-body-md text-body-md">
     <div class="flex items-center gap-3">
       <svg viewBox="0 0 220 220" class="w-7 h-7" aria-hidden="true">
         <g transform="translate(110,110)">
-          <circle cx="0" cy="0" r="82" fill="none" stroke="#F2F2F2" stroke-width="6"/>
-          <g stroke="#F2F2F2" stroke-width="4.5" fill="none">
+          <circle cx="0" cy="0" r="82" fill="none" stroke="#1A1A1A" stroke-width="6"/>
+          <g stroke="#1A1A1A" stroke-width="4.5" fill="none">
             <line x1="0" y1="0" x2="0" y2="-50"/>
             <line x1="0" y1="0" x2="43.3" y2="25"/>
             <line x1="0" y1="0" x2="-43.3" y2="25"/>
           </g>
-          <g fill="#F2F2F2">
+          <g fill="#1A1A1A">
             <circle cx="0" cy="-50" r="12"/>
             <circle cx="43.3" cy="25" r="12"/>
             <circle cx="-43.3" cy="25" r="12"/>
           </g>
-          <circle cx="0" cy="0" r="18" fill="#F2F2F2"/>
-          <circle cx="0" cy="0" r="7" fill="#0E0E0E"/>
+          <circle cx="0" cy="0" r="18" fill="#1A1A1A"/>
+          <circle cx="0" cy="0" r="7" fill="#FAFAF7"/>
         </g>
       </svg>
-      <span class="font-light text-paper text-[15px]">Tathastha Labs</span>
+      <span class="font-headline-sm text-headline-sm text-ink-black">Tathastha Labs</span>
     </div>
     <nav class="flex flex-wrap gap-x-6 gap-y-2">
-      <a href="#ai" class="hover:text-paper">Capabilities</a>
-      <a href="#industries" class="hover:text-paper">Industries</a>
-      <a href="#outcomes" class="hover:text-paper">Outcomes</a>
-      <a href="#process" class="hover:text-paper">Process</a>
-      <a href="playground.html" class="hover:text-paper">Playground</a>
-      <a href="#contact" class="hover:text-paper">Contact</a>
+      <a href="#ai" class="text-text-muted hover:text-ink-black transition-colors font-label-sm text-label-sm">Capabilities</a>
+      <a href="#industries" class="text-text-muted hover:text-ink-black transition-colors font-label-sm text-label-sm">Industries</a>
+      <a href="#outcomes" class="text-text-muted hover:text-ink-black transition-colors font-label-sm text-label-sm">Outcomes</a>
+      <a href="#process" class="text-text-muted hover:text-ink-black transition-colors font-label-sm text-label-sm">Process</a>
+      <a href="playground.html" class="text-text-muted hover:text-ink-black transition-colors font-label-sm text-label-sm">Playground</a>
+      <a href="#contact" class="text-text-muted hover:text-ink-black transition-colors font-label-sm text-label-sm">Contact</a>
     </nav>
-    <div class="text-paper/40">© 2026 Tathastha Labs. All rights reserved.</div>
+    <div class="font-label-sm text-label-sm text-text-muted">© 2026 Tathastha Labs. All rights reserved.</div>
   </div>
 </footer>
 
+<!-- ============== SCROLL REVEAL + HERO ANIMATION ============== -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { root: null, rootMargin: '0px', threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+  });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<script>
+  (function () {
+    var container = document.getElementById('hero-sphere-container');
+    if (!container || typeof THREE === 'undefined') return;
+
+    var width = container.clientWidth || 400;
+    var height = container.clientHeight || 440;
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio || 1);
+    container.appendChild(renderer.domElement);
+
+    var geometry = new THREE.IcosahedronGeometry(2, 2);
+    var material = new THREE.MeshPhongMaterial({ color: 0x6c8884, wireframe: true, transparent: true, opacity: 0.6, shininess: 100 });
+    var sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+
+    var coreGeometry = new THREE.IcosahedronGeometry(1.2, 1);
+    var coreMaterial = new THREE.MeshLambertMaterial({ color: 0x7fa6c4, transparent: true, opacity: 0.35 });
+    var core = new THREE.Mesh(coreGeometry, coreMaterial);
+    scene.add(core);
+
+    scene.add(new THREE.AmbientLight(0x404040, 2));
+    var pointLight = new THREE.PointLight(0xffffff, 2, 100);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    camera.position.z = 5;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      sphere.rotation.y += 0.004;
+      sphere.rotation.x += 0.0015;
+      core.rotation.y -= 0.0025;
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', function () {
+      var w = container.clientWidth || width;
+      var h = container.clientHeight || height;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+
+    animate();
+  })();
+</script>
+
 </body>
 </html>
+</content>
