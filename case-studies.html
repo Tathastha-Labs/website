@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Tathastha Labs — Engineering Case Studies</title>
+  <meta name="description" content="Six systems our team has built: ambient clinical documentation, agentic goal planning, an MCP data agent, a grounded biomarker research assistant, computer-vision wound assessment, and rapid AI prototyping."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://tathastha.com/case-studies.html"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://tathastha.com/case-studies.html"/>
+  <meta property="og:site_name" content="Tathastha Labs"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:title" content="Tathastha Labs — Engineering Case Studies"/>
+  <meta property="og:description" content="Six systems our team has built, each turning messy human input — speech, photos, documents, activity logs — into structured, trustworthy output."/>
+  <meta property="og:image" content="https://tathastha.com/img/cap-agentic-systems.jpg"/>
+  <meta property="og:image:width" content="1376"/>
+  <meta property="og:image:height" content="768"/>
+  <meta property="og:image:alt" content="A glass panel diagram of an agentic system routed through human-review checkpoints"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Tathastha Labs — Engineering Case Studies"/>
+  <meta name="twitter:description" content="Six systems our team has built, each turning messy human input into structured, trustworthy output."/>
+  <meta name="twitter:image" content="https://tathastha.com/img/cap-agentic-systems.jpg"/>
+
+  <!-- Schema.org BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Tathastha Labs", "item": "https://tathastha.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://tathastha.com/case-studies.html" }
+    ]
+  }
+  </script>
+
+  <!-- Schema.org ItemList of case studies -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "AI Clinical Documentation & EHR Copilot Suite", "url": "https://tathastha.com/case-studies.html#clinical-copilot" },
+      { "@type": "ListItem", "position": 2, "name": "Agentic Goal-Planning & OKR Execution Platform", "url": "https://tathastha.com/case-studies.html#agentic-planning" },
+      { "@type": "ListItem", "position": 3, "name": "Automated Progress-Intelligence & MCP Data-Agent Pipeline", "url": "https://tathastha.com/case-studies.html#progress-intelligence" },
+      { "@type": "ListItem", "position": 4, "name": "Multi-Agent Biomarker Research Assistant", "url": "https://tathastha.com/case-studies.html#biomarker-assistant" },
+      { "@type": "ListItem", "position": 5, "name": "Computer-Vision Wound Assessment Tool", "url": "https://tathastha.com/case-studies.html#wound-cv" },
+      { "@type": "ListItem", "position": 6, "name": "Rapid Prototyping: Clinical Notes from Voice and Text", "url": "https://tathastha.com/case-studies.html#rapid-poc" }
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="tathastha-labs-icon-light.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "text-muted": "var(--color-text-secondary)",
+            "error": "var(--color-error)",
+            "botanical-green": "var(--color-primary)",
+            "ink-black": "var(--color-text-primary)",
+            "background": "var(--color-background)",
+            "on-surface": "var(--color-text-primary)",
+            "outline-variant": "var(--color-border)",
+            "on-surface-variant": "var(--color-text-secondary)",
+            "outline": "var(--color-border-strong)",
+            "surface-container-low": "var(--color-surface-alt)",
+            "on-background": "var(--color-text-primary)",
+            "surface-cream": "var(--color-surface-alt)",
+            "on-primary": "var(--color-on-primary)",
+            "surface-container-lowest": "var(--color-card)",
+            "secondary": "var(--color-secondary)",
+            "surface": "var(--color-surface)",
+            "card": "var(--color-card)",
+            "invert": "var(--color-invert-bg)",
+            "sky-blue": "var(--color-accent)",
+            "sky-blue-dim": "var(--color-accent)",
+            "sky-blue-tint": "var(--color-accent-tint)",
+            "success": "var(--color-success)",
+            "warning": "var(--color-warning)"
+          },
+          borderRadius: { DEFAULT: "8px", lg: "12px", xl: "16px", "2xl": "24px", full: "9999px" },
+          spacing: {
+            "container-max": "1280px", "gutter": "24px", "margin-desktop": "64px",
+            "margin-mobile": "16px", "base": "8px", "section-gap": "120px", "15": "60px"
+          },
+          fontFamily: {
+            "headline-md": ["EB Garamond"], "body-lg": ["Inter"], "display-lg": ["EB Garamond"],
+            "display-lg-mobile": ["EB Garamond"], "body-md": ["Inter"], "title-lg": ["Inter"],
+            "label-md": ["Inter"], "label-sm": ["Inter"], "headline-sm": ["EB Garamond"]
+          },
+          fontSize: {
+            "headline-md": ["clamp(2rem, 1.6rem + 1.6vw, 2.75rem)", { lineHeight: "1.15", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "body-lg": ["18px", { lineHeight: "27px", fontWeight: "400" }],
+            "display-lg": ["clamp(2.75rem, 2rem + 3vw, 4.5rem)", { lineHeight: "1.08", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "display-lg-mobile": ["clamp(2.25rem, 1.9rem + 1.6vw, 2.75rem)", { lineHeight: "1.12", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "title-lg": ["22px", { lineHeight: "30px", fontWeight: "600" }],
+            "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+            "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "500" }],
+            "headline-sm": ["28px", { lineHeight: "1.25", fontWeight: "600" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --color-primary: #2F6459; --color-primary-hover: #24504A; --color-secondary: #12181B;
+      --color-accent: #3E6E92; --color-accent-hover: #325A78; --color-accent-tint: #E8F0F6;
+      --color-background: #FFFFFF; --color-surface: #F7F7F5; --color-surface-alt: #F1F1EE; --color-card: #FFFFFF;
+      --color-border: #E4E4E0; --color-border-strong: #CBCBC5;
+      --color-success: #15803D; --color-warning: #B45309; --color-error: #B91C1C; --color-error-tint: #FBE9E7;
+      --color-text-primary: #12181B; --color-text-secondary: #5B6560; --color-text-disabled: #9CA3A0;
+      --color-on-primary: #FFFFFF; --color-invert-bg: #12181B;
+    }
+    :root.dark {
+      --color-primary: #5B9C8E; --color-primary-hover: #6BAA9C; --color-secondary: #E7E9E8;
+      --color-accent: #6FA3C9; --color-accent-hover: #86B3D6; --color-accent-tint: #16222B;
+      --color-background: #0B0D0C; --color-surface: #131513; --color-surface-alt: #191B19; --color-card: #17191A;
+      --color-border: #2A2D2A; --color-border-strong: #3B3E3A;
+      --color-success: #4ADE80; --color-warning: #FBBF24; --color-error: #F87171; --color-error-tint: #2A1614;
+      --color-text-primary: #F2F4F1; --color-text-secondary: #9AA39D; --color-text-disabled: #5B6560;
+      --color-on-primary: #0B0D0C; --color-invert-bg: #1E211F;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-feature-settings: "ss01","cv11"; }
+    .caps { text-transform: uppercase; letter-spacing: 0.28em; font-size: 11px; font-weight: 500; color: var(--color-text-secondary); }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 260ms cubic-bezier(0.16,1,0.3,1), transform 260ms cubic-bezier(0.16,1,0.3,1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .bento-card { transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease; }
+    .bento-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -8px rgba(18,24,27,0.12); border-color: var(--color-border-strong); }
+    *:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 4px; }
+    .theme-toggle { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; border: 1px solid var(--color-border-strong); color: var(--color-text-secondary); transition: border-color 200ms ease, color 200ms ease, background 200ms ease; }
+    .theme-toggle:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-surface); }
+    :root.dark .theme-toggle .icon-dark { display: none; }
+    :root:not(.dark) .theme-toggle .icon-light { display: none; }
+    .infographic circle { transition: stroke 200ms ease; }
+    .status-production { background: color-mix(in srgb, var(--color-success) 12%, transparent); color: var(--color-success); border: 1px solid color-mix(in srgb, var(--color-success) 35%, transparent); }
+    .status-evolving { background: var(--color-accent-tint); color: var(--color-accent); border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent); }
+    .status-prototype { background: color-mix(in srgb, var(--color-warning) 12%, transparent); color: var(--color-warning); border: 1px solid color-mix(in srgb, var(--color-warning) 35%, transparent); }
+    .status-poc { background: var(--color-surface-alt); color: var(--color-text-secondary); border: 1px solid var(--color-border-strong); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+      .bento-card, .bento-card:hover { transition: none; }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased">
+
+<!-- ============== NAV ============== -->
+<header class="sticky top-0 z-40 bg-surface/85 backdrop-blur-md border-b border-outline/10">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 group">
+      <svg viewBox="0 0 220 220" class="w-9 h-9" aria-hidden="true">
+        <g transform="translate(110,110)">
+          <circle cx="0" cy="0" r="82" fill="none" stroke="#1A1A1A" stroke-width="6"/>
+          <g stroke="#1A1A1A" stroke-width="3" fill="none" opacity="0.55">
+            <line x1="0" y1="-50" x2="43.3" y2="25"/>
+            <line x1="43.3" y1="25" x2="-43.3" y2="25"/>
+            <line x1="-43.3" y1="25" x2="0" y2="-50"/>
+          </g>
+          <g stroke="#1A1A1A" stroke-width="4.5" fill="none">
+            <line x1="0" y1="0" x2="0" y2="-50"/>
+            <line x1="0" y1="0" x2="43.3" y2="25"/>
+            <line x1="0" y1="0" x2="-43.3" y2="25"/>
+          </g>
+          <g fill="#1A1A1A">
+            <circle cx="0" cy="-50" r="12"/>
+            <circle cx="43.3" cy="25" r="12"/>
+            <circle cx="-43.3" cy="25" r="12"/>
+          </g>
+          <circle cx="0" cy="0" r="18" fill="#1A1A1A"/>
+          <circle cx="0" cy="0" r="7" fill="#FAFAF7"/>
+        </g>
+      </svg>
+      <span class="font-headline-sm text-headline-sm text-ink-black tracking-tight">Tathastha <span class="text-text-muted">Labs</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="/#ai" class="text-on-surface-variant hover:text-sky-blue-dim transition-colors font-label-md text-label-md">Capabilities</a>
+      <a href="/#industries" class="text-on-surface-variant hover:text-sky-blue-dim transition-colors font-label-md text-label-md">Industries</a>
+      <a href="/case-studies.html" class="text-ink-black font-label-md text-label-md">Case Studies</a>
+      <a href="/playground.html" class="text-on-surface-variant hover:text-sky-blue-dim transition-colors font-label-md text-label-md">Playground</a>
+    </nav>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+      <span class="material-symbols-outlined icon-light text-[20px]">dark_mode</span>
+      <span class="material-symbols-outlined icon-dark text-[20px]">light_mode</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section class="py-15 md:py-20 lg:py-section-gap px-margin-mobile md:px-margin-desktop">
+  <div class="max-w-container-max mx-auto reveal">
+    <div class="caps mb-4">Engineering case studies</div>
+    <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-ink-black max-w-4xl mb-6">
+      Six systems, one pattern: turning messy human input into structured output.
+    </h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-10">
+      Ambient clinical documentation, agentic planning, a natural-language data agent, a grounded research
+      assistant, computer-vision measurement, and two fast feasibility demos — each one built around the same
+      core move: take unstructured input (speech, photos, documents, activity logs) and turn it into something
+      structured, searchable, or actionable.
+    </p>
+    <div class="flex flex-wrap gap-x-8 gap-y-3 pt-6 border-t border-outline/10 font-label-sm text-label-sm text-text-muted uppercase tracking-widest">
+      <span><b class="text-ink-black">6</b> case studies</span>
+      <span><b class="text-ink-black">4</b> domains — clinical care, planning, research, computer vision</span>
+      <span><b class="text-ink-black">12+</b> distinct AI techniques</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CASE STUDY GRID ============== -->
+<section class="px-margin-mobile md:px-margin-desktop pb-16">
+  <div class="max-w-container-max mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <a href="#clinical-copilot" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal">
+      <div class="flex items-center gap-2 mb-5">
+        <span class="status-production font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Production</span>
+      </div>
+      <div class="caps mb-2">Healthcare · Ambient clinical intelligence</div>
+      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">AI Clinical Documentation &amp; EHR Copilot Suite</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Clinicians talk to their patients like normal. The note writes itself, in whichever EHR the clinic already runs.</p>
+      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
+    </a>
+
+    <a href="#agentic-planning" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal" style="transition-delay: 40ms;">
+      <div class="flex items-center gap-2 mb-5">
+        <span class="status-production font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Production</span>
+      </div>
+      <div class="caps mb-2">Productivity · Personal &amp; team planning</div>
+      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Agentic Goal-Planning &amp; OKR Execution Platform</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Describe what you want, answer a few questions, and walk away with a real, trackable plan of goals and tasks.</p>
+      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
+    </a>
+
+    <a href="#progress-intelligence" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal" style="transition-delay: 80ms;">
+      <div class="flex items-center gap-2 mb-5">
+        <span class="status-evolving font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Evolving</span>
+      </div>
+      <div class="caps mb-2">Operations · Automated reporting</div>
+      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Automated Progress-Intelligence &amp; MCP Data-Agent Pipeline</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">A plain-English "here's where things stand" lands every morning — no one has to write a report or run a query.</p>
+      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
+    </a>
+
+    <a href="#biomarker-assistant" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal">
+      <div class="flex items-center gap-2 mb-5">
+        <span class="status-prototype font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Prototype</span>
+      </div>
+      <div class="caps mb-2">Health &amp; wellness · Grounded scientific Q&amp;A</div>
+      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Multi-Agent Biomarker Research Assistant</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Ask what a lab result means and get an answer grounded in real research — not a generic guess.</p>
+      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
+    </a>
+
+    <a href="#wound-cv" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal" style="transition-delay: 40ms;">
+      <div class="flex items-center gap-2 mb-5">
+        <span class="status-poc font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Proof of concept</span>
+      </div>
+      <div class="caps mb-2">Health &amp; wellness · Remote monitoring via computer vision</div>
+      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Computer-Vision Wound Assessment Tool</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Take a photo. Get back a measured size, an estimated depth, and a tissue-condition breakdown.</p>
+      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
+    </a>
+
+    <a href="#rapid-poc" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal" style="transition-delay: 80ms;">
+      <div class="flex items-center gap-2 mb-5">
+        <span class="status-poc font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Proof of concept</span>
+      </div>
+      <div class="caps mb-2">Healthcare · Feasibility demos</div>
+      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Rapid Prototyping: Clinical Notes from Voice and Text</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Two fast, cheap demos, built to prove an idea works before committing real engineering time to it.</p>
+      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============== CASE STUDY 1 ============== -->
+<section id="clinical-copilot" class="py-15 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline/10 bg-surface">
+  <div class="max-w-3xl mx-auto reveal">
+    <div class="flex items-center gap-3 mb-5 flex-wrap">
+      <span class="status-production font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Production</span>
+      <span class="caps">Healthcare · Ambient clinical intelligence</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-ink-black mb-4">AI Clinical Documentation &amp; EHR Copilot Suite</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant italic mb-8">
+      Clinicians talk to their patients like normal. The note writes itself, in the system they already use.
+    </p>
+
+    <svg viewBox="0 0 680 130" class="infographic w-full max-w-xl mb-10" role="img" aria-label="Pipeline: live consult audio, streamed to speech recognition, then LLM note drafting synced to the EHR, producing a signed chart note">
+      <line x1="98" y1="55" x2="222" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="288" y1="55" x2="412" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="478" y1="55" x2="592" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <g><circle cx="60" cy="55" r="30" fill="var(--color-surface-alt)" stroke="var(--color-text-secondary)" stroke-width="1.5"/><text x="60" y="63" text-anchor="middle" font-size="22" fill="var(--color-text-secondary)" class="material-symbols-outlined">mic</text><text x="60" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Live consult</text></g>
+      <g><circle cx="255" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="255" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">graphic_eq</text><text x="255" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Streaming ASR</text></g>
+      <g><circle cx="445" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="445" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">smart_toy</text><text x="445" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">LLM note + EHR sync</text></g>
+      <g><circle cx="630" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-accent)" stroke-width="1.5"/><text x="630" y="63" text-anchor="middle" font-size="22" fill="var(--color-accent)" class="material-symbols-outlined">fact_check</text><text x="630" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Signed chart note</text></g>
+    </svg>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">The problem</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">Doctors spend more time typing than treating. Every extra minute charting is a minute not spent with a patient — and most clinics can't or won't change the record system they've used for years.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">What we built</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">The suite centers on a real-time visit copilot that listens during a consult and drafts a structured note as the conversation happens, plus a browser extension that injects that copilot directly into the clinician's existing EHR tab rather than asking them to open a separate app. Behind it, an EHR-connect layer normalizes OAuth and data mapping across a dozen different EHR platforms, and a serverless, event-driven pipeline handles asynchronous note generation whenever a recording is uploaded outside the live-visit flow. Patient-facing intake and messaging apps extend the same backend to the pre- and post-visit parts of the workflow.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">Architecture &amp; AI techniques</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Real-time streaming ASR</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">LLM structured note generation</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">LLM-based speaker diarization</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Speech-to-speech interpretation</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">~10-EHR OAuth integration layer</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Pluggable multi-vendor LLM/ASR layers</span>
+      </div>
+    </div>
+
+    <div class="border-l-2 border-botanical-green pl-6">
+      <h3 class="font-label-sm text-label-sm text-botanical-green uppercase mb-3">Value delivered</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-3">The direct effect is fewer minutes per visit spent typing and more spent with the patient — the note is drafted automatically, in the clinician's own EHR, in the note format their specialty already uses.</p>
+      <p class="font-body-md text-body-md text-on-surface-variant">Because the integration layer is vendor-agnostic, a clinic doesn't need to change record systems, and the product isn't locked to one AI vendor if pricing, quality, or availability shifts. <em>Time-saved and adoption figures are intentionally not stated here — they should only be published from real, independently verified usage data.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CASE STUDY 2 ============== -->
+<section id="agentic-planning" class="py-15 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline/10">
+  <div class="max-w-3xl mx-auto reveal">
+    <div class="flex items-center gap-3 mb-5 flex-wrap">
+      <span class="status-production font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Production</span>
+      <span class="caps">Productivity · Personal &amp; team planning</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-ink-black mb-4">Agentic Goal-Planning &amp; OKR Execution Platform</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant italic mb-8">
+      Describe what you want. Answer a few questions. Walk away with a real plan — goals, tasks, and a way to track them weekly.
+    </p>
+
+    <svg viewBox="0 0 680 130" class="infographic w-full max-w-xl mb-10" role="img" aria-label="Pipeline: a stated goal, through a clarifying-question agent, then objective and task scoring, producing a trackable weekly plan">
+      <line x1="98" y1="55" x2="222" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="288" y1="55" x2="412" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="478" y1="55" x2="592" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <g><circle cx="60" cy="55" r="30" fill="var(--color-surface-alt)" stroke="var(--color-text-secondary)" stroke-width="1.5"/><text x="60" y="63" text-anchor="middle" font-size="22" fill="var(--color-text-secondary)" class="material-symbols-outlined">flag</text><text x="60" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Stated goal</text></g>
+      <g><circle cx="255" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="255" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">forum</text><text x="255" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Clarifying Q&amp;A agent</text></g>
+      <g><circle cx="445" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="445" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">account_tree</text><text x="445" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Objective + task scoring</text></g>
+      <g><circle cx="630" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-accent)" stroke-width="1.5"/><text x="630" y="63" text-anchor="middle" font-size="22" fill="var(--color-accent)" class="material-symbols-outlined">checklist</text><text x="630" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Trackable weekly plan</text></g>
+    </svg>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">The problem</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">Most people know the outcome they want — get fit, launch a project, hit a revenue number — but stall at turning it into concrete steps. Teams have the same problem at a bigger scale: strategy exists on a slide, but nobody's clear on this week's tasks.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">What we built</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">A conversational agent asks a small, fixed set of clarifying questions about the user's goal, proposes 3–5 high-level objectives for confirmation, then expands confirmed objectives into a full tree of goals, sub-goals, and tasks — each scored on effort, impact, and control. That plan is tracked weekly with progress and risk indicators, streaks, and a daily planning view, inside a multi-tenant product that also handles teams, coaching roles, and subscription billing.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">Architecture &amp; AI techniques</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">LangGraph multi-agent supervisor</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Conversational plan generation</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Effort/impact/control scoring</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Multi-tenant SaaS (schema-per-tenant)</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Vector-based template retrieval (in progress)</span>
+      </div>
+    </div>
+
+    <div class="border-l-2 border-botanical-green pl-6">
+      <h3 class="font-label-sm text-label-sm text-botanical-green uppercase mb-3">Value delivered</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-3">What used to take a working session with a coach or a blank page and good intentions now takes one guided conversation. The output isn't generic advice — it's a structured, trackable plan with tasks the user (or team) can act on the same day.</p>
+      <p class="font-body-md text-body-md text-on-surface-variant">For teams, the same engine scales from one person's personal goal to an organization's strategic goals, with the accountability layer — weekly tracking, coaching, risk flags — built in rather than bolted on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CASE STUDY 3 ============== -->
+<section id="progress-intelligence" class="py-15 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline/10 bg-surface">
+  <div class="max-w-3xl mx-auto reveal">
+    <div class="flex items-center gap-3 mb-5 flex-wrap">
+      <span class="status-evolving font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Evolving</span>
+      <span class="caps">Operations · Automated reporting &amp; conversational data access</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-ink-black mb-4">Automated Progress-Intelligence &amp; MCP Data-Agent Pipeline</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant italic mb-8">
+      Every morning, a plain-English "here's where things stand" lands for every person, goal, and team — with no one having to write a report or run a query.
+    </p>
+
+    <svg viewBox="0 0 680 130" class="infographic w-full max-w-xl mb-10" role="img" aria-label="Pipeline: daily activity data, through rate-limited LLM fan-out, then an MCP read-only data agent, producing a plain-English digest">
+      <line x1="98" y1="55" x2="222" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="288" y1="55" x2="412" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="478" y1="55" x2="592" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <g><circle cx="60" cy="55" r="30" fill="var(--color-surface-alt)" stroke="var(--color-text-secondary)" stroke-width="1.5"/><text x="60" y="63" text-anchor="middle" font-size="22" fill="var(--color-text-secondary)" class="material-symbols-outlined">dataset</text><text x="60" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Daily activity data</text></g>
+      <g><circle cx="255" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="255" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">hub</text><text x="255" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Rate-limited LLM fan-out</text></g>
+      <g><circle cx="445" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="445" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">chat</text><text x="445" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">MCP data agent</text></g>
+      <g><circle cx="630" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-accent)" stroke-width="1.5"/><text x="630" y="63" text-anchor="middle" font-size="22" fill="var(--color-accent)" class="material-symbols-outlined">summarize</text><text x="630" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Plain-English digest</text></g>
+    </svg>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">The problem</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">With activity spread across every goal, task, and team, leaders either read everything themselves or read nothing. Neither scales, and by the time a weekly report gets written, it's already stale.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">What we built</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">A scheduled orchestration job runs every 30 minutes, fans out across every user, goal, organization, and team, and asks an LLM to summarize recent activity and flag risks — with batching, rate limiting, retries, and token accounting so it doesn't fall over at scale. A second version adds a delivery step, formatting the day's summaries into a report. Separately, a Model Context Protocol (MCP) server exposes the underlying database as a safe, read-only query tool — restricted to an explicit table allowlist and SELECT-only access — paired with an agent client that adds lightweight retrieval over past summaries so it can answer follow-up questions with memory of prior context.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">Architecture &amp; AI techniques</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Scheduled multi-entity summarization</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Model Context Protocol (MCP)</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Rate-limited, idempotent fan-out</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Tool-calling agent with memory</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">RAG-lite over historical summaries</span>
+      </div>
+    </div>
+
+    <div class="border-l-2 border-botanical-green pl-6">
+      <h3 class="font-label-sm text-label-sm text-botanical-green uppercase mb-3">Value delivered</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-3">Instead of a leader hunting through dashboards or waiting for a weekly report, a concise, plain-English summary is simply waiting for them each day — for themselves, for a team, or for the organization as a whole.</p>
+      <p class="font-body-md text-body-md text-on-surface-variant">The natural-language data agent points toward a future where anyone can ask a question about progress directly, instead of every stakeholder needing their own custom report built for them. <em>The read-only data-agent layer is currently a proof of concept, not yet a hardened service.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CASE STUDY 4 ============== -->
+<section id="biomarker-assistant" class="py-15 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline/10">
+  <div class="max-w-3xl mx-auto reveal">
+    <div class="flex items-center gap-3 mb-5 flex-wrap">
+      <span class="status-prototype font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Prototype</span>
+      <span class="caps">Health &amp; wellness · Grounded scientific Q&amp;A</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-ink-black mb-4">Multi-Agent Biomarker Research Assistant</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant italic mb-8">
+      Ask what a lab result means and get an answer grounded in real medical literature — not a generic guess, and not a search you have to interpret yourself.
+    </p>
+
+    <svg viewBox="0 0 680 130" class="infographic w-full max-w-xl mb-10" role="img" aria-label="Pipeline: a lab-result question, through intent routing, then hybrid RAG with a self-critique loop, producing a cited grounded answer">
+      <line x1="98" y1="55" x2="222" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="288" y1="55" x2="412" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="478" y1="55" x2="592" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <g><circle cx="60" cy="55" r="30" fill="var(--color-surface-alt)" stroke="var(--color-text-secondary)" stroke-width="1.5"/><text x="60" y="63" text-anchor="middle" font-size="22" fill="var(--color-text-secondary)" class="material-symbols-outlined">help</text><text x="60" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Lab-result question</text></g>
+      <g><circle cx="255" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="255" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">alt_route</text><text x="255" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Intent routing</text></g>
+      <g><circle cx="445" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="445" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">manage_search</text><text x="445" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Hybrid RAG + self-critique</text></g>
+      <g><circle cx="630" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-accent)" stroke-width="1.5"/><text x="630" y="63" text-anchor="middle" font-size="22" fill="var(--color-accent)" class="material-symbols-outlined">verified</text><text x="630" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Cited grounded answer</text></g>
+    </svg>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">The problem</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">A biomarker result like HbA1c or TSH comes back with a number and a reference range, and most people are left to search the internet themselves — with no way to know if what they're reading is accurate or relevant to them.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">What we built</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">A supervisor agent first classifies each incoming question — small talk, a question about the user's own profile, or a scientific question about a biomarker — and routes accordingly. Profile questions go to a small, isolated agent that answers strictly from the user's own stored data. Scientific questions go to a retrieval agent that searches a structure-aware index of biomedical research papers, drafts an answer, scores that draft against a fitness function, and — if the score falls short — refines and re-synthesizes before responding, rather than returning its first-pass answer.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">Architecture &amp; AI techniques</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Intent classification / agent routing</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Structure-aware chunking</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Hybrid keyword + vector retrieval</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Self-critique generate→score→refine loop</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">ReAct tool-calling retrieval agent</span>
+      </div>
+    </div>
+
+    <div class="border-l-2 border-botanical-green pl-6">
+      <h3 class="font-label-sm text-label-sm text-botanical-green uppercase mb-3">Value delivered</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">Instead of an AI assistant confidently making something up about a health topic, this one is built to know the difference between "I know this about you" and "here's what the research says" — and to double-check its own scientific answers before giving them. <em>This is a pre-production system: it has not been clinically validated, and no accuracy or outcome claims should be attached to it without that validation first.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CASE STUDY 5 ============== -->
+<section id="wound-cv" class="py-15 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline/10 bg-surface">
+  <div class="max-w-3xl mx-auto reveal">
+    <div class="flex items-center gap-3 mb-5 flex-wrap">
+      <span class="status-poc font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Proof of concept</span>
+      <span class="caps">Health &amp; wellness · Remote monitoring via computer vision</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-ink-black mb-4">Computer-Vision Wound Assessment Tool</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant italic mb-8">
+      Take a photo. Get back a measured size, an estimated depth, and a breakdown of tissue condition — the kind of read a clinician would normally need to be in the room to give.
+    </p>
+
+    <svg viewBox="0 0 680 130" class="infographic w-full max-w-xl mb-10" role="img" aria-label="Pipeline: a single wound photo, through instance segmentation, then PCA measurement and depth estimation, producing structured wound metrics">
+      <line x1="98" y1="55" x2="222" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="288" y1="55" x2="412" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="478" y1="55" x2="592" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <g><circle cx="60" cy="55" r="30" fill="var(--color-surface-alt)" stroke="var(--color-text-secondary)" stroke-width="1.5"/><text x="60" y="63" text-anchor="middle" font-size="22" fill="var(--color-text-secondary)" class="material-symbols-outlined">photo_camera</text><text x="60" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Wound photo</text></g>
+      <g><circle cx="255" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="255" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">content_cut</text><text x="255" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Instance segmentation</text></g>
+      <g><circle cx="445" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="445" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">square_foot</text><text x="445" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">PCA measurement + depth</text></g>
+      <g><circle cx="630" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-accent)" stroke-width="1.5"/><text x="630" y="63" text-anchor="middle" font-size="22" fill="var(--color-accent)" class="material-symbols-outlined">monitoring</text><text x="630" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Structured wound metrics</text></g>
+    </svg>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">The problem</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">Monitoring a healing wound — a pressure sore, a diabetic ulcer — usually means an in-person visit just to measure it. For homebound or remote patients, that's a real access barrier.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">What we built</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">An uploaded photo is run through a custom-trained segmentation model to isolate the wound region from surrounding skin. Principal-axis analysis on that mask produces length, width, and area, calibrated against a reference object visible in frame. The cropped wound region is separately passed through a monocular depth-estimation model to produce a relative depth estimate, and a color-space analysis buckets the visible tissue into categories associated with different stages of healing.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">Architecture &amp; AI techniques</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Custom-trained instance segmentation</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">PCA-based geometric measurement</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Monocular depth estimation</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Rule-based color classification</span>
+      </div>
+    </div>
+
+    <div class="border-l-2 border-botanical-green pl-6">
+      <h3 class="font-label-sm text-label-sm text-botanical-green uppercase mb-3">Value delivered</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">The core idea — structured wound measurements from a phone photo, without requiring an in-person visit — is demonstrated and working end-to-end. <em>Important caveat: depth is a relative, not an absolute, measurement, and size calibration currently assumes a fixed reference object rather than detecting one in the photo. This should be treated as a promising prototype, not a clinically validated measurement tool, until those two points are addressed and independently verified.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CASE STUDY 6 ============== -->
+<section id="rapid-poc" class="py-15 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline/10">
+  <div class="max-w-3xl mx-auto reveal">
+    <div class="flex items-center gap-3 mb-5 flex-wrap">
+      <span class="status-poc font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Proof of concept</span>
+      <span class="caps">Healthcare · Feasibility demos</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-ink-black mb-4">Rapid Prototyping: Clinical Notes from Voice and Text</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant italic mb-8">
+      Two quick demonstrations, built to prove the idea works before investing in a full product: one turns existing session notes into a formatted clinical note, the other turns a spoken conversation into one.
+    </p>
+
+    <svg viewBox="0 0 680 130" class="infographic w-full max-w-xl mb-10" role="img" aria-label="Pipeline: a text or spoken visit, through speech recognition and diarization, then template-matched prompting, producing a formatted note draft">
+      <line x1="98" y1="55" x2="222" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="288" y1="55" x2="412" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <line x1="478" y1="55" x2="592" y2="55" stroke="var(--color-border-strong)" stroke-width="2"/>
+      <g><circle cx="60" cy="55" r="30" fill="var(--color-surface-alt)" stroke="var(--color-text-secondary)" stroke-width="1.5"/><text x="60" y="63" text-anchor="middle" font-size="22" fill="var(--color-text-secondary)" class="material-symbols-outlined">description</text><text x="60" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Text or spoken visit</text></g>
+      <g><circle cx="255" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="255" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">graphic_eq</text><text x="255" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">ASR + diarization</text></g>
+      <g><circle cx="445" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-primary)" stroke-width="1.5"/><text x="445" y="63" text-anchor="middle" font-size="22" fill="var(--color-primary)" class="material-symbols-outlined">smart_toy</text><text x="445" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Template-matched prompting</text></g>
+      <g><circle cx="630" cy="55" r="30" fill="var(--color-accent-tint)" stroke="var(--color-accent)" stroke-width="1.5"/><text x="630" y="63" text-anchor="middle" font-size="22" fill="var(--color-accent)" class="material-symbols-outlined">fact_check</text><text x="630" y="106" text-anchor="middle" font-size="12" fill="var(--color-text-secondary)">Formatted note draft</text></g>
+    </svg>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">The problem</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">Before committing real engineering time, it's worth proving an idea works on a small scale — these two demos exist to answer "can this actually work" quickly and cheaply.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">What we built</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">The first demo takes an uploaded document, extracts its text, and prompts an LLM with a note-format-specific template — SOAP, DAP, BIRP, and several others — to produce a formatted clinical note. The second takes an uploaded audio recording, transcribes it with an automatic speech recognition model, optionally labels speaker turns, and then runs the same kind of prompt-templated note generation over the resulting transcript.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-label-sm text-label-sm text-text-muted uppercase mb-3">Architecture &amp; AI techniques</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Prompt-engineered note generation</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Automatic speech recognition</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Speaker diarization</span>
+        <span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">Multi-format template library (SOAP/DAP/BIRP)</span>
+      </div>
+    </div>
+
+    <div class="border-l-2 border-botanical-green pl-6">
+      <h3 class="font-label-sm text-label-sm text-botanical-green uppercase mb-3">Value delivered</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant">Both ideas were validated quickly and cheaply, which is exactly the point of a demo: prove the concept works before spending real engineering budget on a hardened pipeline. Both fed directly into the decision to invest in the fuller async note-generation pipeline described in our clinical documentation suite above.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CTA ============== -->
+<section class="py-15 md:py-20 lg:py-section-gap px-margin-mobile md:px-margin-desktop bg-invert text-surface-bright text-center reveal">
+  <div class="max-w-2xl mx-auto">
+    <div class="font-label-sm text-label-sm text-surface-bright/55 uppercase tracking-widest mb-4">Have a similar problem?</div>
+    <h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6">Let's talk about what you're trying to build.</h2>
+    <p class="font-body-lg text-body-lg text-surface-dim mb-10">
+      Send the one paragraph you'd normally write to a colleague. We'll reply within two working days
+      with whether we think we can help — and what we'd do first if we could.
+    </p>
+    <a href="/#contact" class="inline-flex items-center justify-center bg-botanical-green text-on-primary px-8 py-4 rounded font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-opacity">Start a conversation</a>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="border-t border-outline/10 bg-surface-container-lowest">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 font-body-md text-body-md">
+    <div class="flex items-center gap-3">
+      <svg viewBox="0 0 220 220" class="w-7 h-7" aria-hidden="true">
+        <g transform="translate(110,110)">
+          <circle cx="0" cy="0" r="82" fill="none" stroke="#1A1A1A" stroke-width="6"/>
+          <g stroke="#1A1A1A" stroke-width="4.5" fill="none">
+            <line x1="0" y1="0" x2="0" y2="-50"/>
+            <line x1="0" y1="0" x2="43.3" y2="25"/>
+            <line x1="0" y1="0" x2="-43.3" y2="25"/>
+          </g>
+          <g fill="#1A1A1A">
+            <circle cx="0" cy="-50" r="12"/>
+            <circle cx="43.3" cy="25" r="12"/>
+            <circle cx="-43.3" cy="25" r="12"/>
+          </g>
+          <circle cx="0" cy="0" r="18" fill="#1A1A1A"/>
+          <circle cx="0" cy="0" r="7" fill="#FAFAF7"/>
+        </g>
+      </svg>
+      <span class="font-headline-sm text-headline-sm text-ink-black">Tathastha Labs</span>
+    </div>
+    <nav class="flex flex-wrap gap-x-6 gap-y-2">
+      <a href="/#ai" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Capabilities</a>
+      <a href="/#industries" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Industries</a>
+      <a href="/case-studies.html" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Case Studies</a>
+      <a href="/playground.html" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Playground</a>
+      <a href="/#contact" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Contact</a>
+    </nav>
+    <div class="font-label-sm text-label-sm text-text-muted">© 2026 Tathastha Labs. All rights reserved.</div>
+  </div>
+</footer>
+
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6 border-t border-outline/10">
+  <p class="font-label-sm text-label-sm text-text-muted max-w-3xl">Product and internal system names referenced above have been generalized. Maturity labels reflect an honest, code-level read of each system, and metrics such as adoption, time saved, or accuracy are not claimed unless independently validated.</p>
+</div>
+
+<!-- ============== THEME TOGGLE + SCROLL REVEAL ============== -->
+<script>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        var isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    }
+  })();
+  document.addEventListener('DOMContentLoaded', function () {
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { root: null, rootMargin: '0px', threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+  });
+</script>
+
+</body>
+</html>
