@@ -1,0 +1,16 @@
+# Tathastha Labs
+
+> Tathastha Labs designs evidence-led data science and applied AI for regulated, high-stakes industries. Work is engineered for accuracy, audited for trust, and tuned to the domain in front of the client. The practice started in healthcare and is expanding into other regulated verticals.
+
+Tathastha Labs is not a general software agency and does not sell off-the-shelf SaaS products. Engagements follow a four-step process (Discover, Design, Deliver, Steward) and typically run as a two-week Discovery, an 8–12 week pilot, then an ongoing Pod engagement. All work operates under data processing agreements appropriate to the client's regulatory environment (e.g. a BAA in healthcare).
+
+## Core pages
+
+- [Home](https://tathastha.com/): Company overview, capabilities (decision intelligence, computer vision, predictive monitoring, generative assistants, data engineering, LLM integration, agentic systems, fine-tuning), industries served, measured outcomes, engagement process, and contact.
+- [Healthcare & Life Sciences](https://tathastha.com/industries/healthcare.html): The company's most developed vertical — clinical decision intelligence, medical imaging, predictive patient monitoring, generative care assistants, healthcare data engineering (HL7/FHIR/CDA/X12), EHR modernisation, interoperability, telehealth, revenue-cycle intelligence, and population health. Includes measured outcomes and specialties covered.
+- [Playground](https://tathastha.com/playground.html): A free, in-browser AI demo lab. Twelve interactive demos (clinical NER, image classification, disease detection, speech-to-SOAP-note, invoice OCR, retrieval-augmented Q&A, patient-record matching via Splink, CMS-HCC risk scoring, claims normalization, encounter grouping) run entirely client-side — nothing is uploaded to a server. Demonstration only, not a medical device.
+
+## Contact
+
+- Email: hello@tathastha.com
+- Contact form: https://tathastha.com/#contact

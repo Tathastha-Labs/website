@@ -4,65 +4,130 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Tathastha Labs — Playground</title>
-  <meta name="description" content="An in-browser AI playground: clinical NER, image classification, disease detection, speech-to-note generation, and invoice processing. Everything runs locally — nothing is uploaded to a server."/>
+  <meta name="description" content="A free in-browser AI playground: clinical NER, image classification, speech-to-note, invoice OCR, RAG, and record matching. Nothing is ever uploaded to a server."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://tathastha.com/playground.html"/>
 
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://tathastha.com/playground.html"/>
+  <meta property="og:site_name" content="Tathastha Labs"/>
+  <meta property="og:locale" content="en_US"/>
   <meta property="og:title" content="Tathastha Labs — Playground"/>
   <meta property="og:description" content="An in-browser AI playground: clinical NER, image classification, disease detection, speech-to-note generation, and invoice processing. Everything runs locally in your browser."/>
   <meta property="og:image" content="https://tathastha.com/img/demo-ner.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="750"/>
+  <meta property="og:image:alt" content="A clinical named-entity recognition interface highlighting disease and condition mentions in a note"/>
   <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Tathastha Labs — Playground"/>
+  <meta name="twitter:description" content="A free in-browser AI playground — clinical NER, image classification, speech-to-note, invoice OCR, RAG, and record matching. Nothing is uploaded to a server."/>
   <meta name="twitter:image" content="https://tathastha.com/img/demo-ner.jpg"/>
+
+  <!-- Schema.org BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Tathastha Labs", "item": "https://tathastha.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Playground", "item": "https://tathastha.com/playground.html" }
+    ]
+  }
+  </script>
+
+  <!-- Schema.org WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Tathastha Labs Playground",
+    "url": "https://tathastha.com/playground.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any modern web browser",
+    "browserRequirements": "Requires JavaScript and WebGPU/WASM support",
+    "description": "A free, in-browser AI laboratory demonstrating clinical named-entity recognition, image classification, disease detection, speech-to-SOAP-note generation, invoice OCR, retrieval-augmented Q&A, probabilistic patient-record matching, and CMS-HCC risk scoring — all running locally with nothing uploaded to a server.",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Tathastha Labs", "url": "https://tathastha.com" }
+  }
+  </script>
+
+  <!-- Schema.org FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is anything I type, record, or upload sent to a server?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Every model in this playground runs entirely in your browser using WebGPU/WASM. Nothing you type, record, or upload is sent to Tathastha Labs or any server." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this a medical device or intended for clinical use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. These demos are for demonstration purposes only — not a medical device, and not intended for clinical or diagnostic use." }
+      }
+    ]
+  }
+  </script>
 
   <link rel="icon" type="image/svg+xml" href="/tathastha-labs-icon-light.svg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Material+Symbols+Outlined:wght,FILL@100..500,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    (function () {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: "class",
       theme: {
         extend: {
           colors: {
             // Original page tokens (kept — every existing class in this file uses these).
-            ink:      '#1A1A1A',
-            graphite: '#6B6B6B',
-            mist:     '#A8A8A8',
-            paper:    '#FAFAF7',
-            bone:     '#F2F0EA',
-            noir:     '#0E0E0E',
-            sage:     '#6C8884',
-            sageink:  '#3F5552',
+            ink:      'var(--color-text-primary)',
+            graphite: 'var(--color-text-secondary)',
+            mist:     'var(--color-text-disabled)',
+            paper:    'var(--color-background)',
+            bone:     'var(--color-surface-alt)',
+            noir:     'var(--color-invert-bg)',
+            sage:     'var(--color-primary)',
+            sageink:  'var(--color-primary-hover)',
             // Exact Stitch design-system palette, added alongside (same hex values under the
             // original names above) so the full token set matches the shared design.
-            'text-muted': '#6B6B6B',
-            'botanical-green': '#6C8884',
-            'ink-black': '#1A1A1A',
-            'surface-cream': '#F2F0EA',
-            'surface': '#f9f9f6',
-            'background': '#f9f9f6',
-            'on-surface': '#1a1c1b',
-            'on-surface-variant': '#414847',
-            'outline': '#727877',
-            'outline-variant': '#c1c8c6',
-            'on-primary': '#ffffff',
+            'text-muted': 'var(--color-text-secondary)',
+            'botanical-green': 'var(--color-primary)',
+            'ink-black': 'var(--color-text-primary)',
+            'surface-cream': 'var(--color-surface-alt)',
+            'surface': 'var(--color-surface)',
+            'background': 'var(--color-background)',
+            'card': 'var(--color-card)',
+            'on-surface': 'var(--color-text-primary)',
+            'on-surface-variant': 'var(--color-text-secondary)',
+            'outline': 'var(--color-border-strong)',
+            'outline-variant': 'var(--color-border)',
+            'on-primary': 'var(--color-on-primary)',
             // Light-blue accent, added alongside the existing botanical-green (kept as-is).
-            'sky-blue': '#7FA6C4',
-            'sky-blue-dim': '#5F86A4',
-            'sky-blue-tint': '#E7EEF2',
-            'error': '#ba1a1a',
-            'error-container': '#ffdad6',
-            'surface-container-low': '#f4f4f1'
+            'sky-blue': 'var(--color-accent)',
+            'sky-blue-dim': 'var(--color-accent)',
+            'sky-blue-tint': 'var(--color-accent-tint)',
+            'error': 'var(--color-error)',
+            'error-container': 'var(--color-error-tint)',
+            'surface-container-low': 'var(--color-surface-alt)'
           },
-          // Exact Stitch shape language: soft, near-square radii rather than true pills —
-          // this reskins every existing `rounded-full` button/label in this file automatically.
+          // Premium soft-rounded shape language, replacing the earlier near-square radii.
           borderRadius: {
-            DEFAULT: '0.125rem',
-            lg: '0.25rem',
-            xl: '0.5rem',
-            full: '0.75rem'
+            DEFAULT: '8px',
+            lg: '12px',
+            xl: '16px',
+            '2xl': '24px',
+            full: '9999px'
           },
           spacing: {
             'container-max': '1280px',
@@ -70,7 +135,8 @@
             'margin-desktop': '64px',
             'margin-mobile': '16px',
             'base': '8px',
-            'section-gap': '120px'
+            'section-gap': '120px',
+            '15': '60px'
           },
           fontFamily: {
             sans: ['Inter', 'Helvetica Neue', 'Segoe UI', 'Arial', 'sans-serif'],
@@ -80,7 +146,7 @@
             'label-sm': ['Inter']
           },
           fontSize: {
-            'title-lg': ['20px', { lineHeight: '28px', fontWeight: '600' }],
+            'title-lg': ['22px', { lineHeight: '30px', fontWeight: '600' }],
             'label-md': ['14px', { lineHeight: '20px', letterSpacing: '0.05em', fontWeight: '600' }],
             'label-sm': ['12px', { lineHeight: '16px', letterSpacing: '0.08em', fontWeight: '500' }]
           },
@@ -95,46 +161,104 @@
     }
   </script>
   <style>
+    :root {
+      --color-primary: #2F6459;
+      --color-primary-hover: #24504A;
+      --color-secondary: #12181B;
+      --color-accent: #3E6E92;
+      --color-accent-hover: #325A78;
+      --color-accent-tint: #E8F0F6;
+      --color-background: #FFFFFF;
+      --color-surface: #F7F7F5;
+      --color-surface-alt: #F1F1EE;
+      --color-card: #FFFFFF;
+      --color-border: #E4E4E0;
+      --color-border-strong: #CBCBC5;
+      --color-success: #15803D;
+      --color-warning: #B45309;
+      --color-error: #B91C1C;
+      --color-error-tint: #FBE9E7;
+      --color-text-primary: #12181B;
+      --color-text-secondary: #5B6560;
+      --color-text-disabled: #9CA3A0;
+      --color-on-primary: #FFFFFF;
+      --color-invert-bg: #12181B;
+    }
+    :root.dark {
+      --color-primary: #5B9C8E;
+      --color-primary-hover: #6BAA9C;
+      --color-secondary: #E7E9E8;
+      --color-accent: #6FA3C9;
+      --color-accent-hover: #86B3D6;
+      --color-accent-tint: #16222B;
+      --color-background: #0B0D0C;
+      --color-surface: #131513;
+      --color-surface-alt: #191B19;
+      --color-card: #17191A;
+      --color-border: #2A2D2A;
+      --color-border-strong: #3B3E3A;
+      --color-success: #4ADE80;
+      --color-warning: #FBBF24;
+      --color-error: #F87171;
+      --color-error-tint: #2A1614;
+      --color-text-primary: #F2F4F1;
+      --color-text-secondary: #9AA39D;
+      --color-text-disabled: #5B6560;
+      --color-on-primary: #0B0D0C;
+      --color-invert-bg: #1E211F;
+    }
     html { scroll-behavior: smooth; }
     body { font-feature-settings: "ss01","cv11"; }
-    .hairline { border-color: rgba(0,0,0,0.10); }
-    .caps { text-transform: uppercase; letter-spacing: 0.28em; font-size: 11px; font-weight: 500; color: #6B6B6B; }
-    .cta-sage { background: #1A1A1A; color: #FAFAF7; transition: background 220ms ease; }
-    .cta-sage:hover { background: #3F5552; }
-    .cta-sage:disabled { background: #A8A8A8; cursor: not-allowed; }
-    .cta-outline { border: 1px solid rgba(0,0,0,0.55); color: #1A1A1A; transition: background 220ms ease, color 220ms ease; }
-    .cta-outline:hover { background: #1A1A1A; color: #FAFAF7; }
+    .hairline { border-color: var(--color-border); }
+    .caps { text-transform: uppercase; letter-spacing: 0.28em; font-size: 11px; font-weight: 500; color: var(--color-text-secondary); }
+    .cta-sage { background: var(--color-primary); color: var(--color-on-primary); transition: background 200ms ease; }
+    .cta-sage:hover { background: var(--color-primary-hover); }
+    .cta-sage:disabled { background: var(--color-text-disabled); cursor: not-allowed; }
+    .cta-outline { border: 1px solid var(--color-border-strong); color: var(--color-text-primary); transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
+    .cta-outline:hover { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); }
     .num { font-family: 'EB Garamond', Georgia, serif; font-weight: 400; letter-spacing: -0.03em; }
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.5,0,0,1), transform 0.8s cubic-bezier(0.5,0,0,1); }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 260ms cubic-bezier(0.16,1,0.3,1), transform 260ms cubic-bezier(0.16,1,0.3,1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
-    .bento-card { transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease; }
-    .bento-card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(108,136,132,0.12); border-color: rgba(108,136,132,0.30); }
-    .demo-thumb { aspect-ratio: 16/9; object-fit: cover; border-radius: 6px; }
+    .bento-card { transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease; }
+    .bento-card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px -8px rgba(18,24,27,0.14); border-color: var(--color-border-strong); }
+    .demo-thumb { aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; }
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    .gallery-card { transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease; }
-    .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(108,136,132,0.14); border-color: rgba(108,136,132,0.35); }
+    .gallery-card { transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease; }
+    .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -8px rgba(18,24,27,0.16); border-color: var(--color-border-strong); }
     .gallery-card:hover .gallery-img { transform: scale(1.05); }
     .gallery-img { transition: transform 700ms ease; }
     textarea, input[type="file"] { font-family: inherit; }
-    input[type="range"] { accent-color: #6C8884; }
+    input[type="range"] { accent-color: var(--color-primary); }
     .field {
-      width: 100%; border: 1px solid rgba(0,0,0,0.15); background: #FAFAF7;
-      padding: 14px 16px; font-size: 14.5px; line-height: 1.6; color: #1A1A1A;
-      border-radius: 4px;
+      width: 100%; border: 1px solid var(--color-border-strong); background: var(--color-background);
+      padding: 14px 16px; font-size: 14.5px; line-height: 1.6; color: var(--color-text-primary);
+      border-radius: 8px;
     }
-    .field:focus { outline: none; border-color: #6C8884; }
-    .bar-track { background: rgba(0,0,0,0.08); border-radius: 999px; height: 8px; overflow: hidden; }
-    .bar-fill { background: #6C8884; height: 100%; }
-    .ent-mark { padding: 1px 3px; border-radius: 3px; }
-    .status-line { font-size: 12.5px; color: #6B6B6B; min-height: 1.2em; }
+    .field:focus { outline: none; border-color: var(--color-primary); }
+    .bar-track { background: var(--color-border); border-radius: 999px; height: 8px; overflow: hidden; }
+    .bar-fill { background: var(--color-primary); height: 100%; }
+    .ent-mark { padding: 1px 3px; border-radius: 4px; }
+    .status-line { font-size: 12.5px; color: var(--color-text-secondary); min-height: 1.2em; }
     .spinner {
       width: 13px; height: 13px; border-radius: 50%;
-      border: 2px solid rgba(0,0,0,0.15); border-top-color: #1A1A1A;
+      border: 2px solid var(--color-border); border-top-color: var(--color-text-primary);
       display: inline-block; animation: spin 0.7s linear infinite; margin-right: 6px; vertical-align: -2px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     .soap-note h4 { font-weight: 600; margin-top: 14px; margin-bottom: 4px; }
     .soap-note h4:first-child { margin-top: 0; }
+
+    *:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 4px; }
+
+    .theme-toggle { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; border: 1px solid var(--color-border-strong); color: var(--color-text-secondary); transition: border-color 200ms ease, color 200ms ease, background 200ms ease; }
+    .theme-toggle:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-surface); }
+    :root.dark .theme-toggle .icon-dark { display: none; }
+    :root:not(.dark) .theme-toggle .icon-light { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+      .bento-card, .bento-card:hover, .gallery-card, .gallery-card:hover { transition: none; }
+    }
   </style>
 </head>
 <body class="bg-bone text-ink font-sans antialiased">
@@ -172,6 +296,10 @@
       <a href="/#industries" class="hover:text-sky-blue-dim">Industries</a>
       <a href="/industries/healthcare.html" class="hover:text-sky-blue-dim">Healthcare</a>
     </nav>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+      <span class="material-symbols-outlined icon-light text-[20px]">dark_mode</span>
+      <span class="material-symbols-outlined icon-dark text-[20px]">light_mode</span>
+    </button>
   </div>
 </header>
 
@@ -181,7 +309,7 @@
     <div class="inline-block px-4 py-1 border border-outline/20 rounded-full font-label-sm text-label-sm text-text-muted mb-8 uppercase tracking-widest">
       <span class="material-symbols-outlined text-[16px] align-middle mr-1">science</span>Experimental AI Laboratory
     </div>
-    <h1 class="font-serif font-light text-[38px] sm:text-[46px] md:text-[54px] leading-[1.05] tracking-tight-2">
+    <h1 class="font-serif font-bold text-[40px] sm:text-[52px] md:text-[62px] leading-[1.08] tracking-tight-2">
       In-browser AI, running on your machine — not ours.
     </h1>
     <p class="mt-6 max-w-2xl mx-auto text-[16px] md:text-[17px] leading-[1.7] text-graphite">
@@ -376,7 +504,7 @@
     <div class="md:col-span-4">
       <img src="img/demo-ner.jpg" alt="A clinical named-entity recognition interface highlighting disease and condition mentions in a note" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">01 · Clinical NER</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Extract clinical entities from a note.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -403,7 +531,7 @@
     <div class="md:col-span-4">
       <img src="img/cap-computer-vision.jpg" alt="A professional workspace with a desktop scanner and monitor used for computer-vision pipelines" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">02 · Image classification</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Classify any image, in-browser.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -436,7 +564,7 @@
     <div class="md:col-span-4">
       <img src="img/hc-medical-data.jpg" alt="A clean clinical data visualization highlighting disease and condition entities" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">03 · Disease detection</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Find disease mentions in a note.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -462,7 +590,7 @@
     <div class="md:col-span-4">
       <img src="img/demo-speech.jpg" alt="A minimalist speech-to-text medical interface with a live waveform" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">04 · Speech to SOAP note</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Record a visit. Get a structured note.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -503,7 +631,7 @@
     <div class="md:col-span-4">
       <img src="img/cap-finetune.jpg" alt="A professional document-processing scene with receipts and invoices being scanned" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">05 · Invoice &amp; receipt processing</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Photograph a receipt. Get structured fields.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -549,7 +677,7 @@
     <div class="md:col-span-4">
       <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation, matching passages to a question" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">06 · Retrieval-augmented Q&amp;A</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Upload a document. Ask it questions.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -595,7 +723,7 @@
     <div class="md:col-span-4">
       <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation, matching passages to a question" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">07 · Advanced RAG</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Same idea, with chunk overlap you control.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -646,7 +774,7 @@
     <div class="md:col-span-4">
       <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation, matching passages to a question" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">08 · RAG with reranking</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Cast a wider net, then re-score it.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -676,7 +804,7 @@
     <div class="md:col-span-4 min-w-0">
       <img src="img/hc-data-engineering.jpg" alt="A sophisticated, clean data-engineering pipeline visualization" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">09 · Claims data normalization</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Line-level claims. One claim-level answer.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -720,7 +848,7 @@ C-2,2,3,1861234567,J44.9,-40.00</textarea>
     <div class="md:col-span-4 min-w-0">
       <img src="img/demo-patient-matching.jpg" alt="A probabilistic record-linkage visualization: two digital patient records being compared" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">10 · Patient record matching</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Probabilistic record linkage, the Fellegi-Sunter way.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -752,7 +880,7 @@ C-2,2,3,1861234567,J44.9,-40.00</textarea>
     <div class="md:col-span-4 min-w-0">
       <img src="img/hc-risk-scoring.jpg" alt="A translucent panel showing a healthcare risk-scoring model with condition-level contributions and an overall risk score" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">11 · Risk score calculator</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Real classification logic. Your own coefficients.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -826,7 +954,7 @@ HCC327,End-stage renal disease,0.420,,N18.6</textarea>
     <div class="md:col-span-4 min-w-0">
       <img src="img/hc-data-architecture.jpg" alt="Abstract visualization of interconnected data nodes, representing linked records across sources" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">12 · Encounter grouping across sources</div>
-      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
         Two claims, two sources, one visit.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
@@ -2386,6 +2514,17 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
   });
 </script>
 
+<!-- ============== THEME TOGGLE ============== -->
+<script>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  })();
+</script>
 <!-- ============== SCROLL REVEAL + HERO ANIMATION (purely visual, no demo logic) ============== -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
