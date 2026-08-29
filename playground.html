@@ -53,7 +53,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any modern web browser",
     "browserRequirements": "Requires JavaScript and WebGPU/WASM support",
-    "description": "A free, in-browser AI laboratory demonstrating clinical named-entity recognition, image classification, disease detection, speech-to-SOAP-note generation, invoice OCR, retrieval-augmented Q&A, probabilistic patient-record matching, and CMS-HCC risk scoring — all running locally with nothing uploaded to a server.",
+    "description": "A free, in-browser AI laboratory demonstrating clinical named-entity recognition, image classification, disease detection, speech-to-SOAP-note generation, invoice OCR, retrieval-augmented Q&A, probabilistic patient-record matching, CMS-HCC risk scoring, PPE compliance detection, hard-hat detection with worker identification, and restricted-zone intrusion detection — all running locally with nothing uploaded to a server.",
     "isAccessibleForFree": true,
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "publisher": { "@type": "Organization", "name": "Tathastha Labs", "url": "https://tathastha.com" }
@@ -504,6 +504,48 @@
         <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Encounter Grouping</h3>
         <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Group claims from a flat file and a FHIR feed into one real-world encounter using real chaining rules.</p>
         <a href="#demo-encounter" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/hc-medical-data.jpg" alt="A clean clinical data visualization used to illustrate PPE compliance detection" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>43MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">13 — DETR / CPPE-5</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">PPE Compliance Detection</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Detect coveralls, face shields, gloves, goggles, and masks in a photo with a real fine-tuned object-detection model.</p>
+        <a href="#demo-ppe" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/hc-risk-scoring.jpg" alt="A translucent panel used to illustrate a worker safety monitoring model" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-sky-blue"></span>12MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">14 — YOLOv8 + Face ID</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Hard-Hat Detection + Worker ID</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Enroll a worker's face, then check a site photo — a violation gets tied to a specific identified person, not just "someone."</p>
+        <a href="#demo-worker" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
+      <div class="h-48 bg-surface-container-low overflow-hidden relative">
+        <img src="img/cap-predictive-monitoring.jpg" alt="A sleek dashboard showing real-time predictive-monitoring signals" class="gallery-img w-full h-full object-cover"/>
+        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>40MB
+        </div>
+      </div>
+      <div class="p-6 flex-grow flex flex-col">
+        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">15 — Object Detection</div>
+        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Restricted-Zone Intrusion Detection</h3>
+        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Draw a hazard zone on any photo and flag every detected person whose position overlaps it.</p>
+        <a href="#demo-zone" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
       </div>
     </div>
   </div>
@@ -1025,6 +1067,138 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
         <span id="encounter-status" class="status-line"></span>
       </div>
       <div id="encounter-output" class="mt-6"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 13: PPE COMPLIANCE DETECTION ============== -->
+<section id="demo-ppe" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
+    <div class="md:col-span-4 min-w-0">
+      <img src="img/hc-medical-data.jpg" alt="A clean clinical data visualization used to illustrate PPE compliance detection" class="demo-thumb w-full mb-5"/>
+      <div class="caps mb-3">13 · PPE compliance detection</div>
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
+        Find missing protective equipment in a photo.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        A real object-detection model — DETR, fine-tuned on the CPPE-5 dataset — finds coveralls, face
+        shields, gloves, goggles, and masks in an image and draws a box around each. PPE detection is one
+        of the most widely deployed computer-vision use cases in industrial and clinical safety today; this
+        is the same underlying pattern.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        Fine-tuned checkpoint and dataset are both openly published (see <code>/models/README.md</code>).
+        ~43 MB first run only, self-hosted from this site — no third-party model host is queried.
+      </p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <label for="ppe-input" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
+          Choose an image
+        </label>
+        <input type="file" id="ppe-input" accept="image/*" class="hidden"/>
+      </div>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="ppe-run" class="cta-sage rounded-full text-[14px] px-6 py-3" disabled>Detect PPE</button>
+        <span id="ppe-status" class="status-line"></span>
+      </div>
+      <div class="mt-6">
+        <canvas id="ppe-canvas" class="hidden max-w-full border hairline rounded"></canvas>
+      </div>
+      <div id="ppe-output" class="mt-4 flex flex-wrap gap-2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 14: HARD-HAT DETECTION + WORKER ID ============== -->
+<section id="demo-worker" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
+    <div class="md:col-span-4 min-w-0">
+      <img src="img/hc-risk-scoring.jpg" alt="A translucent panel used to illustrate a worker safety monitoring model" class="demo-thumb w-full mb-5"/>
+      <div class="caps mb-3">14 · Hard-hat detection + worker ID</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Not just "someone" — flag exactly who.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        A YOLOv8 model trained specifically for hard-hat compliance runs alongside a face-recognition model,
+        so a violation isn't just a red box on a screen — it's tied to a specific person. Enroll a worker
+        below with a photo and a name, then check a second photo to see them identified and matched against
+        their PPE status.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        Enrollment and matching both run entirely on-device — nothing about the photo, the name, or the
+        computed face signature is ever sent anywhere. Use your own photo rather than a stranger's: this
+        step only makes sense with a face whose use you actually control. ~12 MB hard-hat model self-hosted
+        here, plus ~14 MB of face-recognition weights loaded from their publisher's CDN, first run only.
+      </p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="caps mb-3">Step 1 — Enroll a worker</div>
+      <div class="flex flex-col sm:flex-row gap-4 items-start flex-wrap">
+        <label for="worker-enroll-input" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
+          Choose a face photo
+        </label>
+        <input type="file" id="worker-enroll-input" accept="image/*" class="hidden"/>
+        <input type="text" id="worker-enroll-name" class="field sm:w-56" placeholder="Name (e.g. Alex)"/>
+        <button id="worker-enroll-run" class="cta-sage rounded-full text-[14px] px-6 py-3" disabled>Enroll</button>
+      </div>
+      <div id="worker-enroll-status" class="status-line mt-3"></div>
+      <div id="worker-roster" class="mt-3 flex flex-wrap gap-2"></div>
+
+      <div class="mt-8 pt-8 border-t hairline">
+        <div class="caps mb-3">Step 2 — Check a site photo</div>
+        <div class="flex flex-col sm:flex-row gap-6 items-start">
+          <label for="worker-check-input" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
+            Choose a photo
+          </label>
+          <input type="file" id="worker-check-input" accept="image/*" class="hidden"/>
+        </div>
+        <div class="mt-4 flex items-center gap-4 flex-wrap">
+          <button id="worker-check-run" class="cta-sage rounded-full text-[14px] px-6 py-3" disabled>Check compliance</button>
+          <span id="worker-check-status" class="status-line"></span>
+        </div>
+        <div class="mt-6">
+          <canvas id="worker-canvas" class="hidden max-w-full border hairline rounded"></canvas>
+        </div>
+        <div id="worker-output" class="mt-4 space-y-2"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 15: RESTRICTED-ZONE INTRUSION DETECTION ============== -->
+<section id="demo-zone" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
+    <div class="md:col-span-4 min-w-0">
+      <img src="img/cap-predictive-monitoring.jpg" alt="A sleek dashboard showing real-time predictive-monitoring signals" class="demo-thumb w-full mb-5"/>
+      <div class="caps mb-3">15 · Restricted-zone intrusion detection</div>
+      <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
+        Draw a zone. Flag who steps into it.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Draw a rectangle over any hazardous area — a loading dock, a forklift lane, equipment with a live
+        exclusion radius — and a general-purpose object detector flags every person whose position overlaps
+        it. This is the same underlying pattern (person detection plus a geofenced rule) behind proximity
+        and restricted-access alerts on a real production floor, in any industry.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">~40 MB first run only.</p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <label for="zone-input" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
+          Choose an image
+        </label>
+        <input type="file" id="zone-input" accept="image/*" class="hidden"/>
+        <span class="text-[13px] text-graphite self-center">Then drag on the image below to draw a restricted zone.</span>
+      </div>
+      <div class="mt-4">
+        <canvas id="zone-canvas" class="hidden max-w-full border hairline rounded" style="cursor: crosshair;"></canvas>
+      </div>
+      <div class="mt-4 flex items-center gap-4 flex-wrap">
+        <button id="zone-run" class="cta-sage rounded-full text-[14px] px-6 py-3" disabled>Check for intrusions</button>
+        <span id="zone-status" class="status-line"></span>
+      </div>
+      <div id="zone-output" class="mt-4 space-y-2"></div>
     </div>
   </div>
 </section>
@@ -2524,6 +2698,478 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       setStatus('encounter-status', `Error: ${err.message}`);
     }
   });
+
+  /* ---------------- Shared: image loading + canvas box drawing ---------------- */
+  function loadImageFromFile(file) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  function drawImageToCanvas(canvas, img, maxW = 700) {
+    const scale = Math.min(1, maxW / img.naturalWidth);
+    canvas.width = Math.round(img.naturalWidth * scale);
+    canvas.height = Math.round(img.naturalHeight * scale);
+    canvas.classList.remove('hidden');
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    return ctx;
+  }
+
+  function drawBox(ctx, x, y, w, h, label, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, w, h);
+    ctx.font = '600 12px Inter, sans-serif';
+    const textW = ctx.measureText(label).width + 10;
+    const labelY = Math.max(0, y - 18);
+    ctx.fillStyle = color;
+    ctx.fillRect(x, labelY, textW, 18);
+    ctx.fillStyle = '#fff';
+    ctx.fillText(label, x + 5, labelY + 13);
+  }
+
+  /* ---------------- Demo 13: PPE compliance detection (DETR/CPPE-5, self-hosted ONNX) ---------------- */
+  (function () {
+    const PPE_LABELS = { 0: 'Coverall', 1: 'Face Shield', 2: 'Gloves', 3: 'Goggles', 4: 'Mask' };
+    const PPE_COLORS = ['#6C8884', '#5F86A4', '#A65A2E', '#8A7B1F', '#7C5468'];
+    let ppeSession = null;
+    let ppeImg = null;
+
+    const ppeInput = document.getElementById('ppe-input');
+    const ppeRunBtn = document.getElementById('ppe-run');
+    const ppeCanvas = document.getElementById('ppe-canvas');
+
+    ppeInput.addEventListener('change', async () => {
+      const file = ppeInput.files[0];
+      if (!file) return;
+      ppeImg = await loadImageFromFile(file);
+      drawImageToCanvas(ppeCanvas, ppeImg);
+      ppeRunBtn.disabled = false;
+      document.getElementById('ppe-output').innerHTML = '';
+      setStatus('ppe-status', '');
+    });
+
+    function preprocessDetr(img) {
+      // DETR: resize so the shortest edge is 800px and the longest edge stays under
+      // 1333px, preserving aspect ratio — matches the fine-tuned checkpoint's training preprocessing.
+      const shortestEdge = 800, longestEdge = 1333;
+      let w = img.naturalWidth, h = img.naturalHeight;
+      const minSide = Math.min(w, h), maxSide = Math.max(w, h);
+      let scale = shortestEdge / minSide;
+      if (maxSide * scale > longestEdge) scale = longestEdge / maxSide;
+      w = Math.round(w * scale);
+      h = Math.round(h * scale);
+
+      const off = document.createElement('canvas');
+      off.width = w; off.height = h;
+      const octx = off.getContext('2d');
+      octx.drawImage(img, 0, 0, w, h);
+      const { data: pixels } = octx.getImageData(0, 0, w, h);
+
+      const mean = [0.485, 0.456, 0.406], std = [0.229, 0.224, 0.225];
+      const chw = new Float32Array(3 * w * h);
+      for (let i = 0; i < w * h; i++) {
+        for (let c = 0; c < 3; c++) {
+          chw[c * w * h + i] = (pixels[i * 4 + c] / 255 - mean[c]) / std[c];
+        }
+      }
+      return { data: chw, w, h };
+    }
+
+    function softmaxRow(row) {
+      const max = Math.max(...row);
+      const exps = row.map((v) => Math.exp(v - max));
+      const sum = exps.reduce((a, b) => a + b, 0);
+      return exps.map((v) => v / sum);
+    }
+
+    ppeRunBtn.addEventListener('click', async () => {
+      if (!ppeImg) return;
+      ppeRunBtn.disabled = true;
+      try {
+        busy('ppe-status', 'Loading ONNX runtime…');
+        const ort = await import('https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/+esm');
+        ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/';
+        if (!ppeSession) {
+          busy('ppe-status', 'Downloading model — 43 MB, first run only…');
+          ppeSession = await ort.InferenceSession.create('/models/ppe-detection/model.onnx', { executionProviders: ['wasm'] });
+        }
+        busy('ppe-status', 'Preprocessing…');
+        const { data, w, h } = preprocessDetr(ppeImg);
+        const tensor = new ort.Tensor('float32', data, [1, 3, h, w]);
+        busy('ppe-status', 'Running detection…');
+        const outputs = await ppeSession.run({ pixel_values: tensor });
+        renderPpeResults(outputs.logits, outputs.pred_boxes);
+        setStatus('ppe-status', 'Done.');
+      } catch (err) {
+        console.error(err);
+        setStatus('ppe-status', `Error: ${err.message}`);
+      } finally {
+        ppeRunBtn.disabled = false;
+      }
+    });
+
+    function renderPpeResults(logitsTensor, boxesTensor) {
+      const ctx = ppeCanvas.getContext('2d');
+      ctx.drawImage(ppeImg, 0, 0, ppeCanvas.width, ppeCanvas.height);
+      const numQueries = logitsTensor.dims[1];
+      const numClasses = logitsTensor.dims[2]; // 6 = 5 PPE labels + "no object"
+      const logitsData = logitsTensor.data;
+      const boxesData = boxesTensor.data;
+      const found = [];
+      for (let q = 0; q < numQueries; q++) {
+        const row = Array.from(logitsData.slice(q * numClasses, (q + 1) * numClasses));
+        const probs = softmaxRow(row);
+        let bestLabel = -1, bestScore = 0;
+        for (let c = 0; c < numClasses - 1; c++) {
+          if (probs[c] > bestScore) { bestScore = probs[c]; bestLabel = c; }
+        }
+        if (bestLabel === -1 || bestScore < 0.7) continue;
+        const cx = boxesData[q * 4], cy = boxesData[q * 4 + 1], bw = boxesData[q * 4 + 2], bh = boxesData[q * 4 + 3];
+        found.push({ label: bestLabel, score: bestScore, cx, cy, bw, bh });
+      }
+      const out = document.getElementById('ppe-output');
+      if (!found.length) {
+        out.innerHTML = '<p class="text-[14px] text-graphite">No PPE items detected above threshold.</p>';
+        return;
+      }
+      found.forEach((f) => {
+        const x = (f.cx - f.bw / 2) * ppeCanvas.width;
+        const y = (f.cy - f.bh / 2) * ppeCanvas.height;
+        const w = f.bw * ppeCanvas.width, h = f.bh * ppeCanvas.height;
+        drawBox(ctx, x, y, w, h, `${PPE_LABELS[f.label]} ${(f.score * 100).toFixed(0)}%`, PPE_COLORS[f.label % PPE_COLORS.length]);
+      });
+      out.innerHTML = found
+        .map((f) => `<span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">${escapeHtml(PPE_LABELS[f.label])} · ${(f.score * 100).toFixed(0)}%</span>`)
+        .join('');
+    }
+  })();
+
+  /* ---------------- Demo 14: Hard-hat detection (self-hosted ONNX) + face-recognition worker ID ---------------- */
+  (function () {
+    let hardhatSession = null;
+    let faceapi = null;
+    let faceModelsLoaded = false;
+    let enrollImg = null, checkImg = null;
+    const roster = []; // { name, descriptor: Float32Array(128) }
+
+    const FACE_MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/model';
+
+    async function loadFaceApi(statusId) {
+      if (!faceapi) {
+        busy(statusId, 'Loading face-recognition library…');
+        faceapi = await import('https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/dist/face-api.esm.js');
+      }
+      if (!faceModelsLoaded) {
+        busy(statusId, 'Downloading face-recognition weights — ~14 MB, first run only…');
+        await faceapi.nets.tinyFaceDetector.loadFromUri(FACE_MODEL_URL);
+        await faceapi.nets.faceLandmark68Net.loadFromUri(FACE_MODEL_URL);
+        await faceapi.nets.faceRecognitionNet.loadFromUri(FACE_MODEL_URL);
+        faceModelsLoaded = true;
+      }
+      return faceapi;
+    }
+
+    // Hard-hat model: YOLOv8n, 2 classes (Hardhat / NO-Hardhat), fixed 640x640 letterboxed input.
+    function letterbox(img, size = 640) {
+      const scale = Math.min(size / img.naturalWidth, size / img.naturalHeight);
+      const newW = Math.round(img.naturalWidth * scale), newH = Math.round(img.naturalHeight * scale);
+      const padX = (size - newW) / 2, padY = (size - newH) / 2;
+      const off = document.createElement('canvas');
+      off.width = size; off.height = size;
+      const octx = off.getContext('2d');
+      octx.fillStyle = 'rgb(114,114,114)';
+      octx.fillRect(0, 0, size, size);
+      octx.drawImage(img, padX, padY, newW, newH);
+      const { data: pixels } = octx.getImageData(0, 0, size, size);
+      const chw = new Float32Array(3 * size * size);
+      for (let i = 0; i < size * size; i++) {
+        chw[i] = pixels[i * 4] / 255;
+        chw[size * size + i] = pixels[i * 4 + 1] / 255;
+        chw[2 * size * size + i] = pixels[i * 4 + 2] / 255;
+      }
+      return { data: chw, scale, padX, padY };
+    }
+
+    function iou(a, b) {
+      const x1 = Math.max(a.x, b.x), y1 = Math.max(a.y, b.y);
+      const x2 = Math.min(a.x + a.w, b.x + b.w), y2 = Math.min(a.y + a.h, b.y + b.h);
+      const inter = Math.max(0, x2 - x1) * Math.max(0, y2 - y1);
+      const union = a.w * a.h + b.w * b.h - inter;
+      return union > 0 ? inter / union : 0;
+    }
+
+    async function detectHardhats(img, statusId) {
+      const ort = await import('https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/+esm');
+      ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/';
+      if (!hardhatSession) {
+        busy(statusId, 'Downloading hard-hat model — 12 MB, first run only…');
+        hardhatSession = await ort.InferenceSession.create('/models/hardhat-detection/model.onnx', { executionProviders: ['wasm'] });
+      }
+      const { data, scale, padX, padY } = letterbox(img, 640);
+      const tensor = new ort.Tensor('float32', data, [1, 3, 640, 640]);
+      const outputs = await hardhatSession.run({ images: tensor });
+      const out = Object.values(outputs)[0]; // (1, 6, 8400): cx,cy,w,h,class0,class1
+      const numAnchors = out.dims[2];
+      const d = out.data;
+      const boxes = [];
+      for (let i = 0; i < numAnchors; i++) {
+        const c0 = d[4 * numAnchors + i], c1 = d[5 * numAnchors + i];
+        const cls = c1 > c0 ? 1 : 0;
+        const score = cls === 1 ? c1 : c0;
+        if (score < 0.4) continue;
+        const cx = d[i], cy = d[numAnchors + i], w = d[2 * numAnchors + i], h = d[3 * numAnchors + i];
+        boxes.push({
+          x: (cx - w / 2 - padX) / scale,
+          y: (cy - h / 2 - padY) / scale,
+          w: w / scale,
+          h: h / scale,
+          cls, score
+        });
+      }
+      // Basic greedy NMS.
+      boxes.sort((a, b) => b.score - a.score);
+      const kept = [];
+      for (const b of boxes) {
+        if (!kept.some((k) => iou(k, b) > 0.45)) kept.push(b);
+      }
+      return kept;
+    }
+
+    /* Step 1: enroll */
+    const enrollInput = document.getElementById('worker-enroll-input');
+    const enrollNameInput = document.getElementById('worker-enroll-name');
+    const enrollBtn = document.getElementById('worker-enroll-run');
+
+    function updateEnrollBtn() {
+      enrollBtn.disabled = !(enrollImg && enrollNameInput.value.trim());
+    }
+    enrollInput.addEventListener('change', async () => {
+      const file = enrollInput.files[0];
+      if (!file) return;
+      enrollImg = await loadImageFromFile(file);
+      updateEnrollBtn();
+    });
+    enrollNameInput.addEventListener('input', updateEnrollBtn);
+
+    function renderRoster() {
+      const el = document.getElementById('worker-roster');
+      if (!roster.length) { el.innerHTML = ''; return; }
+      el.innerHTML = roster
+        .map((r) => `<span class="font-label-sm text-label-sm border border-botanical-green/30 text-botanical-green rounded-full px-3 py-1">${escapeHtml(r.name)}</span>`)
+        .join('');
+    }
+
+    enrollBtn.addEventListener('click', async () => {
+      const name = enrollNameInput.value.trim();
+      if (!enrollImg || !name) return;
+      enrollBtn.disabled = true;
+      try {
+        const fa = await loadFaceApi('worker-enroll-status');
+        busy('worker-enroll-status', 'Looking for a face…');
+        const result = await fa.detectSingleFace(enrollImg, new fa.TinyFaceDetectorOptions())
+          .withFaceLandmarks()
+          .withFaceDescriptor();
+        if (!result) {
+          setStatus('worker-enroll-status', 'No face found in that photo — try a clearer, front-facing one.');
+          return;
+        }
+        roster.push({ name, descriptor: result.descriptor });
+        renderRoster();
+        setStatus('worker-enroll-status', `Enrolled "${name}".`);
+        enrollInput.value = '';
+        enrollNameInput.value = '';
+        enrollImg = null;
+      } catch (err) {
+        console.error(err);
+        setStatus('worker-enroll-status', `Error: ${err.message}`);
+      } finally {
+        updateEnrollBtn();
+      }
+    });
+
+    /* Step 2: check compliance */
+    const checkInput = document.getElementById('worker-check-input');
+    const checkBtn = document.getElementById('worker-check-run');
+    const workerCanvas = document.getElementById('worker-canvas');
+
+    checkInput.addEventListener('change', async () => {
+      const file = checkInput.files[0];
+      if (!file) return;
+      checkImg = await loadImageFromFile(file);
+      drawImageToCanvas(workerCanvas, checkImg);
+      checkBtn.disabled = false;
+      document.getElementById('worker-output').innerHTML = '';
+      setStatus('worker-check-status', '');
+    });
+
+    checkBtn.addEventListener('click', async () => {
+      if (!checkImg) return;
+      checkBtn.disabled = true;
+      try {
+        const fa = await loadFaceApi('worker-check-status');
+        busy('worker-check-status', 'Detecting faces…');
+        const faceResults = await fa.detectAllFaces(checkImg, new fa.TinyFaceDetectorOptions())
+          .withFaceLandmarks()
+          .withFaceDescriptors();
+        busy('worker-check-status', 'Checking hard-hat compliance…');
+        const hardhatBoxes = await detectHardhats(checkImg, 'worker-check-status');
+
+        const scaleX = workerCanvas.width / checkImg.naturalWidth;
+        const scaleY = workerCanvas.height / checkImg.naturalHeight;
+        const ctx = workerCanvas.getContext('2d');
+        ctx.drawImage(checkImg, 0, 0, workerCanvas.width, workerCanvas.height);
+
+        const people = faceResults.map((f) => {
+          const box = f.detection.box;
+          let best = null, bestDist = Infinity;
+          for (const r of roster) {
+            const dist = fa.euclideanDistance(f.descriptor, r.descriptor);
+            if (dist < bestDist) { bestDist = dist; best = r; }
+          }
+          const name = best && bestDist < 0.6 ? best.name : 'Unidentified';
+          // Match the nearest hard-hat-model box (by center distance) to this face.
+          const faceCx = box.x + box.width / 2, faceCy = box.y + box.height / 2;
+          let hh = null, hhDist = Infinity;
+          for (const b of hardhatBoxes) {
+            const bCx = b.x + b.w / 2, bCy = b.y + b.h / 2;
+            const d = Math.hypot(faceCx - bCx, faceCy - bCy);
+            if (d < hhDist) { hhDist = d; hh = b; }
+          }
+          const compliant = hh ? hh.cls === 0 : null; // class 0 = "Hardhat"
+          return { name, box, compliant };
+        });
+
+        people.forEach((p) => {
+          const x = p.box.x * scaleX, y = p.box.y * scaleY, w = p.box.width * scaleX, h = p.box.height * scaleY;
+          const color = p.compliant === false ? '#B91C1C' : p.compliant === true ? '#15803D' : '#5B6560';
+          const label = p.compliant === false ? `${p.name} — no hard hat` : p.compliant === true ? `${p.name} — compliant` : p.name;
+          drawBox(ctx, x, y, w, h, label, color);
+        });
+
+        const out = document.getElementById('worker-output');
+        if (!people.length) {
+          out.innerHTML = '<p class="text-[14px] text-graphite">No faces detected in that photo.</p>';
+        } else {
+          out.innerHTML = people
+            .map((p) => {
+              const statusText = p.compliant === false ? 'No hard hat detected' : p.compliant === true ? 'Hard hat detected' : 'Compliance unclear';
+              const statusColor = p.compliant === false ? 'text-error' : p.compliant === true ? 'text-botanical-green' : 'text-graphite';
+              return `<div class="flex items-center justify-between border hairline rounded px-4 py-2"><span class="text-[14px]">${escapeHtml(p.name)}</span><span class="text-[13px] ${statusColor}">${statusText}</span></div>`;
+            })
+            .join('');
+        }
+        setStatus('worker-check-status', 'Done.');
+      } catch (err) {
+        console.error(err);
+        setStatus('worker-check-status', `Error: ${err.message}`);
+      } finally {
+        checkBtn.disabled = false;
+      }
+    });
+  })();
+
+  /* ---------------- Demo 15: Restricted-zone intrusion detection ---------------- */
+  (function () {
+    let zoneImg = null;
+    let zone = null; // { x, y, w, h } in canvas pixel space
+    let drawing = false, startX = 0, startY = 0;
+
+    const zoneInput = document.getElementById('zone-input');
+    const zoneCanvas = document.getElementById('zone-canvas');
+    const zoneRunBtn = document.getElementById('zone-run');
+
+    zoneInput.addEventListener('change', async () => {
+      const file = zoneInput.files[0];
+      if (!file) return;
+      zoneImg = await loadImageFromFile(file);
+      drawImageToCanvas(zoneCanvas, zoneImg);
+      zone = null;
+      zoneRunBtn.disabled = true;
+      document.getElementById('zone-output').innerHTML = '';
+      setStatus('zone-status', 'Drag on the image to draw a restricted zone.');
+    });
+
+    function redrawZoneCanvas() {
+      const ctx = zoneCanvas.getContext('2d');
+      ctx.drawImage(zoneImg, 0, 0, zoneCanvas.width, zoneCanvas.height);
+      if (zone) {
+        ctx.strokeStyle = '#B45309';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6, 4]);
+        ctx.strokeRect(zone.x, zone.y, zone.w, zone.h);
+        ctx.fillStyle = 'rgba(180,83,9,0.12)';
+        ctx.fillRect(zone.x, zone.y, zone.w, zone.h);
+        ctx.setLineDash([]);
+      }
+    }
+
+    function canvasPoint(e) {
+      const rect = zoneCanvas.getBoundingClientRect();
+      const scaleX = zoneCanvas.width / rect.width, scaleY = zoneCanvas.height / rect.height;
+      return { x: (e.clientX - rect.left) * scaleX, y: (e.clientY - rect.top) * scaleY };
+    }
+
+    zoneCanvas.addEventListener('mousedown', (e) => {
+      if (!zoneImg) return;
+      const p = canvasPoint(e);
+      drawing = true;
+      startX = p.x; startY = p.y;
+      zone = { x: startX, y: startY, w: 0, h: 0 };
+    });
+    zoneCanvas.addEventListener('mousemove', (e) => {
+      if (!drawing) return;
+      const p = canvasPoint(e);
+      zone = { x: Math.min(startX, p.x), y: Math.min(startY, p.y), w: Math.abs(p.x - startX), h: Math.abs(p.y - startY) };
+      redrawZoneCanvas();
+    });
+    window.addEventListener('mouseup', () => {
+      if (!drawing) return;
+      drawing = false;
+      zoneRunBtn.disabled = !(zone && zone.w > 10 && zone.h > 10);
+    });
+
+    zoneRunBtn.addEventListener('click', async () => {
+      if (!zoneImg || !zone) return;
+      zoneRunBtn.disabled = true;
+      try {
+        busy('zone-status', 'Loading model…');
+        const detector = await loadPipeline('rtdetr', 'object-detection', 'onnx-community/rtdetr_r18vd_coco_o365', { dtype: 'q8' }, 'zone-status');
+        busy('zone-status', 'Detecting people…');
+        const image = await RawImage.fromURL(zoneImg.src);
+        const results = await detector(image, { threshold: 0.5 });
+        const scaleX = zoneCanvas.width / zoneImg.naturalWidth;
+        const scaleY = zoneCanvas.height / zoneImg.naturalHeight;
+        redrawZoneCanvas();
+        const ctx = zoneCanvas.getContext('2d');
+        const people = results.filter((r) => r.label === 'person');
+        let violations = 0;
+        people.forEach((p) => {
+          const x = p.box.xmin * scaleX, y = p.box.ymin * scaleY;
+          const w = (p.box.xmax - p.box.xmin) * scaleX, h = (p.box.ymax - p.box.ymin) * scaleY;
+          const overlaps = x < zone.x + zone.w && x + w > zone.x && y < zone.y + zone.h && y + h > zone.y;
+          if (overlaps) violations++;
+          drawBox(ctx, x, y, w, h, overlaps ? 'Intrusion' : 'Person', overlaps ? '#B91C1C' : '#15803D');
+        });
+        const out = document.getElementById('zone-output');
+        if (!people.length) {
+          out.innerHTML = '<p class="text-[14px] text-graphite">No people detected in this photo.</p>';
+        } else {
+          out.innerHTML = `<p class="text-[14px]">${people.length} ${people.length === 1 ? 'person' : 'people'} detected — <span class="${violations ? 'text-error' : 'text-botanical-green'}">${violations} in the restricted zone</span>.</p>`;
+        }
+        setStatus('zone-status', 'Done.');
+      } catch (err) {
+        console.error(err);
+        setStatus('zone-status', `Error: ${err.message}`);
+      } finally {
+        zoneRunBtn.disabled = false;
+      }
+    });
+  })();
 </script>
 
 <!-- ============== THEME TOGGLE ============== -->
