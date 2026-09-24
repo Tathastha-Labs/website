@@ -11,7 +11,7 @@
   </script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Tathastha Labs — Engineering Case Studies</title>
+  <title>Case Studies — Tathastha Labs</title>
   <meta name="description" content="Six systems our team has built: ambient clinical documentation, agentic goal planning, an MCP data agent, a grounded biomarker research assistant, computer-vision wound assessment, and rapid AI prototyping."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://tathastha.com/case-studies.html"/>
@@ -62,17 +62,11 @@
   }
   </script>
 
-  <link rel="icon" type="image/svg+xml" href="tathastha-labs-icon-light.svg"/>
+  <link rel="icon" type="image/svg+xml" href="/tathastha-labs-mark.svg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
-  <script>
-    (function () {
-      var stored = localStorage.getItem('theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
-    })();
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -80,6 +74,7 @@
       theme: {
         extend: {
           colors: {
+            "primary-strong": "var(--color-primary-strong)", "invert": "var(--color-invert-bg)",
             "text-muted": "var(--color-text-secondary)",
             "error": "var(--color-error)",
             "botanical-green": "var(--color-primary)",
@@ -110,15 +105,15 @@
             "margin-mobile": "16px", "base": "8px", "section-gap": "120px", "15": "60px"
           },
           fontFamily: {
-            "headline-md": ["EB Garamond"], "body-lg": ["Inter"], "display-lg": ["EB Garamond"],
-            "display-lg-mobile": ["EB Garamond"], "body-md": ["Inter"], "title-lg": ["Inter"],
-            "label-md": ["Inter"], "label-sm": ["Inter"], "headline-sm": ["EB Garamond"]
+            "headline-md": ["DM Sans"], "body-lg": ["DM Sans"], "display-lg": ["DM Sans"],
+            "display-lg-mobile": ["DM Sans"], "body-md": ["DM Sans"], "title-lg": ["DM Sans"],
+            "label-md": ["DM Sans"], "label-sm": ["DM Sans"], "headline-sm": ["DM Sans"]
           },
           fontSize: {
-            "headline-md": ["clamp(2rem, 1.6rem + 1.6vw, 2.75rem)", { lineHeight: "1.15", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "headline-md": ["clamp(2rem, 1.6rem + 1.6vw, 2.75rem)", { lineHeight: "1.15", letterSpacing: "-0.01em", fontWeight: "500" }],
             "body-lg": ["18px", { lineHeight: "27px", fontWeight: "400" }],
-            "display-lg": ["clamp(2.75rem, 2rem + 3vw, 4.5rem)", { lineHeight: "1.08", letterSpacing: "-0.02em", fontWeight: "700" }],
-            "display-lg-mobile": ["clamp(2.25rem, 1.9rem + 1.6vw, 2.75rem)", { lineHeight: "1.12", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "display-lg": ["clamp(2.75rem, 2rem + 3vw, 4.5rem)", { lineHeight: "1.08", letterSpacing: "-0.02em", fontWeight: "500" }],
+            "display-lg-mobile": ["clamp(2.25rem, 1.9rem + 1.6vw, 2.75rem)", { lineHeight: "1.12", letterSpacing: "-0.02em", fontWeight: "500" }],
             "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
             "title-lg": ["22px", { lineHeight: "30px", fontWeight: "600" }],
             "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
@@ -131,22 +126,22 @@
   </script>
   <style>
     :root {
-      --color-primary: #2F6459; --color-primary-hover: #24504A; --color-secondary: #12181B;
-      --color-accent: #3E6E92; --color-accent-hover: #325A78; --color-accent-tint: #E8F0F6;
-      --color-background: #FFFFFF; --color-surface: #F7F7F5; --color-surface-alt: #F1F1EE; --color-card: #FFFFFF;
-      --color-border: #E4E4E0; --color-border-strong: #CBCBC5;
+      --color-primary: #2BA0A8; --color-primary-hover: #1D7C83; --color-primary-strong: #1D7C83;
+      --color-secondary: #0F1115; --color-accent: #39BDC6; --color-accent-hover: #2BA0A8; --color-accent-tint: #F0FAFB;
+      --color-background: #FFFFFF; --color-surface: #FFFFFF; --color-surface-alt: #F0FAFB; --color-card: #FFFFFF;
+      --color-border: #E1ECED; --color-border-strong: #B5E5EA;
       --color-success: #15803D; --color-warning: #B45309; --color-error: #B91C1C; --color-error-tint: #FBE9E7;
-      --color-text-primary: #12181B; --color-text-secondary: #5B6560; --color-text-disabled: #9CA3A0;
-      --color-on-primary: #FFFFFF; --color-invert-bg: #12181B;
+      --color-text-primary: #0F1115; --color-text-secondary: #514E5B; --color-text-disabled: #9CA3A0;
+      --color-on-primary: #FFFFFF; --color-invert-bg: #081F21;
     }
     :root.dark {
-      --color-primary: #5B9C8E; --color-primary-hover: #6BAA9C; --color-secondary: #E7E9E8;
-      --color-accent: #6FA3C9; --color-accent-hover: #86B3D6; --color-accent-tint: #16222B;
-      --color-background: #0B0D0C; --color-surface: #131513; --color-surface-alt: #191B19; --color-card: #17191A;
-      --color-border: #2A2D2A; --color-border-strong: #3B3E3A;
+      --color-primary: #39BDC6; --color-primary-hover: #6FD3DA; --color-primary-strong: #6FD3DA;
+      --color-secondary: #E7EFEF; --color-accent: #39BDC6; --color-accent-hover: #6FD3DA; --color-accent-tint: #0C2A2D;
+      --color-background: #06090A; --color-surface: #0A1113; --color-surface-alt: #0D1A1C; --color-card: #0F1A1C;
+      --color-border: #1C2C2E; --color-border-strong: #2A4447;
       --color-success: #4ADE80; --color-warning: #FBBF24; --color-error: #F87171; --color-error-tint: #2A1614;
-      --color-text-primary: #F2F4F1; --color-text-secondary: #9AA39D; --color-text-disabled: #5B6560;
-      --color-on-primary: #0B0D0C; --color-invert-bg: #1E211F;
+      --color-text-primary: #F2F6F6; --color-text-secondary: #9AABAD; --color-text-disabled: #5B6D6F;
+      --color-on-primary: #06090A; --color-invert-bg: #081F21;
     }
     html { scroll-behavior: smooth; }
     body { font-feature-settings: "ss01","cv11"; }
@@ -170,141 +165,267 @@
       .reveal { transition: none; opacity: 1; transform: none; }
       .bento-card, .bento-card:hover { transition: none; }
     }
+
+    /* ---- shared site theme (matches index/capabilities/about) ---- */
+    body { font-family: "DM Sans", system-ui, sans-serif; }
+    .caps { letter-spacing: 0.16em !important; font-size: 12px !important; font-weight: 700 !important; color: var(--color-primary-strong) !important; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 9999px; font-weight: 600; font-size: 14px; padding: 14px 28px; transition: opacity 200ms, background 200ms, color 200ms; }
+    .btn-primary { background: var(--color-primary); color: #fff; }
+    .btn-primary:hover { background: var(--color-primary-strong); }
+    :root.dark .btn-primary { color: #06090A; }
+    .on-dark .caps { color: #6FD3DA !important; }
   </style>
   <!-- HubSpot tracking code -->
   <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/246988891.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    body.pg { font-family: "DM Sans", system-ui, sans-serif; background: #fff; color: #000; }
+    .whero .in { display: grid; gap: 32px; padding-top: 80px; padding-bottom: 48px; align-items: center; }
+    @media (min-width: 1000px) { .whero .in { grid-template-columns: 1fr 760px; } }
+    .whero h1 { margin: 20px 0 24px; max-width: 596px; }
+    .whero .sub { font-weight: 300; font-size: clamp(1.4rem, 1rem + 1.1vw, 2rem); line-height: 1.3; color: rgba(0,0,0,.5); max-width: 600px; margin: 0 0 32px; }
+    .whero .art { position: relative; }
+    .whero .art img { width: 100%; height: auto; }
+    .whero .l1, .whero .l2 { position: absolute; font-weight: 700; font-size: 12px; color: var(--teal); letter-spacing: .04em; display: none; }
+    @media (min-width: 1500px) { .whero .l1 { display: block; right: 0; top: 4px; } .whero .l2 { display: block; left: 40px; bottom: 30px; } }
+    .chips { background: #fff; border-radius: 8px; box-shadow: 0 1px 2px rgba(16,24,40,.06), 0 0 0 1px rgba(182,182,182,.25); padding: 14px 16px; display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chips button { flex: none; border: 0; cursor: pointer; font: 500 17px "DM Sans", sans-serif; padding: 0 20px; height: 54px; border-radius: 8px; background: #F5F5F5; color: #000; }
+    .chips button.on { background: #2BA0A8; color: #fff; font-weight: 700; }
+    .feat { position: relative; overflow: hidden; border-radius: 16px; color: #fff; min-height: 534px; background: #0C2E33; }
+    .feat > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .feat::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(8,31,33,.92) 0%, rgba(8,31,33,.6) 45%, rgba(8,31,33,0) 85%); }
+    .feat .tx { position: relative; z-index: 2; padding: 48px 50px; max-width: 640px; }
+    .feat .tg { font-weight: 700; font-size: 16px; color: var(--teal); margin-bottom: 24px; }
+    .feat h3 { margin: 0 0 32px; font-weight: 500; font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.5rem); line-height: 1.15; letter-spacing: -.01em; max-width: 570px; }
+    .feat p { margin: 0 0 24px; font-size: 18px; line-height: 1.5; color: #D6DADB; max-width: 560px; }
+    .feat .vl { font-weight: 600; font-size: 20px; display: inline-flex; gap: 6px; align-items: center; }
+    .feat .mt { display: flex; flex-wrap: wrap; gap: 24px 56px; margin-top: 36px; }
+    .feat .mt b { display: block; font-weight: 700; font-size: 35px; }
+    .feat .mt span { font-size: 24px; color: #B3B3B3; }
+    .cs { display: grid; gap: 40px; margin-top: 40px; }
+    @media (min-width: 900px) { .cs { grid-template-columns: 1fr 1fr; gap: 42px; } }
+    .cs .cscard[hidden], .feat[hidden] { display: none; }
+    .cscard { border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,.08); border: 1px solid #EEF0F2; }
+    .cscard .top { position: relative; min-height: 335px; }
+    .cscard .top > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .cscard .top::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,.88) 38%, rgba(255,255,255,0) 90%); }
+    .cscard .top .tx { position: relative; z-index: 2; padding: 60px 60px 40px; max-width: 440px; }
+    .cscard .tg { font-weight: 700; font-size: 16px; color: var(--teal); margin-bottom: 12px; }
+    .cscard h3 { margin: 0 0 24px; font-weight: 500; font-size: 35px; line-height: 1.1; letter-spacing: -.01em; }
+    .cscard .vl { font-weight: 600; font-size: 20px; display: inline-flex; gap: 6px; align-items: center; }
+    .cscard .mt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 28px 48px 32px; }
+    .cscard .mt b { display: block; font-weight: 700; font-size: 25px; }
+    .cscard .mt span { font-size: 15px; color: rgba(0,0,0,.55); }
+    .imp { display: grid; gap: 32px; margin-top: 56px; }
+    @media (min-width: 800px) { .imp { grid-template-columns: repeat(4, 1fr); } }
+    .imp .m { text-align: center; position: relative; }
+    .imp .m .ic { width: 40px; height: 40px; border-radius: 8px; background: var(--tint); color: var(--teal); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; position: relative; z-index: 1; }
+    @media (min-width: 800px) { .imp .m:not(:last-child)::after { content: ""; position: absolute; top: 20px; left: calc(50% + 40px); right: calc(-50% + 40px); height: 1px; background: rgba(57,189,198,.5); } }
+    .imp b { display: block; font-weight: 500; font-size: 24px; }
+    .imp span.t { display: block; font-size: 20px; margin-top: 8px; max-width: 200px; margin-inline: auto; }
+    .quote { font-weight: 400; font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.5rem); line-height: 1.25; letter-spacing: -.01em; margin: 0; max-width: 900px; }
+    #eng { scroll-margin-top: 100px; }
+  </style>
+  <style>
+    /* shared site design */
+    :root {
+      --teal: #39BDC6; --teal-deep: #2BA0A8; --teal-ink: #1F8A92; --tint: #F0FAFB;
+      --ink: #000; --btn: #06040A; --muted: rgba(0,0,0,.6); --body2: #514E5B;
+      --line: #E5E7EB; --line2: #DAE0E6; --band: #0C4B4F; --foot: #081F21; --on-dark: #B3B3B3;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: "DM Sans", system-ui, sans-serif; color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; font-size: 24px; line-height: 1; }
+    .wrap { width: 100%; max-width: 1312px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 768px) { .wrap { padding: 0 32px; } }
+    @media (min-width: 1344px) { .wrap { padding: 0 16px; max-width: 1312px; } }
+    .sec { padding: 40px 0; }
+    @media (min-width: 1024px) { .sec { padding: 50px 0; } }
+    .kicker { font-weight: 700; font-size: 16px; line-height: 16px; letter-spacing: .04em; color: var(--teal); margin: 0 0 16px; }
+    .kicker.sm { font-size: 12px; }
+    .h1 { font-weight: 500; font-size: clamp(2.6rem, 1.4rem + 3.9vw, 4.375rem); line-height: 1; letter-spacing: -.02em; margin: 0; }
+    .h2 { font-weight: 400; font-size: clamp(1.75rem, 1.4rem + 1vw, 2rem); line-height: 1.25; margin: 0; }
+    .h2-40 { font-weight: 400; font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.5rem); line-height: 1.1; letter-spacing: -.01em; margin: 0; }
+    .h2-48 { font-weight: 400; font-size: clamp(2rem, 1.4rem + 2vw, 3rem); line-height: 1.1; letter-spacing: -.01em; margin: 0; }
+    .lead { font-size: 18px; line-height: 1.4; color: var(--muted); margin: 0; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 6px; font-weight: 700; font-size: 12px; background: var(--btn); color: #fff; border: 0; cursor: pointer; white-space: nowrap; transition: opacity .2s; }
+    .btn:hover { opacity: .85; }
+    .btn-teal { background: var(--teal); }
+    .btn-white { background: #fff; color: var(--teal); border-radius: 8px; height: 52px; padding: 0 32px; font-weight: 600; font-size: 15px; }
+    .btn-line { background: #fff; color: #333; border: 1.4px solid #E4E7EB; border-radius: 8px; font-weight: 500; font-size: 16px; height: 40px; }
+    .tlink { display: inline-flex; align-items: center; gap: 6px; color: var(--teal); font-weight: 600; font-size: 20px; line-height: 26px; }
+    .tlink.sm { font-size: 12px; line-height: 16px; gap: 4px; }
+    .tlink .material-symbols-outlined { font-size: 20px; }
+    .tlink.sm .material-symbols-outlined { font-size: 14px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+    .ico { width: 48px; height: 48px; border-radius: 8px; background: var(--tint); display: inline-flex; align-items: center; justify-content: center; color: var(--teal); flex: none; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .3s ease, transform .3s ease; }
+    .reveal.active { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+    *:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+    /* announcement + nav */
+    .announce { background: #E8E8E8; color: #262626; font-family: "Wix Madefor Display", "DM Sans", sans-serif; font-size: 14px; height: 36px; }
+    .announce .wrap { display: flex; align-items: center; height: 36px; justify-content: space-between; }
+    .announce a { display: inline-flex; align-items: center; gap: 4px; }
+    .announce button { background: none; border: 0; cursor: pointer; color: #262626; display: inline-flex; padding: 0; }
+    .nav { position: sticky; top: 0; z-index: 40; background: #fff; border-bottom: 1px solid var(--line); }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
+    .nav-links { display: none; align-items: center; gap: 24px; font-family: "Wix Madefor Display", "DM Sans", sans-serif; font-weight: 500; font-size: 14px; letter-spacing: -.01em; }
+    @media (min-width: 900px) { .nav-links { display: flex; } }
+    .nav-links a { white-space: nowrap; padding: 4px 0; }
+    .nav-links a.on { font-weight: 800; }
+    .nav-links a:hover { color: var(--teal-ink); }
+    .nav .btn { height: 36px; }
+    .menu-btn { display: inline-flex; background: none; border: 0; cursor: pointer; padding: 4px; }
+    @media (min-width: 900px) { .menu-btn { display: none; } }
+    .mobile-menu { display: none; border-top: 1px solid var(--line); background: #fff; padding: 8px 16px 20px; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); font-weight: 500; }
+    .nav-cta { display: none; }
+    @media (min-width: 640px) { .nav-cta { display: inline-flex; } }
+
+    /* band */
+    .band { position: relative; background: var(--band); color: #fff; overflow: hidden; }
+    .band .waves { position: absolute; right: 0; top: 0; height: 100%; width: auto; max-width: none; pointer-events: none; }
+    .band .wrap { position: relative; }
+    .band .kicker { color: #fff; }
+
+    /* faq */
+    .faq details { background: var(--tint); border: 1px solid var(--line2); border-radius: 16px; margin-bottom: 16px; }
+    .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px; font-weight: 600; font-size: 18px; line-height: 28px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq details[open] { background: #fff; box-shadow: 0 1px 2px rgba(16,24,40,.04); }
+    .faq details[open] .chev { transform: rotate(180deg); }
+    .faq .chev { transition: transform .2s; }
+    .faq p { margin: 0; padding: 0 24px 24px; color: var(--muted); font-size: 16px; line-height: 26px; }
+
+    /* contact */
+    .contact-grid { display: grid; gap: 24px; }
+    @media (min-width: 1024px) { .contact-grid { grid-template-columns: 420px 1fr; gap: 40px; } }
+    .contact-l { background: var(--tint); border-radius: 16px; padding: 56px 32px 40px 56px; }
+    .contact-l h3 { font-weight: 500; font-size: 32px; line-height: 1.5; margin: 24px 0 24px; }
+    .contact-l p { font-size: 18px; line-height: 28px; color: var(--muted); margin: 0 0 32px; }
+    .mail { display: inline-flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; height: 52px; padding: 0 20px; color: var(--teal); font-weight: 500; font-size: 14px; box-shadow: 0 1px 2px rgba(16,24,40,.04); }
+    .contact-r { background: #fff; border-radius: 16px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 0 0 1px rgba(16,24,40,.04); padding: 48px; }
+    .frow { display: grid; gap: 24px; margin-bottom: 24px; }
+    @media (min-width: 640px) { .frow.two { grid-template-columns: 1fr 1fr; } }
+    .contact-r label { display: block; color: var(--teal); font-weight: 500; font-size: 14px; margin-bottom: 8px; }
+    .contact-r input, .contact-r textarea { width: 100%; font: 400 15px "DM Sans", sans-serif; color: #000; background: #fff; border: 1px solid var(--line2); border-radius: 8px; padding: 0 16px; height: 52px; box-shadow: 0 1px 2px rgba(16,24,40,.05); }
+    .contact-r textarea { height: 160px; padding: 16px; resize: none; }
+    .contact-r input::placeholder, .contact-r textarea::placeholder { color: #919BA7; }
+    .contact-r input:focus, .contact-r textarea:focus { outline: none; border-color: var(--teal); }
+    .contact-r .submit { height: 53px; border-radius: 8px; padding: 0 32px; font-size: 16px; }
+
+    /* footer */
+    footer.foot { background: var(--foot); color: #fff; padding: 80px 0 40px; }
+    .foot-top { display: grid; gap: 40px; padding-bottom: 64px; }
+    @media (min-width: 900px) { .foot-top { grid-template-columns: 1fr 580px; } }
+    .foot p.tag { color: var(--on-dark); font-size: 15px; line-height: 22px; max-width: 400px; margin: 24px 0 24px; }
+    .social { display: flex; gap: 8px; }
+    .social a { width: 33px; height: 33px; border-radius: 6px; background: #000; display: inline-flex; align-items: center; justify-content: center; }
+    .foot-cols { display: grid; grid-template-columns: repeat(3, 140px); gap: 80px; }
+    @media (max-width: 700px) { .foot-cols { grid-template-columns: repeat(2, 1fr); gap: 32px; } }
+    .foot-cols h4 { margin: 0 0 20px; color: var(--teal); font-weight: 700; font-size: 12px; letter-spacing: .125em; }
+    .foot-cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .foot-cols a { color: var(--on-dark); font-weight: 500; font-size: 14px; }
+    .foot-cols a:hover { color: #fff; }
+    .foot-bot { border-top: 1px solid #272D37; padding-top: 60px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; color: var(--on-dark); font-size: 13px; }
+    .foot-bot .legal { display: flex; align-items: center; gap: 20px; }
+    .foot-bot .legal i { width: 3px; height: 3px; border-radius: 2px; background: #272D37; display: inline-block; }
+  </style>
 </head>
-<body class="bg-background text-on-surface font-body-md antialiased">
+<body class="pg">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="tl-wordmark" viewBox="0 0 273 24"><g><g transform="matrix(1 0 0 1 0 0)"><g transform="matrix(1 0 0 1 92.28599548339844 0.3225969076156616)"><path d="M17.931 22.55L14.292 22.611L14.273 12.752L3.621 12.737L3.601 22.577L0 22.558L0 0L3.601 0.046L3.613 9.352L14.261 9.36L14.307 0.03L17.927 0L17.931 22.55Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 158.85076904296875 -3.552713678800501e-15)"><path d="M14.353 22.057C12.497 23.06 10.614 23.334 8.567 23.258C4.089 23.094 0.324 21.051 0 16.39L3.746 16.367C4.028 19.908 8.941 20.781 12.077 19.355C13.244 18.826 13.937 17.736 13.872 16.516C13.811 15.376 13 14.317 11.742 13.966L6.075 12.4C4.63 12 3.041 11.352 2.081 10.14C-0.282 7.16 0.888 2.693 4.276 1.066C7.218 -0.348 10.545 -0.344 13.465 1.012C15.58 1.996 16.914 3.871 16.929 6.234L13.358 6.268C12.706 3.131 8.32 2.476 5.698 4.164C4.455 4.965 4.078 6.775 5.118 7.861C5.797 8.57 6.871 8.882 7.817 9.141L13.503 10.704C15.286 11.192 16.693 12.598 17.295 14.309C18.358 17.332 17.207 20.514 14.356 22.054L14.353 22.057Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 220.1864471435547 0.34927594661712646)"><g transform="matrix(1 0 0 1 0.0009012088412418962 -0.000001546064595459029)"><path d="M17.996 22.501L14.364 22.592L14.356 12.737L3.624 12.718L3.601 22.577L0 22.539L0 0L3.605 0.011L3.609 9.345L14.349 9.341L14.364 0L17.981 0L17.996 22.501Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 30.302888870239258 0.01905367523431778)"><path d="M17.798 22.535L10.869 4.39L3.811 22.535L0 22.512L9.162 0L12.733 0.015L21.693 22.52L17.798 22.535Z" fill="currentColor" fill-rule="nonzero"/></g></g><g transform="matrix(1 0 0 1 60.65756607055664 0.337841659784317)"><path d="M10.705 22.527L7.131 22.546L7.108 3.293L0.015 3.274L0 0.008L17.779 0L17.836 3.285L10.702 3.289L10.705 22.527Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 188.65701293945312 0.33403119444847107)"><path d="M10.603 22.546L6.982 22.55L6.982 3.293L0.015 3.285L0 0.011L17.775 0L17.832 3.289L10.595 3.293L10.603 22.546Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 125.22523498535156 0.3530864119529724)"><g transform="matrix(1 0 0 1 3.0189905166625977 0.000001848903139034519)"><path d="M12.721 15.873L8.148 4.188L3.601 15.702L0 15.648L6.429 0L10.05 0L16.369 15.786L12.721 15.873Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 0.0006269961595535278 18.701082229614258)"><path d="M3.823 3.941L0 3.887L1.643 0L5.328 0.015L3.823 3.941Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 16.85359001159668 18.697269439697266)"><path d="M5.278 3.849L1.479 3.922L0 0L3.727 0.023L5.278 3.849Z" fill="currentColor" fill-rule="nonzero"/></g></g><g transform="matrix(1 0 0 1 9.094947017729282e-13 0.3225969076156616)"><g transform="matrix(1 0 0 1 9.094947017729282e-13 0.0038098543882369995)"><path d="M10.698 22.539L7.073 22.588L7.062 3.285L0 3.266L0 0L17.783 0.015L17.798 3.281L10.69 3.281L10.698 22.539Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 27.84412384033203 -6.085423933654965e-7)"><g transform="matrix(1 0 0 1 0.0003734296187758446 -6.085423933654965e-7)"><path d="M15.229 15.492L10.965 4.322L8.887 9.573L3.819 22.585L0 22.554L9.185 0.042L12.821 0L21.872 22.566L17.973 22.592L15.229 15.492Z" fill="currentColor" fill-rule="nonzero"/></g></g></g></g></g></symbol></svg>
+<!-- ============== ANNOUNCEMENT ============== -->
+<div class="announce" id="announce">
+  <div class="wrap">
+    <a href="case-studies.html"><span>How we helped a healthcare startup increase patient onboarding by 180%</span><span class="material-symbols-outlined" style="font-size:20px">arrow_right_alt</span></a>
+    <button type="button" id="announce-close" aria-label="Dismiss announcement"><span class="material-symbols-outlined" style="font-size:22px">close</span></button>
+  </div>
+</div>
 
 <!-- ============== NAV ============== -->
-<header class="sticky top-0 z-40 bg-surface/85 backdrop-blur-md border-b border-outline/10">
-  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3 group">
-      <svg viewBox="0 0 220 220" class="w-9 h-9" aria-hidden="true">
-        <g transform="translate(110,110)">
-          <circle cx="0" cy="0" r="82" fill="none" stroke="#1A1A1A" stroke-width="6"/>
-          <g stroke="#1A1A1A" stroke-width="3" fill="none" opacity="0.55">
-            <line x1="0" y1="-50" x2="43.3" y2="25"/>
-            <line x1="43.3" y1="25" x2="-43.3" y2="25"/>
-            <line x1="-43.3" y1="25" x2="0" y2="-50"/>
-          </g>
-          <g stroke="#1A1A1A" stroke-width="4.5" fill="none">
-            <line x1="0" y1="0" x2="0" y2="-50"/>
-            <line x1="0" y1="0" x2="43.3" y2="25"/>
-            <line x1="0" y1="0" x2="-43.3" y2="25"/>
-          </g>
-          <g fill="#1A1A1A">
-            <circle cx="0" cy="-50" r="12"/>
-            <circle cx="43.3" cy="25" r="12"/>
-            <circle cx="-43.3" cy="25" r="12"/>
-          </g>
-          <circle cx="0" cy="0" r="18" fill="#1A1A1A"/>
-          <circle cx="0" cy="0" r="7" fill="#FAFAF7"/>
-        </g>
-      </svg>
-      <span class="font-headline-sm text-headline-sm text-ink-black tracking-tight">Tathastha <span class="text-text-muted">Labs</span></span>
-    </a>
-    <nav class="hidden md:flex items-center gap-8">
-      <a href="/#ai" class="text-on-surface-variant hover:text-sky-blue-dim transition-colors font-label-md text-label-md">Capabilities</a>
-      <a href="/#industries" class="text-on-surface-variant hover:text-sky-blue-dim transition-colors font-label-md text-label-md">Industries</a>
-      <a href="/case-studies.html" class="text-ink-black font-label-md text-label-md">Case Studies</a>
-      <a href="/playground.html" class="text-on-surface-variant hover:text-sky-blue-dim transition-colors font-label-md text-label-md">Playground</a>
-    </nav>
-    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-      <span class="material-symbols-outlined icon-light text-[20px]">dark_mode</span>
-      <span class="material-symbols-outlined icon-dark text-[20px]">light_mode</span>
-    </button>
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" aria-label="Tathastha Labs home"><svg viewBox="0 0 273 24" class="nav-logo" role="img" aria-label="Tathastha Labs"><use href="#tl-wordmark"/></svg></a>
+    <nav class="nav-links" aria-label="Primary"><a href="capabilities.html" class="">Capabilities</a><a href="industries.html" class="">Industry</a><a href="case-studies.html" class="on">Case Studies</a><a href="playground.html" class="">Playground</a><a href="about.html" class="">About</a></nav>
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="#contact" class="btn nav-cta">Start a Discovery Sprint</a>
+      <button type="button" id="menu-toggle" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span class="material-symbols-outlined">menu</span></button>
+    </div>
   </div>
+  <div id="mobile-menu" class="mobile-menu"><a href="capabilities.html">Capabilities</a><a href="industries.html">Industry</a><a href="case-studies.html">Case Studies</a><a href="playground.html">Playground</a><a href="about.html">About</a><a href="#contact" class="btn" style="margin-top:16px;display:flex">Start a Discovery Sprint</a></div>
 </header>
+<style>.nav-logo{height:23px;width:auto;color:#000}@media(max-width:520px){.nav-logo{height:17px}}</style>
 
 <!-- ============== HERO ============== -->
-<section class="py-15 md:py-20 lg:py-section-gap px-margin-mobile md:px-margin-desktop">
-  <div class="max-w-container-max mx-auto reveal">
-    <div class="caps mb-4">Engineering case studies</div>
-    <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-ink-black max-w-4xl mb-6">
-      Six systems, one pattern: turning messy human input into structured output.
-    </h1>
-    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-10">
-      Ambient clinical documentation, agentic planning, a natural-language data agent, a grounded research
-      assistant, computer-vision measurement, and two fast feasibility demos — each one built around the same
-      core move: take unstructured input (speech, photos, documents, activity logs) and turn it into something
-      structured, searchable, or actionable.
-    </p>
-    <div class="flex flex-wrap gap-x-8 gap-y-3 pt-6 border-t border-outline/10 font-label-sm text-label-sm text-text-muted uppercase tracking-widest">
-      <span><b class="text-ink-black">6</b> case studies</span>
-      <span><b class="text-ink-black">4</b> domains — clinical care, planning, research, computer vision</span>
-      <span><b class="text-ink-black">12+</b> distinct AI techniques</span>
+<section class="whero">
+  <div class="wrap"><div class="in">
+    <div>
+      <div class="kicker sm" style="margin:0">OUR WORK</div>
+      <h1 class="h1">Real problems. Measurable progress.</h1>
+      <p class="sub">We partner with forward-thinking organizations to design, build and deploy AI solutions that create real-world impact.</p>
+      <a href="#work" class="btn">Explore Our Work</a>
+    </div>
+    <div class="art"><img src="img/fig-work-hero.png" alt="Collage of teams working across healthcare, finance, retail and manufacturing" fetchpriority="high"/><span class="l1">IDEAS SOLUTIONS REAL-WORLD IMPACT</span><span class="l2">DIFFERENT INDUSTRIES. A STRONGER TOMORROW</span></div>
+  </div></div>
+</section>
+
+<section class="sec" id="work" style="padding-top:0;scroll-margin-top:100px">
+  <div class="wrap">
+    <nav class="chips" aria-label="Filter case studies"><button type="button" class="on" data-f="all">All</button><button type="button" data-f="Healthcare">Healthcare</button><button type="button" data-f="Financial Services">Financial Services</button><button type="button" data-f="Manufacturing">Manufacturing</button><button type="button" data-f="Retail & Commerce">Retail & Commerce</button><button type="button" data-f="Logistics & Supply Chain">Logistics & Supply Chain</button><button type="button" data-f="Technology">Technology</button></nav>
+    <div style="margin-top:56px">
+      <article class="feat reveal"><img src="img/fig-work-featured.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">HEALTHCARE &amp; LIFE SCIENCES</div><h3>AI-assisted radiology for faster, more accurate diagnosis.</h3><p>We built an end-to-end medical imaging platform that helps radiologists detect critical findings faster, improving diagnostic accuracy and patient outcomes.</p><a href="#clinical-copilot" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a>
+        <div class="mt"><div><b>40%</b><span>Faster diagnosis</span></div><div><b>95%+</b><span>Model accuracy</span></div><div><b>Improved</b><span>Patient outcomes</span></div></div></div></article>
+      <div class="cs">
+      <article class="cscard reveal" data-cat="Financial Services"><div class="top"><img src="img/fig-pg-case-1.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">FINANCIAL SERVICES</div><h3>Intelligent document processing for faster underwriting.</h3><a href="#eng" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a></div></div>
+      <div class="mt"><div><b>40%</b><span>Faster diagnosis</span></div><div><b>95%+</b><span>Model accuracy</span></div><div><b>Improved</b><span>Patient outcomes</span></div></div></article>
+      <article class="cscard reveal" data-cat="Manufacturing"><div class="top"><img src="img/fig-pg-case-2.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">MANUFACTURING</div><h3>Predictive maintenance for uninterrupted operations.</h3><a href="#eng" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a></div></div>
+      <div class="mt"><div><b>50%</b><span>Reduction in downtime</span></div><div><b>30%</b><span>Lower maintenance cost</span></div><div><b>Higher</b><span>Asset lifespan</span></div></div></article>
+      <article class="cscard reveal" data-cat="Retail & Commerce"><div class="top"><img src="img/fig-work-retail.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">RETAIL & COMMERCE</div><h3>Personalised experiences that drive growth.</h3><a href="#eng" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a></div></div>
+      <div class="mt"><div><b>2.5x</b><span>Conversion uplift</span></div><div><b>35%</b><span>Higher ADV</span></div><div><b>Real-Time</b><span>Recommendations</span></div></div></article>
+      <article class="cscard reveal" data-cat="Logistics & Supply Chain"><div class="top"><img src="img/fig-work-logistics.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">LOGISTICS & SUPPLY CHAIN</div><h3>Smarter logistics with real-time intelligence.</h3><a href="#eng" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a></div></div>
+      <div class="mt"><div><b>20%</b><span>Lower delivery time</span></div><div><b>15%+</b><span>Cost savings</span></div><div><b>Greater</b><span>Operational viability</span></div></div></article>
+      <article class="cscard reveal" data-cat="Technology"><div class="top"><img src="img/fig-work-tech.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">TECHNOLOGY</div><h3>On-device AI for real-time decision making.</h3><a href="#eng" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a></div></div>
+      <div class="mt"><div><b><50ms</b><span>Inference time</span></div><div><b>100%</b><span>Offline capable</span></div><div><b>Result-for</b><span>Recommendation</span></div></div></article>
+      <article class="cscard reveal" data-cat="Public Sector"><div class="top"><img src="img/fig-work-public.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">PUBLIC SECTOR</div><h3>Citizen services made simpler with AI.</h3><a href="#eng" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a></div></div>
+      <div class="mt"><div><b>60%</b><span>Faster processing</span></div><div><b>3x</b><span>Improved efficiency</span></div><div><b>Higher</b><span>Citizen satisfaction</span></div></div></article>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============== CASE STUDY GRID ============== -->
-<section class="px-margin-mobile md:px-margin-desktop pb-16">
-  <div class="max-w-container-max mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- ============== OUR IMPACT ============== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="two reveal" style="display:grid;gap:24px" id="impact-head">
+      <div><div class="kicker">OUR IMPACT</div><h2 class="h2-40" style="max-width:579px">Turning ambition into measurable outcomes.</h2></div>
+      <p style="margin:0;font-size:20px;line-height:26px;max-width:678px">Every project is different, but the goal is the same solve meaningful problems and create lasting value.</p>
+    </div>
+    <div class="imp reveal"><div class="m"><span class="ic"><span class="material-symbols-outlined">bolt</span></span><b>2-5x</b><span class="t">Faster insights</span></div><div class="m"><span class="ic"><span class="material-symbols-outlined">speed</span></span><b>30-60%</b><span class="t">Operational efficiency</span></div><div class="m"><span class="ic"><span class="material-symbols-outlined">shield</span></span><b>95%+</b><span class="t">Model reliability</span></div><div class="m"><span class="ic"><span class="material-symbols-outlined">public</span></span><b>95%+</b><span class="t">Lives and businesses impacted</span></div></div>
+  </div>
+</section>
+<style>@media(min-width:1024px){#impact-head{grid-template-columns:1fr 678px;align-items:start}}</style>
 
-    <a href="#clinical-copilot" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal">
-      <div class="flex items-center gap-2 mb-5">
-        <span class="status-production font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Production</span>
-      </div>
-      <div class="caps mb-2">Healthcare · Ambient clinical intelligence</div>
-      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">AI Clinical Documentation &amp; EHR Copilot Suite</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Clinicians talk to their patients like normal. The note writes itself, in whichever EHR the clinic already runs.</p>
-      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
-    </a>
-
-    <a href="#agentic-planning" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal" style="transition-delay: 40ms;">
-      <div class="flex items-center gap-2 mb-5">
-        <span class="status-production font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Production</span>
-      </div>
-      <div class="caps mb-2">Productivity · Personal &amp; team planning</div>
-      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Agentic Goal-Planning &amp; OKR Execution Platform</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Describe what you want, answer a few questions, and walk away with a real, trackable plan of goals and tasks.</p>
-      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
-    </a>
-
-    <a href="#progress-intelligence" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal" style="transition-delay: 80ms;">
-      <div class="flex items-center gap-2 mb-5">
-        <span class="status-evolving font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Evolving</span>
-      </div>
-      <div class="caps mb-2">Operations · Automated reporting</div>
-      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Automated Progress-Intelligence &amp; MCP Data-Agent Pipeline</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">A plain-English "here's where things stand" lands every morning — no one has to write a report or run a query.</p>
-      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
-    </a>
-
-    <a href="#biomarker-assistant" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal">
-      <div class="flex items-center gap-2 mb-5">
-        <span class="status-prototype font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Prototype</span>
-      </div>
-      <div class="caps mb-2">Health &amp; wellness · Grounded scientific Q&amp;A</div>
-      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Multi-Agent Biomarker Research Assistant</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Ask what a lab result means and get an answer grounded in real research — not a generic guess.</p>
-      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
-    </a>
-
-    <a href="#wound-cv" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal" style="transition-delay: 40ms;">
-      <div class="flex items-center gap-2 mb-5">
-        <span class="status-poc font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Proof of concept</span>
-      </div>
-      <div class="caps mb-2">Health &amp; wellness · Remote monitoring via computer vision</div>
-      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Computer-Vision Wound Assessment Tool</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Take a photo. Get back a measured size, an estimated depth, and a tissue-condition breakdown.</p>
-      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
-    </a>
-
-    <a href="#rapid-poc" class="bento-card border border-outline/10 rounded-xl p-7 bg-card flex flex-col reveal" style="transition-delay: 80ms;">
-      <div class="flex items-center gap-2 mb-5">
-        <span class="status-poc font-label-sm text-label-sm uppercase px-3 py-1 rounded-full">Proof of concept</span>
-      </div>
-      <div class="caps mb-2">Healthcare · Feasibility demos</div>
-      <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Rapid Prototyping: Clinical Notes from Voice and Text</h3>
-      <p class="font-body-md text-body-md text-on-surface-variant flex-grow mb-4">Two fast, cheap demos, built to prove an idea works before committing real engineering time to it.</p>
-      <div class="font-label-md text-label-md text-ink-black group-hover:underline flex items-center gap-1 mt-auto">Read case study <span class="material-symbols-outlined text-sm">arrow_forward</span></div>
-    </a>
-
+<!-- ============== CLIENT PERSPECTIVE ============== -->
+<section class="sec">
+  <div class="wrap reveal">
+    <div class="kicker">CLIENT PERSPECTIVE</div>
+    <blockquote class="quote" style="margin:0 0 32px">“Tathastha brought clarity, speed and deep technical expertise to a complex problem. The impact has been transformational.”</blockquote>
+    <div style="font-weight:600;font-size:24px">Dr. Meera Kulkarni</div><div style="font-size:21px;color:rgba(0,0,0,.6)">CTO, HealthGrid</div>
   </div>
 </section>
 
+<!-- ============== ENGINEERING CASE STUDIES ============== -->
+<section id="eng" class="sec" style="padding-bottom:0">
+  <div class="wrap"><div class="kicker">ENGINEERING CASE STUDIES</div><h2 class="h2">Six systems, one pattern: turning messy human input into structured output.</h2></div>
+</section>
 <!-- ============== CASE STUDY 1 ============== -->
 <section id="clinical-copilot" class="py-15 md:py-20 px-margin-mobile md:px-margin-desktop border-t border-outline/10 bg-surface">
   <div class="max-w-3xl mx-auto reveal">
@@ -607,80 +728,144 @@
   </div>
 </section>
 
-<!-- ============== CTA ============== -->
-<section class="py-15 md:py-20 lg:py-section-gap px-margin-mobile md:px-margin-desktop bg-invert text-surface-bright text-center reveal">
-  <div class="max-w-2xl mx-auto">
-    <div class="font-label-sm text-label-sm text-surface-bright/55 uppercase tracking-widest mb-4">Have a similar problem?</div>
-    <h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6">Let's talk about what you're trying to build.</h2>
-    <p class="font-body-lg text-body-lg text-surface-dim mb-10">
-      Send the one paragraph you'd normally write to a colleague. We'll reply within two working days
-      with whether we think we can help — and what we'd do first if we could.
-    </p>
-    <a href="/#contact" class="inline-flex items-center justify-center bg-botanical-green text-on-primary px-8 py-4 rounded font-label-md text-label-md uppercase tracking-widest hover:opacity-90 transition-opacity">Start a conversation</a>
+
+
+<!-- ============== READY ============== -->
+<section class="sec">
+  <div class="wrap reveal" style="display:grid;gap:24px" id="ready">
+    <div><div class="kicker" style="color:#000">READY TO BUILD WHAT'S NEXT?</div><h2 class="h2-40" style="max-width:579px">Not sure where to start? Start with the problem.</h2></div>
+    <div><p style="margin:0 0 20px;font-size:20px;line-height:26px;max-width:678px">Tell us what you're trying to achieve. We'll help you explore the right approach from idea to impact.</p><a href="capabilities.html" class="tlink">View All <span class="material-symbols-outlined">arrow_forward</span></a></div>
+  </div>
+</section>
+<style>@media(min-width:1024px){#ready{grid-template-columns:1fr 678px;align-items:start}}</style>
+
+<!-- ============== CONTACT ============== -->
+<section id="contact" class="sec" style="scroll-margin-top:100px">
+  <div class="wrap">
+    <div class="contact-grid reveal">
+      <div class="contact-l">
+        <div class="kicker">Contact us</div>
+        <h3>Have a problem worth getting right?</h3>
+        <p>Send us the paragraph you'd normally write to a colleague. We'll get back to you within 24 hours.</p>
+        <a class="mail" href="mailto:hello@tathastha.com"><span class="material-symbols-outlined" style="font-size:20px">mail</span>hello@tathastha.com</a>
+      </div>
+      <form id="contact-form" class="contact-r" novalidate>
+        <div style="display:none" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"/></label></div>
+        <div class="frow two">
+          <div><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" required placeholder="Your name"/></div>
+          <div><label for="contact-phone">Phone Number</label><input id="contact-phone" name="phone" type="tel" placeholder="+000"/></div>
+        </div>
+        <div class="frow two">
+          <div><label for="contact-email">Work email</label><input id="contact-email" name="email" type="email" required placeholder="workemail@gmail.com"/></div>
+          <div><label for="contact-company">Company</label><input id="contact-company" name="company" type="text" placeholder="Name Company"/></div>
+        </div>
+        <div class="frow"><div><label for="contact-message">What's the problem?</label><textarea id="contact-message" name="message" required placeholder="A short description helps us prepare..."></textarea></div></div>
+        <button type="submit" class="btn submit btn-teal">Submit</button>
+        <p id="contact-form-status" role="status" aria-live="polite" style="margin:16px 0 0;font-size:15px"></p>
+      </form>
+    </div>
   </div>
 </section>
 
 <!-- ============== FOOTER ============== -->
-<footer class="border-t border-outline/10 bg-surface-container-lowest">
-  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 font-body-md text-body-md">
-    <div class="flex items-center gap-3">
-      <svg viewBox="0 0 220 220" class="w-7 h-7" aria-hidden="true">
-        <g transform="translate(110,110)">
-          <circle cx="0" cy="0" r="82" fill="none" stroke="#1A1A1A" stroke-width="6"/>
-          <g stroke="#1A1A1A" stroke-width="4.5" fill="none">
-            <line x1="0" y1="0" x2="0" y2="-50"/>
-            <line x1="0" y1="0" x2="43.3" y2="25"/>
-            <line x1="0" y1="0" x2="-43.3" y2="25"/>
-          </g>
-          <g fill="#1A1A1A">
-            <circle cx="0" cy="-50" r="12"/>
-            <circle cx="43.3" cy="25" r="12"/>
-            <circle cx="-43.3" cy="25" r="12"/>
-          </g>
-          <circle cx="0" cy="0" r="18" fill="#1A1A1A"/>
-          <circle cx="0" cy="0" r="7" fill="#FAFAF7"/>
-        </g>
-      </svg>
-      <span class="font-headline-sm text-headline-sm text-ink-black">Tathastha Labs</span>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <svg viewBox="0 0 273 24" class="" role="img" aria-label="Tathastha Labs"><use href="#tl-wordmark"/></svg>
+        <p class="tag">Engineering what's next in healthcare, infrastructure, and intelligent systems.</p>
+        <div class="social">
+          <a href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg></a><a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M18.2 2.5h3.3l-7.2 8.2 8.5 10.8h-6.7l-5.2-6.6-6 6.6H1.6l7.7-8.8L1.2 2.5H8l4.7 6.1zm-1.2 17h1.8L7 4.4H5.1z"/></svg></a><a href="#" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.5 1.6-1.5h1.7V3.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V13h2.7v8z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-cols">
+        <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="mailto:hello@tathastha.com?subject=Careers">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#contact">Contact</a></li></ul></div>
+        <div><h4>Services</h4><ul><li><a href="capabilities.html">Capabilities</a></li><li><a href="index.html#process">Process</a></li><li><a href="index.html#outcomes">Outcomes</a></li><li><a href="case-studies.html">Case Studies</a></li></ul></div>
+        <div><h4>Resources</h4><ul><li><a href="playground.html">Playground</a></li><li><a href="#">Documentation</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+      </div>
     </div>
-    <nav class="flex flex-wrap gap-x-6 gap-y-2">
-      <a href="/#ai" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Capabilities</a>
-      <a href="/#industries" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Industries</a>
-      <a href="/case-studies.html" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Case Studies</a>
-      <a href="/playground.html" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Playground</a>
-      <a href="/#contact" class="text-text-muted hover:text-sky-blue-dim transition-colors font-label-sm text-label-sm">Contact</a>
-    </nav>
-    <div class="font-label-sm text-label-sm text-text-muted">© 2026 Tathastha Labs. All rights reserved.</div>
+    <div class="foot-bot">
+      <span>© 2025 Tathastha Labs. All rights reserved.</span>
+      <span class="legal"><a href="#">Privacy Policy</a><i></i><a href="#">Terms of Service</a></span>
+    </div>
   </div>
 </footer>
+<style>footer.foot .foot-top svg{height:23px;width:auto;color:#fff}footer.foot .social svg{height:14px}</style>
 
-<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6 border-t border-outline/10">
-  <p class="font-label-sm text-label-sm text-text-muted max-w-3xl">Product and internal system names referenced above have been generalized. Maturity labels reflect an honest, code-level read of each system, and metrics such as adoption, time saved, or accuracy are not claimed unless independently validated.</p>
-</div>
-
-<!-- ============== THEME TOGGLE + SCROLL REVEAL ============== -->
 <script>
   (function () {
-    var btn = document.getElementById('theme-toggle');
-    if (btn) {
-      btn.addEventListener('click', function () {
-        var isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    var chips = document.querySelectorAll('.chips button'), cards = document.querySelectorAll('.cscard'), feat = document.querySelector('.feat');
+    chips.forEach(function (b) {
+      b.addEventListener('click', function () {
+        chips.forEach(function (x) { x.classList.toggle('on', x === b); });
+        var f = b.getAttribute('data-f');
+        feat.hidden = !(f === 'all' || f === 'Healthcare');
+        cards.forEach(function (c) { c.hidden = !(f === 'all' || c.getAttribute('data-cat') === f); });
       });
-    }
+    });
+  })();
+</script>
+
+<script>
+  (function () {
+    var m = document.getElementById('menu-toggle'), menu = document.getElementById('mobile-menu');
+    if (m && menu) m.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      m.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    var c = document.getElementById('announce-close'), a = document.getElementById('announce');
+    if (c && a) c.addEventListener('click', function () { a.style.display = 'none'; });
   })();
   document.addEventListener('DOMContentLoaded', function () {
     var observer = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          obs.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('active'); obs.unobserve(entry.target); }
       });
-    }, { root: null, rootMargin: '0px', threshold: 0.1 });
+    }, { root: null, rootMargin: '0px', threshold: 0.05 });
     document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
   });
 </script>
-
+<!-- ============== CONTACT FORM ============== -->
+<script>
+  (function () {
+    var HUBSPOT_PORTAL_ID = '246988891';
+    var HUBSPOT_FORM_ID = 'ae3447ad-a441-477e-9a3b-2b3fc7ed4eab';
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    var statusEl = document.getElementById('contact-form-status');
+    var submitBtn = form.querySelector('button[type="submit"]');
+    function setStatus(message, tone) {
+      statusEl.textContent = message;
+      statusEl.style.color = tone === 'error' ? '#B91C1C' : '#1F8A92';
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form.website.value) return;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      var nameParts = form.name.value.trim().split(/\s+/);
+      var firstName = nameParts.shift() || '';
+      var lastName = nameParts.join(' ');
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + HUBSPOT_FORM_ID, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: [
+            { name: 'firstname', value: firstName },
+            { name: 'lastname', value: lastName },
+            { name: 'email', value: form.email.value.trim() },
+            { name: 'company', value: form.company.value.trim() },
+            { name: 'phone', value: form.phone.value.trim() },
+            { name: 'message', value: form.message.value.trim() }
+          ],
+          context: { pageUri: window.location.href, pageName: document.title }
+        })
+      })
+        .then(function (res) { if (!res.ok) throw new Error('Submission failed'); form.reset(); setStatus("Thanks — we'll reply within 24 hours.", 'success'); })
+        .catch(function () { setStatus('Something went wrong sending that. Please email hello@tathastha.com directly.', 'error'); })
+        .finally(function () { submitBtn.disabled = false; submitBtn.textContent = 'Submit'; });
+    });
+  })();
+</script>
 </body>
 </html>

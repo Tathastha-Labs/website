@@ -11,7 +11,7 @@
   </script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Tathastha Labs — Playground</title>
+  <title>Playground — Tathastha Labs</title>
   <meta name="description" content="A free in-browser AI playground: clinical NER, image classification, speech-to-note, invoice OCR, RAG, and record matching. Nothing is ever uploaded to a server."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://tathastha.com/playground.html"/>
@@ -53,7 +53,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any modern web browser",
     "browserRequirements": "Requires JavaScript and WebGPU/WASM support",
-    "description": "A free, in-browser AI laboratory demonstrating clinical named-entity recognition, image classification, disease detection, speech-to-SOAP-note generation, invoice OCR, retrieval-augmented Q&A, probabilistic patient-record matching, CMS-HCC risk scoring, PPE compliance detection, hard-hat detection with worker identification, and restricted-zone intrusion detection — all running locally with nothing uploaded to a server.",
+    "description": "A free, in-browser AI laboratory demonstrating clinical named-entity recognition, image classification, disease detection, speech-to-SOAP-note generation, invoice OCR, retrieval-augmented Q&A, probabilistic patient-record matching, CMS-HCC risk scoring, live-camera video analytics for PPE compliance, hard-hat detection with worker identification, restricted-zone intrusion detection, and live hair-color try-on with face-mesh tracking — all running locally with nothing uploaded to a server.",
     "isAccessibleForFree": true,
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "publisher": { "@type": "Organization", "name": "Tathastha Labs", "url": "https://tathastha.com" }
@@ -80,17 +80,11 @@
   }
   </script>
 
-  <link rel="icon" type="image/svg+xml" href="/tathastha-labs-icon-light.svg"/>
+  <link rel="icon" type="image/svg+xml" href="/tathastha-labs-mark.svg"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Material+Symbols+Outlined:wght,FILL@100..500,0..1&display=swap" rel="stylesheet"/>
-  <script>
-    (function () {
-      var stored = localStorage.getItem('theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
-    })();
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=Material+Symbols+Outlined:wght,FILL@100..500,0..1&display=swap" rel="stylesheet"/>
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -98,6 +92,7 @@
       theme: {
         extend: {
           colors: {
+            "primary-strong": "var(--color-primary-strong)", "invert": "var(--color-invert-bg)",
             // Original page tokens (kept — every existing class in this file uses these).
             ink:      'var(--color-text-primary)',
             graphite: 'var(--color-text-secondary)',
@@ -147,11 +142,11 @@
             '15': '60px'
           },
           fontFamily: {
-            sans: ['Inter', 'Helvetica Neue', 'Segoe UI', 'Arial', 'sans-serif'],
-            serif: ['EB Garamond', 'Georgia', 'Times New Roman', 'serif'],
-            'title-lg': ['Inter'],
-            'label-md': ['Inter'],
-            'label-sm': ['Inter']
+            sans: ['DM Sans', 'system-ui', 'sans-serif'],
+            serif: ['DM Sans', 'system-ui', 'sans-serif'],
+            'title-lg': ['DM Sans'],
+            'label-md': ['DM Sans'],
+            'label-sm': ['DM Sans']
           },
           fontSize: {
             'title-lg': ['22px', { lineHeight: '30px', fontWeight: '600' }],
@@ -170,50 +165,22 @@
   </script>
   <style>
     :root {
-      --color-primary: #2F6459;
-      --color-primary-hover: #24504A;
-      --color-secondary: #12181B;
-      --color-accent: #3E6E92;
-      --color-accent-hover: #325A78;
-      --color-accent-tint: #E8F0F6;
-      --color-background: #FFFFFF;
-      --color-surface: #F7F7F5;
-      --color-surface-alt: #F1F1EE;
-      --color-card: #FFFFFF;
-      --color-border: #E4E4E0;
-      --color-border-strong: #CBCBC5;
-      --color-success: #15803D;
-      --color-warning: #B45309;
-      --color-error: #B91C1C;
-      --color-error-tint: #FBE9E7;
-      --color-text-primary: #12181B;
-      --color-text-secondary: #5B6560;
-      --color-text-disabled: #9CA3A0;
-      --color-on-primary: #FFFFFF;
-      --color-invert-bg: #12181B;
+      --color-primary: #2BA0A8; --color-primary-hover: #1D7C83; --color-primary-strong: #1D7C83;
+      --color-secondary: #0F1115; --color-accent: #39BDC6; --color-accent-hover: #2BA0A8; --color-accent-tint: #F0FAFB;
+      --color-background: #FFFFFF; --color-surface: #FFFFFF; --color-surface-alt: #F0FAFB; --color-card: #FFFFFF;
+      --color-border: #E1ECED; --color-border-strong: #B5E5EA;
+      --color-success: #15803D; --color-warning: #B45309; --color-error: #B91C1C; --color-error-tint: #FBE9E7;
+      --color-text-primary: #0F1115; --color-text-secondary: #514E5B; --color-text-disabled: #9CA3A0;
+      --color-on-primary: #FFFFFF; --color-invert-bg: #081F21;
     }
     :root.dark {
-      --color-primary: #5B9C8E;
-      --color-primary-hover: #6BAA9C;
-      --color-secondary: #E7E9E8;
-      --color-accent: #6FA3C9;
-      --color-accent-hover: #86B3D6;
-      --color-accent-tint: #16222B;
-      --color-background: #0B0D0C;
-      --color-surface: #131513;
-      --color-surface-alt: #191B19;
-      --color-card: #17191A;
-      --color-border: #2A2D2A;
-      --color-border-strong: #3B3E3A;
-      --color-success: #4ADE80;
-      --color-warning: #FBBF24;
-      --color-error: #F87171;
-      --color-error-tint: #2A1614;
-      --color-text-primary: #F2F4F1;
-      --color-text-secondary: #9AA39D;
-      --color-text-disabled: #5B6560;
-      --color-on-primary: #0B0D0C;
-      --color-invert-bg: #1E211F;
+      --color-primary: #39BDC6; --color-primary-hover: #6FD3DA; --color-primary-strong: #6FD3DA;
+      --color-secondary: #E7EFEF; --color-accent: #39BDC6; --color-accent-hover: #6FD3DA; --color-accent-tint: #0C2A2D;
+      --color-background: #06090A; --color-surface: #0A1113; --color-surface-alt: #0D1A1C; --color-card: #0F1A1C;
+      --color-border: #1C2C2E; --color-border-strong: #2A4447;
+      --color-success: #4ADE80; --color-warning: #FBBF24; --color-error: #F87171; --color-error-tint: #2A1614;
+      --color-text-primary: #F2F6F6; --color-text-secondary: #9AABAD; --color-text-disabled: #5B6D6F;
+      --color-on-primary: #06090A; --color-invert-bg: #081F21;
     }
     html { scroll-behavior: smooth; }
     body { font-feature-settings: "ss01","cv11"; }
@@ -224,7 +191,7 @@
     .cta-sage:disabled { background: var(--color-text-disabled); cursor: not-allowed; }
     .cta-outline { border: 1px solid var(--color-border-strong); color: var(--color-text-primary); transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
     .cta-outline:hover { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); }
-    .num { font-family: 'EB Garamond', Georgia, serif; font-weight: 400; letter-spacing: -0.03em; }
+    .num { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 500; letter-spacing: -0.03em; }
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity 260ms cubic-bezier(0.16,1,0.3,1), transform 260ms cubic-bezier(0.16,1,0.3,1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
     .bento-card { transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease; }
@@ -267,286 +234,237 @@
       .reveal { transition: none; opacity: 1; transform: none; }
       .bento-card, .bento-card:hover, .gallery-card, .gallery-card:hover { transition: none; }
     }
+
+    /* ---- shared site theme (matches index/capabilities/about) ---- */
+    body { font-family: "DM Sans", system-ui, sans-serif; }
+    .caps { letter-spacing: 0.16em !important; font-size: 12px !important; font-weight: 700 !important; color: var(--color-primary-strong) !important; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 9999px; font-weight: 600; font-size: 14px; padding: 14px 28px; transition: opacity 200ms, background 200ms, color 200ms; }
+    .btn-primary { background: var(--color-primary); color: #fff; }
+    .btn-primary:hover { background: var(--color-primary-strong); }
+    :root.dark .btn-primary { color: #06090A; }
+    .on-dark .caps { color: #6FD3DA !important; }
   </style>
   <!-- HubSpot tracking code -->
   <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/246988891.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    body.pg { font-family: "DM Sans", system-ui, sans-serif; background: #fff; color: #000; }
+    .phero { position: relative; }
+    .phero .in { display: grid; gap: 40px; padding-top: 80px; padding-bottom: 56px; align-items: center; }
+    @media (min-width: 1000px) { .phero .in { grid-template-columns: 1fr 499px; } }
+    .phero h1 { font-weight: 600; font-size: clamp(2.6rem, 1.4rem + 3.9vw, 4.375rem); line-height: 1; letter-spacing: -.02em; margin: 20px 0 24px; max-width: 717px; }
+    .phero .sub { font-weight: 300; font-size: clamp(1.4rem, 1rem + 1.1vw, 1.875rem); line-height: 1.27; color: rgba(0,0,0,.55); max-width: 640px; margin: 0 0 24px; }
+    .pg-art { width: 100%; max-width: 499px; height: auto; margin-left: auto; }
+    .chips { background: #fff; border-radius: 8px; box-shadow: 0 1px 2px rgba(16,24,40,.06), 0 0 0 1px rgba(16,24,40,.04); padding: 14px 16px; display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chips button { flex: none; border: 0; cursor: pointer; font: 500 17px "DM Sans", sans-serif; padding: 0 20px; height: 54px; border-radius: 8px; background: #F5F5F5; color: #000; }
+    .chips button.on { background: #2BA0A8; color: #fff; font-weight: 700; }
+    .note { margin-top: 20px; font-size: 14px; line-height: 1.5; color: rgba(0,0,0,.6); display: flex; gap: 8px; align-items: flex-start; }
+    .note .material-symbols-outlined { font-size: 18px; color: var(--teal); }
+    .gridp { display: grid; gap: 40px 23px; margin-top: 56px; }
+    @media (min-width: 640px) { .gridp { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1000px) { .gridp { grid-template-columns: repeat(3, 1fr); } }
+    .pc { display: block; padding: 20px; }
+    .pc[hidden] { display: none; }
+    .pc img { width: 100%; aspect-ratio: 371/255; object-fit: cover; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,.1); }
+    .pc h3 { margin: 24px 0 12px; font-weight: 700; font-size: 24px; line-height: 30px; }
+    .pc p { margin: 0 0 16px; font-size: 15px; line-height: 22px; color: rgba(0,0,0,.6); }
+    .pc:hover h3 { color: var(--teal-ink); }
+    .cs { display: grid; gap: 40px; }
+    @media (min-width: 900px) { .cs { grid-template-columns: 1fr 1fr; gap: 42px; } }
+    .cscard { border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,.08); border: 1px solid #EEF0F2; }
+    .cscard .top { position: relative; min-height: 335px; }
+    .cscard .top > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .cscard .top::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,.88) 38%, rgba(255,255,255,0) 90%); }
+    .cscard .top .tx { position: relative; z-index: 2; padding: 60px 60px 40px; max-width: 440px; }
+    .cscard .tg { font-weight: 700; font-size: 16px; color: var(--teal); margin-bottom: 12px; }
+    .cscard h3 { margin: 0 0 24px; font-weight: 500; font-size: 35px; line-height: 1.1; letter-spacing: -.01em; }
+    .cscard .vl { font-weight: 600; font-size: 20px; display: inline-flex; gap: 6px; align-items: center; }
+    .cscard .mt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 28px 48px 32px; }
+    .cscard .mt b { display: block; font-weight: 700; font-size: 25px; }
+    .cscard .mt span { font-size: 15px; color: rgba(0,0,0,.55); }
+    #demos-anchor { scroll-margin-top: 100px; }
+  </style>
+  <style>
+    /* shared site design */
+    :root {
+      --teal: #39BDC6; --teal-deep: #2BA0A8; --teal-ink: #1F8A92; --tint: #F0FAFB;
+      --ink: #000; --btn: #06040A; --muted: rgba(0,0,0,.6); --body2: #514E5B;
+      --line: #E5E7EB; --line2: #DAE0E6; --band: #0C4B4F; --foot: #081F21; --on-dark: #B3B3B3;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: "DM Sans", system-ui, sans-serif; color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; font-size: 24px; line-height: 1; }
+    .wrap { width: 100%; max-width: 1312px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 768px) { .wrap { padding: 0 32px; } }
+    @media (min-width: 1344px) { .wrap { padding: 0 16px; max-width: 1312px; } }
+    .sec { padding: 40px 0; }
+    @media (min-width: 1024px) { .sec { padding: 50px 0; } }
+    .kicker { font-weight: 700; font-size: 16px; line-height: 16px; letter-spacing: .04em; color: var(--teal); margin: 0 0 16px; }
+    .kicker.sm { font-size: 12px; }
+    .h1 { font-weight: 500; font-size: clamp(2.6rem, 1.4rem + 3.9vw, 4.375rem); line-height: 1; letter-spacing: -.02em; margin: 0; }
+    .h2 { font-weight: 400; font-size: clamp(1.75rem, 1.4rem + 1vw, 2rem); line-height: 1.25; margin: 0; }
+    .h2-40 { font-weight: 400; font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.5rem); line-height: 1.1; letter-spacing: -.01em; margin: 0; }
+    .h2-48 { font-weight: 400; font-size: clamp(2rem, 1.4rem + 2vw, 3rem); line-height: 1.1; letter-spacing: -.01em; margin: 0; }
+    .lead { font-size: 18px; line-height: 1.4; color: var(--muted); margin: 0; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 6px; font-weight: 700; font-size: 12px; background: var(--btn); color: #fff; border: 0; cursor: pointer; white-space: nowrap; transition: opacity .2s; }
+    .btn:hover { opacity: .85; }
+    .btn-teal { background: var(--teal); }
+    .btn-white { background: #fff; color: var(--teal); border-radius: 8px; height: 52px; padding: 0 32px; font-weight: 600; font-size: 15px; }
+    .btn-line { background: #fff; color: #333; border: 1.4px solid #E4E7EB; border-radius: 8px; font-weight: 500; font-size: 16px; height: 40px; }
+    .tlink { display: inline-flex; align-items: center; gap: 6px; color: var(--teal); font-weight: 600; font-size: 20px; line-height: 26px; }
+    .tlink.sm { font-size: 12px; line-height: 16px; gap: 4px; }
+    .tlink .material-symbols-outlined { font-size: 20px; }
+    .tlink.sm .material-symbols-outlined { font-size: 14px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+    .ico { width: 48px; height: 48px; border-radius: 8px; background: var(--tint); display: inline-flex; align-items: center; justify-content: center; color: var(--teal); flex: none; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .3s ease, transform .3s ease; }
+    .reveal.active { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+    *:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+    /* announcement + nav */
+    .announce { background: #E8E8E8; color: #262626; font-family: "Wix Madefor Display", "DM Sans", sans-serif; font-size: 14px; height: 36px; }
+    .announce .wrap { display: flex; align-items: center; height: 36px; justify-content: space-between; }
+    .announce a { display: inline-flex; align-items: center; gap: 4px; }
+    .announce button { background: none; border: 0; cursor: pointer; color: #262626; display: inline-flex; padding: 0; }
+    .nav { position: sticky; top: 0; z-index: 40; background: #fff; border-bottom: 1px solid var(--line); }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
+    .nav-links { display: none; align-items: center; gap: 24px; font-family: "Wix Madefor Display", "DM Sans", sans-serif; font-weight: 500; font-size: 14px; letter-spacing: -.01em; }
+    @media (min-width: 900px) { .nav-links { display: flex; } }
+    .nav-links a { white-space: nowrap; padding: 4px 0; }
+    .nav-links a.on { font-weight: 800; }
+    .nav-links a:hover { color: var(--teal-ink); }
+    .nav .btn { height: 36px; }
+    .menu-btn { display: inline-flex; background: none; border: 0; cursor: pointer; padding: 4px; }
+    @media (min-width: 900px) { .menu-btn { display: none; } }
+    .mobile-menu { display: none; border-top: 1px solid var(--line); background: #fff; padding: 8px 16px 20px; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); font-weight: 500; }
+    .nav-cta { display: none; }
+    @media (min-width: 640px) { .nav-cta { display: inline-flex; } }
+
+    /* band */
+    .band { position: relative; background: var(--band); color: #fff; overflow: hidden; }
+    .band .waves { position: absolute; right: 0; top: 0; height: 100%; width: auto; max-width: none; pointer-events: none; }
+    .band .wrap { position: relative; }
+    .band .kicker { color: #fff; }
+
+    /* faq */
+    .faq details { background: var(--tint); border: 1px solid var(--line2); border-radius: 16px; margin-bottom: 16px; }
+    .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px; font-weight: 600; font-size: 18px; line-height: 28px; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq details[open] { background: #fff; box-shadow: 0 1px 2px rgba(16,24,40,.04); }
+    .faq details[open] .chev { transform: rotate(180deg); }
+    .faq .chev { transition: transform .2s; }
+    .faq p { margin: 0; padding: 0 24px 24px; color: var(--muted); font-size: 16px; line-height: 26px; }
+
+    /* contact */
+    .contact-grid { display: grid; gap: 24px; }
+    @media (min-width: 1024px) { .contact-grid { grid-template-columns: 420px 1fr; gap: 40px; } }
+    .contact-l { background: var(--tint); border-radius: 16px; padding: 56px 32px 40px 56px; }
+    .contact-l h3 { font-weight: 500; font-size: 32px; line-height: 1.5; margin: 24px 0 24px; }
+    .contact-l p { font-size: 18px; line-height: 28px; color: var(--muted); margin: 0 0 32px; }
+    .mail { display: inline-flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; height: 52px; padding: 0 20px; color: var(--teal); font-weight: 500; font-size: 14px; box-shadow: 0 1px 2px rgba(16,24,40,.04); }
+    .contact-r { background: #fff; border-radius: 16px; box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 0 0 1px rgba(16,24,40,.04); padding: 48px; }
+    .frow { display: grid; gap: 24px; margin-bottom: 24px; }
+    @media (min-width: 640px) { .frow.two { grid-template-columns: 1fr 1fr; } }
+    .contact-r label { display: block; color: var(--teal); font-weight: 500; font-size: 14px; margin-bottom: 8px; }
+    .contact-r input, .contact-r textarea { width: 100%; font: 400 15px "DM Sans", sans-serif; color: #000; background: #fff; border: 1px solid var(--line2); border-radius: 8px; padding: 0 16px; height: 52px; box-shadow: 0 1px 2px rgba(16,24,40,.05); }
+    .contact-r textarea { height: 160px; padding: 16px; resize: none; }
+    .contact-r input::placeholder, .contact-r textarea::placeholder { color: #919BA7; }
+    .contact-r input:focus, .contact-r textarea:focus { outline: none; border-color: var(--teal); }
+    .contact-r .submit { height: 53px; border-radius: 8px; padding: 0 32px; font-size: 16px; }
+
+    /* footer */
+    footer.foot { background: var(--foot); color: #fff; padding: 80px 0 40px; }
+    .foot-top { display: grid; gap: 40px; padding-bottom: 64px; }
+    @media (min-width: 900px) { .foot-top { grid-template-columns: 1fr 580px; } }
+    .foot p.tag { color: var(--on-dark); font-size: 15px; line-height: 22px; max-width: 400px; margin: 24px 0 24px; }
+    .social { display: flex; gap: 8px; }
+    .social a { width: 33px; height: 33px; border-radius: 6px; background: #000; display: inline-flex; align-items: center; justify-content: center; }
+    .foot-cols { display: grid; grid-template-columns: repeat(3, 140px); gap: 80px; }
+    @media (max-width: 700px) { .foot-cols { grid-template-columns: repeat(2, 1fr); gap: 32px; } }
+    .foot-cols h4 { margin: 0 0 20px; color: var(--teal); font-weight: 700; font-size: 12px; letter-spacing: .125em; }
+    .foot-cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .foot-cols a { color: var(--on-dark); font-weight: 500; font-size: 14px; }
+    .foot-cols a:hover { color: #fff; }
+    .foot-bot { border-top: 1px solid #272D37; padding-top: 60px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; color: var(--on-dark); font-size: 13px; }
+    .foot-bot .legal { display: flex; align-items: center; gap: 20px; }
+    .foot-bot .legal i { width: 3px; height: 3px; border-radius: 2px; background: #272D37; display: inline-block; }
+  </style>
 </head>
-<body class="bg-bone text-ink font-sans antialiased">
+<body class="pg">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="tl-wordmark" viewBox="0 0 273 24"><g><g transform="matrix(1 0 0 1 0 0)"><g transform="matrix(1 0 0 1 92.28599548339844 0.3225969076156616)"><path d="M17.931 22.55L14.292 22.611L14.273 12.752L3.621 12.737L3.601 22.577L0 22.558L0 0L3.601 0.046L3.613 9.352L14.261 9.36L14.307 0.03L17.927 0L17.931 22.55Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 158.85076904296875 -3.552713678800501e-15)"><path d="M14.353 22.057C12.497 23.06 10.614 23.334 8.567 23.258C4.089 23.094 0.324 21.051 0 16.39L3.746 16.367C4.028 19.908 8.941 20.781 12.077 19.355C13.244 18.826 13.937 17.736 13.872 16.516C13.811 15.376 13 14.317 11.742 13.966L6.075 12.4C4.63 12 3.041 11.352 2.081 10.14C-0.282 7.16 0.888 2.693 4.276 1.066C7.218 -0.348 10.545 -0.344 13.465 1.012C15.58 1.996 16.914 3.871 16.929 6.234L13.358 6.268C12.706 3.131 8.32 2.476 5.698 4.164C4.455 4.965 4.078 6.775 5.118 7.861C5.797 8.57 6.871 8.882 7.817 9.141L13.503 10.704C15.286 11.192 16.693 12.598 17.295 14.309C18.358 17.332 17.207 20.514 14.356 22.054L14.353 22.057Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 220.1864471435547 0.34927594661712646)"><g transform="matrix(1 0 0 1 0.0009012088412418962 -0.000001546064595459029)"><path d="M17.996 22.501L14.364 22.592L14.356 12.737L3.624 12.718L3.601 22.577L0 22.539L0 0L3.605 0.011L3.609 9.345L14.349 9.341L14.364 0L17.981 0L17.996 22.501Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 30.302888870239258 0.01905367523431778)"><path d="M17.798 22.535L10.869 4.39L3.811 22.535L0 22.512L9.162 0L12.733 0.015L21.693 22.52L17.798 22.535Z" fill="currentColor" fill-rule="nonzero"/></g></g><g transform="matrix(1 0 0 1 60.65756607055664 0.337841659784317)"><path d="M10.705 22.527L7.131 22.546L7.108 3.293L0.015 3.274L0 0.008L17.779 0L17.836 3.285L10.702 3.289L10.705 22.527Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 188.65701293945312 0.33403119444847107)"><path d="M10.603 22.546L6.982 22.55L6.982 3.293L0.015 3.285L0 0.011L17.775 0L17.832 3.289L10.595 3.293L10.603 22.546Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 125.22523498535156 0.3530864119529724)"><g transform="matrix(1 0 0 1 3.0189905166625977 0.000001848903139034519)"><path d="M12.721 15.873L8.148 4.188L3.601 15.702L0 15.648L6.429 0L10.05 0L16.369 15.786L12.721 15.873Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 0.0006269961595535278 18.701082229614258)"><path d="M3.823 3.941L0 3.887L1.643 0L5.328 0.015L3.823 3.941Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 16.85359001159668 18.697269439697266)"><path d="M5.278 3.849L1.479 3.922L0 0L3.727 0.023L5.278 3.849Z" fill="currentColor" fill-rule="nonzero"/></g></g><g transform="matrix(1 0 0 1 9.094947017729282e-13 0.3225969076156616)"><g transform="matrix(1 0 0 1 9.094947017729282e-13 0.0038098543882369995)"><path d="M10.698 22.539L7.073 22.588L7.062 3.285L0 3.266L0 0L17.783 0.015L17.798 3.281L10.69 3.281L10.698 22.539Z" fill="currentColor" fill-rule="nonzero"/></g><g transform="matrix(1 0 0 1 27.84412384033203 -6.085423933654965e-7)"><g transform="matrix(1 0 0 1 0.0003734296187758446 -6.085423933654965e-7)"><path d="M15.229 15.492L10.965 4.322L8.887 9.573L3.819 22.585L0 22.554L9.185 0.042L12.821 0L21.872 22.566L17.973 22.592L15.229 15.492Z" fill="currentColor" fill-rule="nonzero"/></g></g></g></g></g></symbol></svg>
+<!-- ============== ANNOUNCEMENT ============== -->
+<div class="announce" id="announce">
+  <div class="wrap">
+    <a href="case-studies.html"><span>How we helped a healthcare startup increase patient onboarding by 180%</span><span class="material-symbols-outlined" style="font-size:20px">arrow_right_alt</span></a>
+    <button type="button" id="announce-close" aria-label="Dismiss announcement"><span class="material-symbols-outlined" style="font-size:22px">close</span></button>
+  </div>
+</div>
 
 <!-- ============== NAV ============== -->
-<header class="sticky top-0 z-40 bg-paper/85 backdrop-blur border-b hairline">
-  <div class="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3 group">
-      <svg viewBox="0 0 220 220" class="w-9 h-9" aria-hidden="true">
-        <g transform="translate(110,110)">
-          <circle cx="0" cy="0" r="82" fill="none" stroke="#1A1A1A" stroke-width="6"/>
-          <g stroke="#1A1A1A" stroke-width="3" fill="none" opacity="0.55">
-            <line x1="0" y1="-50" x2="43.3" y2="25"/>
-            <line x1="43.3" y1="25" x2="-43.3" y2="25"/>
-            <line x1="-43.3" y1="25" x2="0" y2="-50"/>
-          </g>
-          <g stroke="#1A1A1A" stroke-width="4.5" fill="none">
-            <line x1="0" y1="0" x2="0" y2="-50"/>
-            <line x1="0" y1="0" x2="43.3" y2="25"/>
-            <line x1="0" y1="0" x2="-43.3" y2="25"/>
-          </g>
-          <g fill="#1A1A1A">
-            <circle cx="0" cy="-50" r="12"/>
-            <circle cx="43.3" cy="25" r="12"/>
-            <circle cx="-43.3" cy="25" r="12"/>
-          </g>
-          <circle cx="0" cy="0" r="18" fill="#1A1A1A"/>
-          <circle cx="0" cy="0" r="7" fill="#FAFAF7"/>
-        </g>
-      </svg>
-      <span class="font-light text-[19px] tracking-tight-1">Tathastha <span class="text-graphite">Labs</span></span>
-    </a>
-    <nav class="hidden md:flex items-center gap-8 text-[14px] text-graphite">
-      <a href="/#ai" class="hover:text-sky-blue-dim">Capabilities</a>
-      <a href="/#industries" class="hover:text-sky-blue-dim">Industries</a>
-      <a href="/industries/healthcare.html" class="hover:text-sky-blue-dim">Healthcare</a>
-      <a href="/case-studies.html" class="hover:text-sky-blue-dim">Case Studies</a>
-    </nav>
-    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-      <span class="material-symbols-outlined icon-light text-[20px]">dark_mode</span>
-      <span class="material-symbols-outlined icon-dark text-[20px]">light_mode</span>
-    </button>
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" aria-label="Tathastha Labs home"><svg viewBox="0 0 273 24" class="nav-logo" role="img" aria-label="Tathastha Labs"><use href="#tl-wordmark"/></svg></a>
+    <nav class="nav-links" aria-label="Primary"><a href="capabilities.html" class="">Capabilities</a><a href="industries.html" class="">Industry</a><a href="case-studies.html" class="">Case Studies</a><a href="playground.html" class="on">Playground</a><a href="about.html" class="">About</a></nav>
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="#contact" class="btn nav-cta">Start a Discovery Sprint</a>
+      <button type="button" id="menu-toggle" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span class="material-symbols-outlined">menu</span></button>
+    </div>
   </div>
+  <div id="mobile-menu" class="mobile-menu"><a href="capabilities.html">Capabilities</a><a href="industries.html">Industry</a><a href="case-studies.html">Case Studies</a><a href="playground.html">Playground</a><a href="about.html">About</a><a href="#contact" class="btn" style="margin-top:16px;display:flex">Start a Discovery Sprint</a></div>
 </header>
+<style>.nav-logo{height:23px;width:auto;color:#000}@media(max-width:520px){.nav-logo{height:17px}}</style>
 
 <!-- ============== HERO ============== -->
-<section class="max-w-7xl mx-auto px-6 md:px-10 pt-20 pb-14">
-  <header class="max-w-3xl mx-auto text-center reveal">
-    <div class="inline-block px-4 py-1 border border-outline/20 rounded-full font-label-sm text-label-sm text-text-muted mb-8 uppercase tracking-widest">
-      <span class="material-symbols-outlined text-[16px] align-middle mr-1">science</span>Experimental AI Laboratory
+<section class="phero">
+  <div class="wrap"><div class="in">
+    <div>
+      <div class="kicker sm" style="margin:0">Explore by capability.</div>
+      <h1>In-house AI, running on your machines not ours.</h1>
+      <p class="sub">Explore ready-to-run AI solutions that work securely in your environment.</p>
+      <a href="#demos-anchor" class="btn">Start Exploring</a>
     </div>
-    <h1 class="font-serif font-bold text-[40px] sm:text-[52px] md:text-[62px] leading-[1.08] tracking-tight-2">
-      In-browser AI, running on your machine — not ours.
-    </h1>
-    <p class="mt-6 max-w-2xl mx-auto text-[16px] md:text-[17px] leading-[1.7] text-graphite">
-      Nothing you type, record, or upload here is sent to Tathastha Labs or any server.
-    </p>
-    <div class="mt-8 bg-error-container/20 border border-error-container text-error px-6 py-4 rounded inline-block max-w-lg mx-auto">
-      <p class="font-label-sm text-label-sm uppercase flex items-center justify-center">
-        <span class="material-symbols-outlined mr-2 text-[18px]">warning</span>
-        Not a medical device — for demonstration only, not clinical or diagnostic use
-      </p>
-    </div>
-  </header>
+    <svg viewBox="0 0 499 430" class="pg-art" role="img" aria-label="AI hexagon above an open hand"><rect width="499" height="430" rx="20" fill="#146166"/><defs><clipPath id="pgblob"><path transform="translate(45 39)" d="M174.5 0L59.4 30.8L0 155.5L68.9 187L49.9 195.1L42.5 212.7L49.9 240.5L79.9 252.3L59.4 267.7L77 286.7L97.5 272.1L119.5 292.6L110.7 302.1L119.5 312.4L126.9 307.3L148.1 319L146.7 333.7L156.2 339.5L167.2 326.3L182.6 326.3L189.2 348.3L198 352L209 346.9L209 317.5L225.9 329.3L243.5 336.6L270.6 326.3L278.7 311.7L309.5 301.4L333.7 318.3L367.4 322.7L390.1 292.6L410.7 186.3L382.1 80.7L329.3 30.8L250.1 13.9L174.5 0Z"/></clipPath></defs><image href="img/fig-playground-hero.png" x="31" y="-17" width="440" height="587" preserveAspectRatio="xMidYMid slice" clip-path="url(#pgblob)"/></svg>
+  </div></div>
 </section>
 
-<!-- ============== DEMO GALLERY (index into the full demos below) ============== -->
-<section class="max-w-7xl mx-auto px-6 md:px-10 pb-20">
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/demo-ner.jpg" alt="A clinical named-entity recognition interface" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>45MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">01 — Transformers.js</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Clinical NER</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Extract patient, clinician, and facility names from raw clinical text using a named-entity model.</p>
-        <a href="#demo-ner" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
+<!-- ============== FILTER + DEMO GALLERY ============== -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <nav class="chips" aria-label="Filter demos"><button type="button" class="on" data-f="all">All</button><button type="button" data-f="Transformers.js">Transformers.js</button><button type="button" data-f="Whisper + Qwen2.5">Whisper + Qwen2.5</button><button type="button" data-f="OCR + Structuring">OCR + Structuring</button><button type="button" data-f="Naive RAG">Naive RAG</button><button type="button" data-f="Advanced RAG">Advanced RAG</button><button type="button" data-f="Reranking">Reranking</button><button type="button" data-f="Data Quality">Data Quality</button><button type="button" data-f="CMS-HCC">CMS-HCC</button><button type="button" data-f="Object Detection">Object Detection</button></nav>
+    <p class="note"><span class="material-symbols-outlined">shield</span><span>Everything runs in your browser — nothing you type, record, or upload is sent to Tathastha Labs or any server. Not a medical device: for demonstration only, not clinical or diagnostic use.</span></p>
+  </div>
+</section>
+<section class="sec" id="demos-anchor">
+  <div class="wrap">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px" class="reveal">
+      <div><div class="kicker">TRY MORE DEMOS</div><h2 class="h2">Explore by capability.</h2></div>
+      <a href="capabilities.html" class="tlink">View All <span class="material-symbols-outlined">arrow_forward</span></a>
     </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/cap-computer-vision.jpg" alt="A workspace with a scanner and monitor for computer-vision pipelines" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>90MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">02 — Transformers.js</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Image Classification</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Classify any photo in-browser — upload, preprocess, inference, ranked output.</p>
-        <a href="#demo-image" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/hc-medical-data.jpg" alt="A clean clinical data visualization" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-sky-blue"></span>65MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">03 — Transformers.js</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Disease Detection</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Recognize disease and condition mentions in clinical notes with a biomedical NER model.</p>
-        <a href="#demo-disease" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/demo-speech.jpg" alt="A minimalist speech-to-text medical interface with a live waveform" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>340MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">04 — Whisper + Qwen2.5</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Speech to SOAP Note</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Record a visit and get a structured note — transcription, then drafting, all on-device.</p>
-        <a href="#demo-soap" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/cap-finetune.jpg" alt="A professional document-processing scene with receipts being scanned" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>20MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">05 — OCR + Structuring</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Invoice Processing</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Photograph a receipt and extract vendor, date, and totals via OCR and a small instruct model.</p>
-        <a href="#demo-invoice" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-sky-blue"></span>25MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">06 — Naive RAG</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Retrieval-Augmented Q&amp;A</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Upload a document and ask it questions — retrieve, then generate, entirely on-device.</p>
-        <a href="#demo-rag" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/demo-rag.jpg" alt="A clean data visualization of retrieval-augmented generation with configurable overlap" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>Local
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">07 — Advanced RAG</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Controlled Chunk Overlap</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">The same retrieval pattern, with chunk overlap you control so split facts aren't missed.</p>
-        <a href="#demo-rag-advanced" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/demo-rag.jpg" alt="A cross-encoder reranking data visualization" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>15MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">08 — Reranking</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">RAG with Reranking</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Cast a wider net, then re-score candidates with a cross-encoder for a stronger final answer.</p>
-        <a href="#demo-rag-rerank" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/hc-data-engineering.jpg" alt="A clean, structured data-engineering pipeline visualization" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-sky-blue"></span>JS Only
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">09 — Data Quality</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Claims Normalization</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Vote across claim lines and classify fields valid/invalid/null — real logic from an open-source healthcare-data project.</p>
-        <a href="#demo-claims" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/demo-patient-matching.jpg" alt="A probabilistic record-linkage visualization: two digital patient records being compared" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>JS Only
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">10 — Splink Model</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Patient Record Matching</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Probabilistic record linkage with real trained weights — the same math behind patient-matching engines.</p>
-        <a href="#demo-empi" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/hc-risk-scoring.jpg" alt="A translucent panel showing a healthcare risk-scoring model with an overall risk score" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>JS Only
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">11 — CMS-HCC</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Risk Score Calculator</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Real CMS-HCC demographic and hierarchy logic, with your own coefficients — no invented numbers.</p>
-        <a href="#demo-risk" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/hc-data-architecture.jpg" alt="Abstract visualization of interconnected data nodes, representing linked records across sources" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-sky-blue"></span>JS Only
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">12 — Data Chaining</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Encounter Grouping</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Group claims from a flat file and a FHIR feed into one real-world encounter using real chaining rules.</p>
-        <a href="#demo-encounter" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/hc-medical-data.jpg" alt="A clean clinical data visualization used to illustrate PPE compliance detection" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>43MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">13 — DETR / CPPE-5</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">PPE Compliance Detection</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Detect coveralls, face shields, gloves, goggles, and masks in a photo with a real fine-tuned object-detection model.</p>
-        <a href="#demo-ppe" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 40ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/hc-risk-scoring.jpg" alt="A translucent panel used to illustrate a worker safety monitoring model" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-sky-blue"></span>12MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">14 — YOLOv8 + Face ID</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Hard-Hat Detection + Worker ID</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Enroll a worker's face, then check a site photo — a violation gets tied to a specific identified person, not just "someone."</p>
-        <a href="#demo-worker" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
-    </div>
-    <div class="gallery-card group bg-surface border border-outline/10 rounded overflow-hidden flex flex-col reveal" style="transition-delay: 80ms;">
-      <div class="h-48 bg-surface-container-low overflow-hidden relative">
-        <img src="img/cap-predictive-monitoring.jpg" alt="A sleek dashboard showing real-time predictive-monitoring signals" class="gallery-img w-full h-full object-cover"/>
-        <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full border border-outline/10 font-label-sm text-label-sm text-ink-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-botanical-green"></span>40MB
-        </div>
-      </div>
-      <div class="p-6 flex-grow flex flex-col">
-        <div class="font-label-sm text-label-sm text-text-muted uppercase mb-2">15 — Object Detection</div>
-        <h3 class="font-title-lg text-title-lg text-ink-black mb-3">Restricted-Zone Intrusion Detection</h3>
-        <p class="font-body-md text-[14px] text-graphite flex-grow mb-6">Draw a hazard zone on any photo and flag every detected person whose position overlaps it.</p>
-        <a href="#demo-zone" class="w-full py-3 border border-ink-black font-label-md text-label-md uppercase hover:bg-surface-container-low transition-colors rounded flex items-center justify-center gap-2">Run Demo <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-      </div>
+    <div class="gridp">
+      <a href="#demo-ner" class="pc reveal" data-cat="Transformers.js"><img src="img/fig-demo-01.jpg" alt="Clinical NER demo preview" loading="lazy"/><h3>Clinical NER</h3><p>Extract patient, clinician, and facility names from raw clinical text using a named-entity model.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-image" class="pc reveal" data-cat="Transformers.js"><img src="img/fig-demo-02.jpg" alt="Image Classification demo preview" loading="lazy"/><h3>Image Classification</h3><p>Classify any photo in-browser — upload, preprocess, inference, ranked output.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-disease" class="pc reveal" data-cat="Transformers.js"><img src="img/fig-demo-03.jpg" alt="Disease Detection demo preview" loading="lazy"/><h3>Disease Detection</h3><p>Recognize disease and condition mentions in clinical notes with a biomedical NER model.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-soap" class="pc reveal" data-cat="Whisper + Qwen2.5"><img src="img/fig-demo-04.jpg" alt="Speech to SOAP Note demo preview" loading="lazy"/><h3>Speech to SOAP Note</h3><p>Record a visit and get a structured note — transcription, then drafting, all on-device.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-invoice" class="pc reveal" data-cat="OCR + Structuring"><img src="img/fig-demo-05.jpg" alt="Invoice Processing demo preview" loading="lazy"/><h3>Invoice Processing</h3><p>Photograph a receipt and extract vendor, date, and totals via OCR and a small instruct model.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-rag" class="pc reveal" data-cat="Naive RAG"><img src="img/fig-demo-06.jpg" alt="Retrieval-Augmented Q&A demo preview" loading="lazy"/><h3>Retrieval-Augmented Q&A</h3><p>Upload a document and ask it questions — retrieve, then generate, entirely on-device.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-rag-advanced" class="pc reveal" data-cat="Advanced RAG"><img src="img/fig-demo-07.jpg" alt="Controlled Chunk Overlap demo preview" loading="lazy"/><h3>Controlled Chunk Overlap</h3><p>The same retrieval pattern, with chunk overlap you control so split facts aren't missed.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-rag-rerank" class="pc reveal" data-cat="Reranking"><img src="img/fig-demo-08.jpg" alt="RAG with Reranking demo preview" loading="lazy"/><h3>RAG with Reranking</h3><p>Cast a wider net, then re-score candidates with a cross-encoder for a stronger final answer.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-claims" class="pc reveal" data-cat="Data Quality"><img src="img/fig-demo-09.jpg" alt="Claims Normalization demo preview" loading="lazy"/><h3>Claims Normalization</h3><p>Vote across claim lines and classify fields valid/invalid/null — real logic from an open-source healthcare-data library.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-empi" class="pc reveal" data-cat="Data Quality"><img src="img/fig-demo-10.jpg" alt="Patient Record Matching demo preview" loading="lazy"/><h3>Patient Record Matching</h3><p>Probabilistic record linkage with real trained weights — the same math behind patient-matching engines.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-risk" class="pc reveal" data-cat="CMS-HCC"><img src="img/fig-demo-11.jpg" alt="Risk Score Calculator demo preview" loading="lazy"/><h3>Risk Score Calculator</h3><p>Real CMS-HCC demographic and hierarchy logic, with your own coefficients — no invented numbers.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-encounter" class="pc reveal" data-cat="Data Quality"><img src="img/fig-demo-12.jpg" alt="Encounter Grouping demo preview" loading="lazy"/><h3>Encounter Grouping</h3><p>Group claims from a flat file and a FHIR feed into one real-world encounter using real chaining rules.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-ppe" class="pc reveal" data-cat="Object Detection"><img src="img/fig-demo-13.jpg" alt="PPE Compliance Detection demo preview" loading="lazy"/><h3>PPE Compliance Detection</h3><p>Detect coveralls, face shields, gloves, goggles, and masks in a photo with a real fine-tuned object-detection model.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-worker" class="pc reveal" data-cat="Object Detection"><img src="img/fig-demo-14.jpg" alt="Hard-Hat Detection + Worker ID demo preview" loading="lazy"/><h3>Hard-Hat Detection + Worker ID</h3><p>Enroll a worker's face, then check a site photo — a violation gets tied to a specific identified person, not just a box.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-zone" class="pc reveal" data-cat="Object Detection"><img src="img/fig-demo-15.jpg" alt="Restricted-Zone Intrusion Detection demo preview" loading="lazy"/><h3>Restricted-Zone Intrusion Detection</h3><p>Draw a hazard zone on any photo and flag every detected person whose position overlaps it.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
+      <a href="#demo-hair" class="pc reveal" data-cat="other"><img src="img/cap-computer-vision.jpg" alt="Live Hair Color Try-On demo preview" loading="lazy"/><h3>Live Hair Color Try-On</h3><p>Real-time hair segmentation and face tracking on your live camera, recoloring hair while preserving its natural highlights and shadows.</p><span class="tlink sm">Explore Solutions <span class="material-symbols-outlined">arrow_forward</span></span></a>
     </div>
   </div>
 </section>
@@ -1078,13 +996,13 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       <img src="img/hc-medical-data.jpg" alt="A clean clinical data visualization used to illustrate PPE compliance detection" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">13 · PPE compliance detection</div>
       <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
-        Find missing protective equipment in a photo.
+        Find missing protective equipment — in a photo, or live.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
         A real object-detection model — DETR, fine-tuned on the CPPE-5 dataset — finds coveralls, face
-        shields, gloves, goggles, and masks in an image and draws a box around each. PPE detection is one
-        of the most widely deployed computer-vision use cases in industrial and clinical safety today; this
-        is the same underlying pattern.
+        shields, gloves, goggles, and masks and draws a box around each. Use a photo, or turn on your
+        camera for continuous analysis of a live feed — the same shape of pipeline behind real
+        video-analytics safety monitoring, running periodically rather than a single one-off check.
       </p>
       <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
         Fine-tuned checkpoint and dataset are both openly published (see <code>/models/README.md</code>).
@@ -1092,20 +1010,24 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       </p>
     </div>
     <div class="md:col-span-8">
-      <div class="flex flex-col sm:flex-row gap-6 items-start">
+      <div class="flex flex-col sm:flex-row gap-4 items-start flex-wrap">
         <label for="ppe-input" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
           Choose an image
         </label>
         <input type="file" id="ppe-input" accept="image/*" class="hidden"/>
+        <span class="text-[13px] text-graphite self-center">or</span>
+        <button id="ppe-cam-toggle" class="cta-outline rounded-full text-[14px] px-6 py-3">● Start live camera</button>
       </div>
       <div class="mt-4 flex items-center gap-4 flex-wrap">
         <button id="ppe-run" class="cta-sage rounded-full text-[14px] px-6 py-3" disabled>Detect PPE</button>
         <span id="ppe-status" class="status-line"></span>
       </div>
       <div class="mt-6">
+        <video id="ppe-video" class="hidden" playsinline muted></video>
         <canvas id="ppe-canvas" class="hidden max-w-full border hairline rounded"></canvas>
       </div>
       <div id="ppe-output" class="mt-4 flex flex-wrap gap-2"></div>
+      <div id="ppe-log" class="hidden mt-4 max-h-36 overflow-y-auto space-y-1 text-[12.5px] text-graphite border-t hairline pt-3"></div>
     </div>
   </div>
 </section>
@@ -1122,8 +1044,8 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
         A YOLOv8 model trained specifically for hard-hat compliance runs alongside a face-recognition model,
         so a violation isn't just a red box on a screen — it's tied to a specific person. Enroll a worker
-        below with a photo and a name, then check a second photo to see them identified and matched against
-        their PPE status.
+        below with a photo and a name, then check a second photo — or a live camera feed, continuously
+        re-identifying and re-checking every couple of seconds — to see them matched against their PPE status.
       </p>
       <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
         Enrollment and matching both run entirely on-device — nothing about the photo, the name, or the
@@ -1146,21 +1068,25 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       <div id="worker-roster" class="mt-3 flex flex-wrap gap-2"></div>
 
       <div class="mt-8 pt-8 border-t hairline">
-        <div class="caps mb-3">Step 2 — Check a site photo</div>
-        <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <div class="caps mb-3">Step 2 — Check a site photo or live feed</div>
+        <div class="flex flex-col sm:flex-row gap-4 items-start flex-wrap">
           <label for="worker-check-input" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
             Choose a photo
           </label>
           <input type="file" id="worker-check-input" accept="image/*" class="hidden"/>
+          <span class="text-[13px] text-graphite self-center">or</span>
+          <button id="worker-cam-toggle" class="cta-outline rounded-full text-[14px] px-6 py-3">● Start live camera</button>
         </div>
         <div class="mt-4 flex items-center gap-4 flex-wrap">
           <button id="worker-check-run" class="cta-sage rounded-full text-[14px] px-6 py-3" disabled>Check compliance</button>
           <span id="worker-check-status" class="status-line"></span>
         </div>
         <div class="mt-6">
+          <video id="worker-video" class="hidden" playsinline muted></video>
           <canvas id="worker-canvas" class="hidden max-w-full border hairline rounded"></canvas>
         </div>
         <div id="worker-output" class="mt-4 space-y-2"></div>
+        <div id="worker-log" class="hidden mt-4 max-h-36 overflow-y-auto space-y-1 text-[12.5px] text-graphite border-t hairline pt-3"></div>
       </div>
     </div>
   </div>
@@ -1173,25 +1099,29 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       <img src="img/cap-predictive-monitoring.jpg" alt="A sleek dashboard showing real-time predictive-monitoring signals" class="demo-thumb w-full mb-5"/>
       <div class="caps mb-3">15 · Restricted-zone intrusion detection</div>
       <h2 class="font-serif font-light text-[26px] md:text-[32px] leading-[1.15] tracking-tight-2">
-        Draw a zone. Flag who steps into it.
+        Draw a zone. Flag who steps into it — live.
       </h2>
       <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
         Draw a rectangle over any hazardous area — a loading dock, a forklift lane, equipment with a live
-        exclusion radius — and a general-purpose object detector flags every person whose position overlaps
-        it. This is the same underlying pattern (person detection plus a geofenced rule) behind proximity
-        and restricted-access alerts on a real production floor, in any industry.
+        exclusion radius — on a photo or directly over your live camera feed, and a general-purpose object
+        detector flags every person whose position overlaps it, continuously. This is the same underlying
+        pattern (person detection plus a geofenced rule) behind proximity and restricted-access video
+        analytics on a real production floor, in any industry.
       </p>
       <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">~40 MB first run only.</p>
     </div>
     <div class="md:col-span-8">
-      <div class="flex flex-col sm:flex-row gap-6 items-start">
+      <div class="flex flex-col sm:flex-row gap-4 items-start flex-wrap">
         <label for="zone-input" class="cta-outline rounded-full text-[14px] px-6 py-3 cursor-pointer inline-block">
           Choose an image
         </label>
         <input type="file" id="zone-input" accept="image/*" class="hidden"/>
-        <span class="text-[13px] text-graphite self-center">Then drag on the image below to draw a restricted zone.</span>
+        <span class="text-[13px] text-graphite self-center">or</span>
+        <button id="zone-cam-toggle" class="cta-outline rounded-full text-[14px] px-6 py-3">● Start live camera</button>
       </div>
+      <p class="mt-3 text-[13px] text-graphite">Drag on the image or live feed below to draw a restricted zone.</p>
       <div class="mt-4">
+        <video id="zone-video" class="hidden" playsinline muted></video>
         <canvas id="zone-canvas" class="hidden max-w-full border hairline rounded" style="cursor: crosshair;"></canvas>
       </div>
       <div class="mt-4 flex items-center gap-4 flex-wrap">
@@ -1199,25 +1129,134 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
         <span id="zone-status" class="status-line"></span>
       </div>
       <div id="zone-output" class="mt-4 space-y-2"></div>
+      <div id="zone-log" class="hidden mt-4 max-h-36 overflow-y-auto space-y-1 text-[12.5px] text-graphite border-t hairline pt-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DEMO 16: LIVE HAIR COLOR TRY-ON ============== -->
+<section id="demo-hair" class="max-w-7xl mx-auto px-6 md:px-10 py-6">
+  <div class="grid md:grid-cols-12 gap-10 reveal bento-card bg-surface border border-outline/10 rounded p-6 md:p-10">
+    <div class="md:col-span-4 min-w-0">
+      <img src="img/cap-computer-vision.jpg" alt="A workspace with a scanner and monitor used to illustrate live computer-vision rendering" class="demo-thumb w-full mb-5"/>
+      <div class="caps mb-3">16 · Live hair color try-on</div>
+      <h2 class="font-serif font-semibold text-[24px] md:text-[30px] leading-[1.25] tracking-tight-2">
+        Recolor hair on a live camera, in real time.
+      </h2>
+      <p class="mt-4 text-[14.5px] text-graphite leading-[1.7]">
+        Google's MediaPipe hair-segmentation model finds the hair region on every video frame; a
+        luminance-preserving color blend recolors it while keeping natural highlights and shadows intact —
+        the same core mechanic behind commercial AR beauty SDKs (ModiFace, Banuba, DeepAR), running
+        entirely in your browser. An optional face-mesh overlay (478 points, also MediaPipe) shows the
+        head-tracking layer that a full 3D try-on would anchor styling to.
+      </p>
+      <p class="mt-4 text-[12.5px] text-graphite leading-[1.6]">
+        Worth being direct about scope: this proves the core segmentation → recolor → render pipeline, not
+        a production SDK. It doesn't do strand-level alpha matting, 3D hairstyle overlays, or the native
+        60fps mobile performance a real product would need — see the case study write-up for that gap.
+        Hair-segmentation model ~1 MB; face-mesh model (loaded only if you enable it) ~4 MB. Both loaded
+        from Google's model CDN, first run only — nothing about your camera feed is ever sent anywhere.
+      </p>
+    </div>
+    <div class="md:col-span-8">
+      <div class="flex flex-col sm:flex-row gap-4 items-start flex-wrap">
+        <button id="hair-cam-toggle" class="cta-sage rounded-full text-[14px] px-6 py-3">● Start live camera</button>
+        <label class="flex items-center gap-2 text-[13px] text-graphite self-center cursor-pointer">
+          <input type="checkbox" id="hair-mesh-toggle" class="accent-[#6C8884]"/> Show face-mesh tracking
+        </label>
+      </div>
+      <div class="mt-4 flex flex-wrap items-center gap-3">
+        <span class="text-[13px] text-graphite">Color:</span>
+        <div id="hair-swatches" class="flex items-center gap-2"></div>
+        <input type="color" id="hair-color-picker" value="#8B4A2B" class="w-9 h-9 rounded border hairline cursor-pointer" title="Custom color"/>
+      </div>
+      <div class="mt-6">
+        <video id="hair-video" class="hidden" playsinline muted></video>
+        <canvas id="hair-canvas" class="hidden max-w-full border hairline rounded"></canvas>
+      </div>
+      <div id="hair-status" class="status-line mt-4"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== FEATURED CASE STUDIES ============== -->
+<section class="sec" style="padding-top:80px">
+  <div class="wrap">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:40px" class="reveal">
+      <div><div class="kicker" style="color:var(--teal)">Case studies</div><h2 class="h2">Featured Case Studies</h2></div>
+      <a href="case-studies.html" class="tlink">View All <span class="material-symbols-outlined">arrow_forward</span></a>
+    </div>
+    <div class="cs">
+      <article class="cscard reveal"><div class="top"><img src="img/fig-pg-case-1.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">FINANCIAL SERVICES</div><h3>Intelligent document processing for faster underwriting.</h3><a href="case-studies.html" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a></div></div>
+      <div class="mt"><div><b>40%</b><span>Faster diagnosis</span></div><div><b>95%+</b><span>Model accuracy</span></div><div><b>Improved</b><span>Patient outcomes</span></div></div></article>
+      <article class="cscard reveal"><div class="top"><img src="img/fig-pg-case-2.jpg" alt="" loading="lazy"/><div class="tx"><div class="tg">MANUFACTURING</div><h3>Predictive maintenance for uninterrupted operations.</h3><a href="case-studies.html" class="vl">View case study <span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></a></div></div>
+      <div class="mt"><div><b>50%</b><span>Reduction in downtime</span></div><div><b>30%</b><span>Lower maintenance cost</span></div><div><b>Higher</b><span>Asset lifespan</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============== READY ============== -->
+<section class="sec">
+  <div class="wrap reveal" style="display:grid;gap:24px" id="ready">
+    <div><div class="kicker" style="color:#000">READY TO BUILD WHAT'S NEXT?</div><h2 class="h2-40" style="max-width:579px">Not sure where to start? Start with the problem.</h2></div>
+    <div><p style="margin:0 0 20px;font-size:20px;line-height:26px;max-width:678px">Tell us what you're trying to achieve. We'll help you explore the right approach from idea to impact.</p><a href="capabilities.html" class="tlink">View All <span class="material-symbols-outlined">arrow_forward</span></a></div>
+  </div>
+</section>
+<style>@media(min-width:1024px){#ready{grid-template-columns:1fr 678px;align-items:start}}</style>
+
+<!-- ============== CONTACT ============== -->
+<section id="contact" class="sec" style="scroll-margin-top:100px">
+  <div class="wrap">
+    <div class="contact-grid reveal">
+      <div class="contact-l">
+        <div class="kicker">Contact us</div>
+        <h3>Have a problem worth getting right?</h3>
+        <p>Send us the paragraph you'd normally write to a colleague. We'll get back to you within 24 hours.</p>
+        <a class="mail" href="mailto:hello@tathastha.com"><span class="material-symbols-outlined" style="font-size:20px">mail</span>hello@tathastha.com</a>
+      </div>
+      <form id="contact-form" class="contact-r" novalidate>
+        <div style="display:none" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"/></label></div>
+        <div class="frow two">
+          <div><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" required placeholder="Your name"/></div>
+          <div><label for="contact-phone">Phone Number</label><input id="contact-phone" name="phone" type="tel" placeholder="+000"/></div>
+        </div>
+        <div class="frow two">
+          <div><label for="contact-email">Work email</label><input id="contact-email" name="email" type="email" required placeholder="workemail@gmail.com"/></div>
+          <div><label for="contact-company">Company</label><input id="contact-company" name="company" type="text" placeholder="Name Company"/></div>
+        </div>
+        <div class="frow"><div><label for="contact-message">What's the problem?</label><textarea id="contact-message" name="message" required placeholder="A short description helps us prepare..."></textarea></div></div>
+        <button type="submit" class="btn submit btn-teal">Submit</button>
+        <p id="contact-form-status" role="status" aria-live="polite" style="margin:16px 0 0;font-size:15px"></p>
+      </form>
     </div>
   </div>
 </section>
 
 <!-- ============== FOOTER ============== -->
-<footer class="bg-noir text-paper/60 border-t border-paper/10 mt-10">
-  <div class="max-w-7xl mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-[13px]">
-    <div class="flex items-center gap-3">
-      <span class="font-light text-paper text-[15px]">Tathastha Labs</span>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <svg viewBox="0 0 273 24" class="" role="img" aria-label="Tathastha Labs"><use href="#tl-wordmark"/></svg>
+        <p class="tag">Engineering what's next in healthcare, infrastructure, and intelligent systems.</p>
+        <div class="social">
+          <a href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg></a><a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M18.2 2.5h3.3l-7.2 8.2 8.5 10.8h-6.7l-5.2-6.6-6 6.6H1.6l7.7-8.8L1.2 2.5H8l4.7 6.1zm-1.2 17h1.8L7 4.4H5.1z"/></svg></a><a href="#" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.5 1.6-1.5h1.7V3.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V13h2.7v8z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-cols">
+        <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="mailto:hello@tathastha.com?subject=Careers">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#contact">Contact</a></li></ul></div>
+        <div><h4>Services</h4><ul><li><a href="capabilities.html">Capabilities</a></li><li><a href="index.html#process">Process</a></li><li><a href="index.html#outcomes">Outcomes</a></li><li><a href="case-studies.html">Case Studies</a></li></ul></div>
+        <div><h4>Resources</h4><ul><li><a href="playground.html">Playground</a></li><li><a href="#">Documentation</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+      </div>
     </div>
-    <nav class="flex flex-wrap gap-x-6 gap-y-2">
-      <a href="/" class="hover:text-sky-blue-tint">Home</a>
-      <a href="/industries/healthcare.html" class="hover:text-sky-blue-tint">Healthcare</a>
-      <a href="/case-studies.html" class="hover:text-sky-blue-tint">Case Studies</a>
-      <a href="/#contact" class="hover:text-sky-blue-tint">Contact</a>
-    </nav>
-    <div class="text-paper/40">© 2026 Tathastha Labs. All rights reserved.</div>
+    <div class="foot-bot">
+      <span>© 2025 Tathastha Labs. All rights reserved.</span>
+      <span class="legal"><a href="#">Privacy Policy</a><i></i><a href="#">Terms of Service</a></span>
+    </div>
   </div>
 </footer>
+<style>footer.foot .foot-top svg{height:23px;width:auto;color:#fff}footer.foot .social svg{height:14px}</style>
 
 <script type="module">
   import { pipeline, RawImage } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3';
@@ -2699,7 +2738,7 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
     }
   });
 
-  /* ---------------- Shared: image loading + canvas box drawing ---------------- */
+  /* ---------------- Shared: image/video loading + canvas box drawing ---------------- */
   function loadImageFromFile(file) {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -2709,10 +2748,19 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
     });
   }
 
+  // Works for both <img> (naturalWidth/Height) and <video> (videoWidth/Height) sources,
+  // since canvas drawImage() itself already accepts either element type.
+  function mediaSize(el) {
+    return el.tagName === 'VIDEO'
+      ? { width: el.videoWidth, height: el.videoHeight }
+      : { width: el.naturalWidth, height: el.naturalHeight };
+  }
+
   function drawImageToCanvas(canvas, img, maxW = 700) {
-    const scale = Math.min(1, maxW / img.naturalWidth);
-    canvas.width = Math.round(img.naturalWidth * scale);
-    canvas.height = Math.round(img.naturalHeight * scale);
+    const { width, height } = mediaSize(img);
+    const scale = Math.min(1, maxW / width);
+    canvas.width = Math.round(width * scale);
+    canvas.height = Math.round(height * scale);
     canvas.classList.remove('hidden');
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -2723,7 +2771,7 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
     ctx.strokeStyle = color;
     ctx.lineWidth = 2;
     ctx.strokeRect(x, y, w, h);
-    ctx.font = '600 12px Inter, sans-serif';
+    ctx.font = '600 12px "DM Sans", sans-serif';
     const textW = ctx.measureText(label).width + 10;
     const labelY = Math.max(0, y - 18);
     ctx.fillStyle = color;
@@ -2732,20 +2780,99 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
     ctx.fillText(label, x + 5, labelY + 13);
   }
 
+  function logEvent(logElId, text) {
+    const el = document.getElementById(logElId);
+    el.classList.remove('hidden');
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const row = document.createElement('div');
+    row.textContent = `${time} — ${text}`;
+    el.prepend(row);
+    while (el.children.length > 30) el.removeChild(el.lastChild);
+  }
+
+  // Drives a live-camera detection loop: captures a frame, runs onFrame, waits, repeats.
+  // intervalMs is a floor, not a guarantee — a slow model just runs back-to-back rather
+  // than skipping frames, so this is honestly "periodic analysis," not fixed-rate video.
+  function createCameraLoop({ videoEl, canvasEl, toggleBtn, intervalMs, onFrame }) {
+    let stream = null, timer = null, running = false;
+
+    async function start() {
+      toggleBtn.disabled = true;
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      videoEl.srcObject = stream;
+      await videoEl.play();
+      if (videoEl.readyState < 2) {
+        await new Promise((resolve) => { videoEl.onloadedmetadata = resolve; });
+      }
+      canvasEl.width = videoEl.videoWidth || 640;
+      canvasEl.height = videoEl.videoHeight || 480;
+      canvasEl.classList.remove('hidden');
+      running = true;
+      toggleBtn.textContent = '■ Stop camera';
+      toggleBtn.disabled = false;
+      loop();
+    }
+
+    async function loop() {
+      if (!running) return;
+      const t0 = performance.now();
+      try { await onFrame(); } catch (err) { console.error(err); }
+      if (!running) return;
+      const elapsed = performance.now() - t0;
+      timer = setTimeout(loop, Math.max(300, intervalMs - elapsed));
+    }
+
+    function stop() {
+      running = false;
+      clearTimeout(timer);
+      if (stream) { stream.getTracks().forEach((t) => t.stop()); stream = null; }
+      toggleBtn.textContent = '● Start live camera';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      if (running) { stop(); return; }
+      start().catch((err) => {
+        console.error(err);
+        toggleBtn.textContent = '● Start live camera';
+        toggleBtn.disabled = false;
+        alert(`Couldn't start the camera: ${err.message}`);
+      });
+    });
+
+    return { get running() { return running; }, stop };
+  }
+
   /* ---------------- Demo 13: PPE compliance detection (DETR/CPPE-5, self-hosted ONNX) ---------------- */
   (function () {
     const PPE_LABELS = { 0: 'Coverall', 1: 'Face Shield', 2: 'Gloves', 3: 'Goggles', 4: 'Mask' };
     const PPE_COLORS = ['#6C8884', '#5F86A4', '#A65A2E', '#8A7B1F', '#7C5468'];
+    let ort = null;
     let ppeSession = null;
-    let ppeImg = null;
+    let ppeImg = null; // current photo-mode source; null while in live-camera mode
 
     const ppeInput = document.getElementById('ppe-input');
     const ppeRunBtn = document.getElementById('ppe-run');
     const ppeCanvas = document.getElementById('ppe-canvas');
+    const ppeVideo = document.getElementById('ppe-video');
+    const ppeCamToggle = document.getElementById('ppe-cam-toggle');
+
+    async function ensurePpeSession(statusId) {
+      if (!ort) {
+        busy(statusId, 'Loading ONNX runtime…');
+        ort = await import('https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/+esm');
+        ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/';
+      }
+      if (!ppeSession) {
+        busy(statusId, 'Downloading model — 43 MB, first run only…');
+        ppeSession = await ort.InferenceSession.create('/models/ppe-detection/model.onnx', { executionProviders: ['wasm'] });
+      }
+      return ppeSession;
+    }
 
     ppeInput.addEventListener('change', async () => {
       const file = ppeInput.files[0];
       if (!file) return;
+      if (cameraLoop.running) cameraLoop.stop();
       ppeImg = await loadImageFromFile(file);
       drawImageToCanvas(ppeCanvas, ppeImg);
       ppeRunBtn.disabled = false;
@@ -2753,11 +2880,11 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       setStatus('ppe-status', '');
     });
 
-    function preprocessDetr(img) {
+    function preprocessDetr(mediaEl) {
       // DETR: resize so the shortest edge is 800px and the longest edge stays under
       // 1333px, preserving aspect ratio — matches the fine-tuned checkpoint's training preprocessing.
       const shortestEdge = 800, longestEdge = 1333;
-      let w = img.naturalWidth, h = img.naturalHeight;
+      let { width: w, height: h } = mediaSize(mediaEl);
       const minSide = Math.min(w, h), maxSide = Math.max(w, h);
       let scale = shortestEdge / minSide;
       if (maxSide * scale > longestEdge) scale = longestEdge / maxSide;
@@ -2767,7 +2894,7 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       const off = document.createElement('canvas');
       off.width = w; off.height = h;
       const octx = off.getContext('2d');
-      octx.drawImage(img, 0, 0, w, h);
+      octx.drawImage(mediaEl, 0, 0, w, h);
       const { data: pixels } = octx.getImageData(0, 0, w, h);
 
       const mean = [0.485, 0.456, 0.406], std = [0.229, 0.224, 0.225];
@@ -2787,35 +2914,15 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       return exps.map((v) => v / sum);
     }
 
-    ppeRunBtn.addEventListener('click', async () => {
-      if (!ppeImg) return;
-      ppeRunBtn.disabled = true;
-      try {
-        busy('ppe-status', 'Loading ONNX runtime…');
-        const ort = await import('https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/+esm');
-        ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/';
-        if (!ppeSession) {
-          busy('ppe-status', 'Downloading model — 43 MB, first run only…');
-          ppeSession = await ort.InferenceSession.create('/models/ppe-detection/model.onnx', { executionProviders: ['wasm'] });
-        }
-        busy('ppe-status', 'Preprocessing…');
-        const { data, w, h } = preprocessDetr(ppeImg);
-        const tensor = new ort.Tensor('float32', data, [1, 3, h, w]);
-        busy('ppe-status', 'Running detection…');
-        const outputs = await ppeSession.run({ pixel_values: tensor });
-        renderPpeResults(outputs.logits, outputs.pred_boxes);
-        setStatus('ppe-status', 'Done.');
-      } catch (err) {
-        console.error(err);
-        setStatus('ppe-status', `Error: ${err.message}`);
-      } finally {
-        ppeRunBtn.disabled = false;
-      }
-    });
+    async function detectPpe(mediaEl, statusId) {
+      const session = await ensurePpeSession(statusId);
+      const { data, w, h } = preprocessDetr(mediaEl);
+      const tensor = new ort.Tensor('float32', data, [1, 3, h, w]);
+      const outputs = await session.run({ pixel_values: tensor });
+      return parsePpeOutputs(outputs.logits, outputs.pred_boxes);
+    }
 
-    function renderPpeResults(logitsTensor, boxesTensor) {
-      const ctx = ppeCanvas.getContext('2d');
-      ctx.drawImage(ppeImg, 0, 0, ppeCanvas.width, ppeCanvas.height);
+    function parsePpeOutputs(logitsTensor, boxesTensor) {
       const numQueries = logitsTensor.dims[1];
       const numClasses = logitsTensor.dims[2]; // 6 = 5 PPE labels + "no object"
       const logitsData = logitsTensor.data;
@@ -2832,6 +2939,12 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
         const cx = boxesData[q * 4], cy = boxesData[q * 4 + 1], bw = boxesData[q * 4 + 2], bh = boxesData[q * 4 + 3];
         found.push({ label: bestLabel, score: bestScore, cx, cy, bw, bh });
       }
+      return found;
+    }
+
+    function renderPpeResults(mediaEl, found) {
+      const ctx = ppeCanvas.getContext('2d');
+      ctx.drawImage(mediaEl, 0, 0, ppeCanvas.width, ppeCanvas.height);
       const out = document.getElementById('ppe-output');
       if (!found.length) {
         out.innerHTML = '<p class="text-[14px] text-graphite">No PPE items detected above threshold.</p>';
@@ -2847,14 +2960,51 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
         .map((f) => `<span class="font-label-sm text-label-sm border border-outline/20 rounded-full px-3 py-1">${escapeHtml(PPE_LABELS[f.label])} · ${(f.score * 100).toFixed(0)}%</span>`)
         .join('');
     }
+
+    ppeRunBtn.addEventListener('click', async () => {
+      if (!ppeImg) return;
+      ppeRunBtn.disabled = true;
+      try {
+        busy('ppe-status', 'Preprocessing…');
+        busy('ppe-status', 'Running detection…');
+        const found = await detectPpe(ppeImg, 'ppe-status');
+        renderPpeResults(ppeImg, found);
+        setStatus('ppe-status', 'Done.');
+      } catch (err) {
+        console.error(err);
+        setStatus('ppe-status', `Error: ${err.message}`);
+      } finally {
+        ppeRunBtn.disabled = false;
+      }
+    });
+
+    const cameraLoop = createCameraLoop({
+      videoEl: ppeVideo,
+      canvasEl: ppeCanvas,
+      toggleBtn: ppeCamToggle,
+      intervalMs: 1500,
+      onFrame: async () => {
+        ppeImg = null;
+        ppeRunBtn.disabled = true;
+        busy('ppe-status', 'Analyzing live feed…');
+        const found = await detectPpe(ppeVideo, 'ppe-status');
+        renderPpeResults(ppeVideo, found);
+        setStatus('ppe-status', 'Live — analyzing every ~1.5s.');
+        const summary = found.length
+          ? found.map((f) => `${PPE_LABELS[f.label]} ${(f.score * 100).toFixed(0)}%`).join(', ')
+          : 'No PPE items detected';
+        logEvent('ppe-log', summary);
+      }
+    });
   })();
 
   /* ---------------- Demo 14: Hard-hat detection (self-hosted ONNX) + face-recognition worker ID ---------------- */
   (function () {
+    let ort = null;
     let hardhatSession = null;
     let faceapi = null;
     let faceModelsLoaded = false;
-    let enrollImg = null, checkImg = null;
+    let enrollImg = null, checkImg = null; // checkImg is null while in live-camera mode
     const roster = []; // { name, descriptor: Float32Array(128) }
 
     const FACE_MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/model';
@@ -2875,16 +3025,17 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
     }
 
     // Hard-hat model: YOLOv8n, 2 classes (Hardhat / NO-Hardhat), fixed 640x640 letterboxed input.
-    function letterbox(img, size = 640) {
-      const scale = Math.min(size / img.naturalWidth, size / img.naturalHeight);
-      const newW = Math.round(img.naturalWidth * scale), newH = Math.round(img.naturalHeight * scale);
+    function letterbox(mediaEl, size = 640) {
+      const { width: mw, height: mh } = mediaSize(mediaEl);
+      const scale = Math.min(size / mw, size / mh);
+      const newW = Math.round(mw * scale), newH = Math.round(mh * scale);
       const padX = (size - newW) / 2, padY = (size - newH) / 2;
       const off = document.createElement('canvas');
       off.width = size; off.height = size;
       const octx = off.getContext('2d');
       octx.fillStyle = 'rgb(114,114,114)';
       octx.fillRect(0, 0, size, size);
-      octx.drawImage(img, padX, padY, newW, newH);
+      octx.drawImage(mediaEl, padX, padY, newW, newH);
       const { data: pixels } = octx.getImageData(0, 0, size, size);
       const chw = new Float32Array(3 * size * size);
       for (let i = 0; i < size * size; i++) {
@@ -2903,14 +3054,16 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       return union > 0 ? inter / union : 0;
     }
 
-    async function detectHardhats(img, statusId) {
-      const ort = await import('https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/+esm');
-      ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/';
+    async function detectHardhats(mediaEl, statusId) {
+      if (!ort) {
+        ort = await import('https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/+esm');
+        ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/';
+      }
       if (!hardhatSession) {
         busy(statusId, 'Downloading hard-hat model — 12 MB, first run only…');
         hardhatSession = await ort.InferenceSession.create('/models/hardhat-detection/model.onnx', { executionProviders: ['wasm'] });
       }
-      const { data, scale, padX, padY } = letterbox(img, 640);
+      const { data, scale, padX, padY } = letterbox(mediaEl, 640);
       const tensor = new ort.Tensor('float32', data, [1, 3, 640, 640]);
       const outputs = await hardhatSession.run({ images: tensor });
       const out = Object.values(outputs)[0]; // (1, 6, 8400): cx,cy,w,h,class0,class1
@@ -2992,14 +3145,17 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       }
     });
 
-    /* Step 2: check compliance */
+    /* Step 2: check compliance (photo or live camera) */
     const checkInput = document.getElementById('worker-check-input');
     const checkBtn = document.getElementById('worker-check-run');
     const workerCanvas = document.getElementById('worker-canvas');
+    const workerVideo = document.getElementById('worker-video');
+    const workerCamToggle = document.getElementById('worker-cam-toggle');
 
     checkInput.addEventListener('change', async () => {
       const file = checkInput.files[0];
       if (!file) return;
+      if (cameraLoop.running) cameraLoop.stop();
       checkImg = await loadImageFromFile(file);
       drawImageToCanvas(workerCanvas, checkImg);
       checkBtn.disabled = false;
@@ -3007,62 +3163,71 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
       setStatus('worker-check-status', '');
     });
 
+    async function checkCompliance(mediaEl, statusId) {
+      const fa = await loadFaceApi(statusId);
+      busy(statusId, 'Detecting faces…');
+      const faceResults = await fa.detectAllFaces(mediaEl, new fa.TinyFaceDetectorOptions())
+        .withFaceLandmarks()
+        .withFaceDescriptors();
+      busy(statusId, 'Checking hard-hat compliance…');
+      const hardhatBoxes = await detectHardhats(mediaEl, statusId);
+
+      const { width: mw, height: mh } = mediaSize(mediaEl);
+      const scaleX = workerCanvas.width / mw;
+      const scaleY = workerCanvas.height / mh;
+      const ctx = workerCanvas.getContext('2d');
+      ctx.drawImage(mediaEl, 0, 0, workerCanvas.width, workerCanvas.height);
+
+      const people = faceResults.map((f) => {
+        const box = f.detection.box;
+        let best = null, bestDist = Infinity;
+        for (const r of roster) {
+          const dist = fa.euclideanDistance(f.descriptor, r.descriptor);
+          if (dist < bestDist) { bestDist = dist; best = r; }
+        }
+        const name = best && bestDist < 0.6 ? best.name : 'Unidentified';
+        // Match the nearest hard-hat-model box (by center distance) to this face.
+        const faceCx = box.x + box.width / 2, faceCy = box.y + box.height / 2;
+        let hh = null, hhDist = Infinity;
+        for (const b of hardhatBoxes) {
+          const bCx = b.x + b.w / 2, bCy = b.y + b.h / 2;
+          const d = Math.hypot(faceCx - bCx, faceCy - bCy);
+          if (d < hhDist) { hhDist = d; hh = b; }
+        }
+        const compliant = hh ? hh.cls === 0 : null; // class 0 = "Hardhat"
+        return { name, box, compliant };
+      });
+
+      people.forEach((p) => {
+        const x = p.box.x * scaleX, y = p.box.y * scaleY, w = p.box.width * scaleX, h = p.box.height * scaleY;
+        const color = p.compliant === false ? '#B91C1C' : p.compliant === true ? '#15803D' : '#5B6560';
+        const label = p.compliant === false ? `${p.name} — no hard hat` : p.compliant === true ? `${p.name} — compliant` : p.name;
+        drawBox(ctx, x, y, w, h, label, color);
+      });
+      return people;
+    }
+
+    function renderWorkerOutput(people) {
+      const out = document.getElementById('worker-output');
+      if (!people.length) {
+        out.innerHTML = '<p class="text-[14px] text-graphite">No faces detected in that photo.</p>';
+        return;
+      }
+      out.innerHTML = people
+        .map((p) => {
+          const statusText = p.compliant === false ? 'No hard hat detected' : p.compliant === true ? 'Hard hat detected' : 'Compliance unclear';
+          const statusColor = p.compliant === false ? 'text-error' : p.compliant === true ? 'text-botanical-green' : 'text-graphite';
+          return `<div class="flex items-center justify-between border hairline rounded px-4 py-2"><span class="text-[14px]">${escapeHtml(p.name)}</span><span class="text-[13px] ${statusColor}">${statusText}</span></div>`;
+        })
+        .join('');
+    }
+
     checkBtn.addEventListener('click', async () => {
       if (!checkImg) return;
       checkBtn.disabled = true;
       try {
-        const fa = await loadFaceApi('worker-check-status');
-        busy('worker-check-status', 'Detecting faces…');
-        const faceResults = await fa.detectAllFaces(checkImg, new fa.TinyFaceDetectorOptions())
-          .withFaceLandmarks()
-          .withFaceDescriptors();
-        busy('worker-check-status', 'Checking hard-hat compliance…');
-        const hardhatBoxes = await detectHardhats(checkImg, 'worker-check-status');
-
-        const scaleX = workerCanvas.width / checkImg.naturalWidth;
-        const scaleY = workerCanvas.height / checkImg.naturalHeight;
-        const ctx = workerCanvas.getContext('2d');
-        ctx.drawImage(checkImg, 0, 0, workerCanvas.width, workerCanvas.height);
-
-        const people = faceResults.map((f) => {
-          const box = f.detection.box;
-          let best = null, bestDist = Infinity;
-          for (const r of roster) {
-            const dist = fa.euclideanDistance(f.descriptor, r.descriptor);
-            if (dist < bestDist) { bestDist = dist; best = r; }
-          }
-          const name = best && bestDist < 0.6 ? best.name : 'Unidentified';
-          // Match the nearest hard-hat-model box (by center distance) to this face.
-          const faceCx = box.x + box.width / 2, faceCy = box.y + box.height / 2;
-          let hh = null, hhDist = Infinity;
-          for (const b of hardhatBoxes) {
-            const bCx = b.x + b.w / 2, bCy = b.y + b.h / 2;
-            const d = Math.hypot(faceCx - bCx, faceCy - bCy);
-            if (d < hhDist) { hhDist = d; hh = b; }
-          }
-          const compliant = hh ? hh.cls === 0 : null; // class 0 = "Hardhat"
-          return { name, box, compliant };
-        });
-
-        people.forEach((p) => {
-          const x = p.box.x * scaleX, y = p.box.y * scaleY, w = p.box.width * scaleX, h = p.box.height * scaleY;
-          const color = p.compliant === false ? '#B91C1C' : p.compliant === true ? '#15803D' : '#5B6560';
-          const label = p.compliant === false ? `${p.name} — no hard hat` : p.compliant === true ? `${p.name} — compliant` : p.name;
-          drawBox(ctx, x, y, w, h, label, color);
-        });
-
-        const out = document.getElementById('worker-output');
-        if (!people.length) {
-          out.innerHTML = '<p class="text-[14px] text-graphite">No faces detected in that photo.</p>';
-        } else {
-          out.innerHTML = people
-            .map((p) => {
-              const statusText = p.compliant === false ? 'No hard hat detected' : p.compliant === true ? 'Hard hat detected' : 'Compliance unclear';
-              const statusColor = p.compliant === false ? 'text-error' : p.compliant === true ? 'text-botanical-green' : 'text-graphite';
-              return `<div class="flex items-center justify-between border hairline rounded px-4 py-2"><span class="text-[14px]">${escapeHtml(p.name)}</span><span class="text-[13px] ${statusColor}">${statusText}</span></div>`;
-            })
-            .join('');
-        }
+        const people = await checkCompliance(checkImg, 'worker-check-status');
+        renderWorkerOutput(people);
         setStatus('worker-check-status', 'Done.');
       } catch (err) {
         console.error(err);
@@ -3071,21 +3236,46 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
         checkBtn.disabled = false;
       }
     });
+
+    const cameraLoop = createCameraLoop({
+      videoEl: workerVideo,
+      canvasEl: workerCanvas,
+      toggleBtn: workerCamToggle,
+      intervalMs: 2000,
+      onFrame: async () => {
+        checkImg = null;
+        checkBtn.disabled = true;
+        const people = await checkCompliance(workerVideo, 'worker-check-status');
+        renderWorkerOutput(people);
+        setStatus('worker-check-status', 'Live — analyzing every ~2s.');
+        const summary = people.length
+          ? people.map((p) => `${p.name} (${p.compliant === false ? 'no hard hat' : p.compliant === true ? 'compliant' : 'unclear'})`).join(', ')
+          : 'No faces detected';
+        logEvent('worker-log', summary);
+      }
+    });
   })();
 
   /* ---------------- Demo 15: Restricted-zone intrusion detection ---------------- */
   (function () {
-    let zoneImg = null;
+    let zoneImg = null; // photo-mode source; null while in live-camera mode
     let zone = null; // { x, y, w, h } in canvas pixel space
     let drawing = false, startX = 0, startY = 0;
 
     const zoneInput = document.getElementById('zone-input');
     const zoneCanvas = document.getElementById('zone-canvas');
     const zoneRunBtn = document.getElementById('zone-run');
+    const zoneVideo = document.getElementById('zone-video');
+    const zoneCamToggle = document.getElementById('zone-cam-toggle');
+
+    function currentZoneSource() {
+      return cameraLoop.running ? zoneVideo : zoneImg;
+    }
 
     zoneInput.addEventListener('change', async () => {
       const file = zoneInput.files[0];
       if (!file) return;
+      if (cameraLoop.running) cameraLoop.stop();
       zoneImg = await loadImageFromFile(file);
       drawImageToCanvas(zoneCanvas, zoneImg);
       zone = null;
@@ -3095,8 +3285,10 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
     });
 
     function redrawZoneCanvas() {
+      const source = currentZoneSource();
+      if (!source) return;
       const ctx = zoneCanvas.getContext('2d');
-      ctx.drawImage(zoneImg, 0, 0, zoneCanvas.width, zoneCanvas.height);
+      ctx.drawImage(source, 0, 0, zoneCanvas.width, zoneCanvas.height);
       if (zone) {
         ctx.strokeStyle = '#B45309';
         ctx.lineWidth = 2;
@@ -3115,7 +3307,7 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
     }
 
     zoneCanvas.addEventListener('mousedown', (e) => {
-      if (!zoneImg) return;
+      if (!currentZoneSource()) return;
       const p = canvasPoint(e);
       drawing = true;
       startX = p.x; startY = p.y;
@@ -3130,37 +3322,53 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
     window.addEventListener('mouseup', () => {
       if (!drawing) return;
       drawing = false;
-      zoneRunBtn.disabled = !(zone && zone.w > 10 && zone.h > 10);
+      const zoneValid = zone && zone.w > 10 && zone.h > 10;
+      zoneRunBtn.disabled = !zoneValid || cameraLoop.running;
+      if (zoneValid && cameraLoop.running) {
+        setStatus('zone-status', 'Zone set — monitoring the live feed.');
+      }
     });
+
+    async function detectZoneIntrusions(mediaEl) {
+      const detector = await loadPipeline('rtdetr', 'object-detection', 'onnx-community/rtdetr_r18vd_coco_o365', { dtype: 'q8' }, 'zone-status');
+      const off = document.createElement('canvas');
+      const { width, height } = mediaSize(mediaEl);
+      off.width = width; off.height = height;
+      off.getContext('2d').drawImage(mediaEl, 0, 0, width, height);
+      const image = await RawImage.fromURL(off.toDataURL('image/jpeg', 0.9));
+      const results = await detector(image, { threshold: 0.5 });
+      const scaleX = zoneCanvas.width / width;
+      const scaleY = zoneCanvas.height / height;
+      redrawZoneCanvas();
+      const ctx = zoneCanvas.getContext('2d');
+      const people = results.filter((r) => r.label === 'person');
+      let violations = 0;
+      people.forEach((p) => {
+        const x = p.box.xmin * scaleX, y = p.box.ymin * scaleY;
+        const w = (p.box.xmax - p.box.xmin) * scaleX, h = (p.box.ymax - p.box.ymin) * scaleY;
+        const overlaps = x < zone.x + zone.w && x + w > zone.x && y < zone.y + zone.h && y + h > zone.y;
+        if (overlaps) violations++;
+        drawBox(ctx, x, y, w, h, overlaps ? 'Intrusion' : 'Person', overlaps ? '#B91C1C' : '#15803D');
+      });
+      return { people, violations };
+    }
+
+    function renderZoneOutput(people, violations) {
+      const out = document.getElementById('zone-output');
+      if (!people.length) {
+        out.innerHTML = '<p class="text-[14px] text-graphite">No people detected in this photo.</p>';
+      } else {
+        out.innerHTML = `<p class="text-[14px]">${people.length} ${people.length === 1 ? 'person' : 'people'} detected — <span class="${violations ? 'text-error' : 'text-botanical-green'}">${violations} in the restricted zone</span>.</p>`;
+      }
+    }
 
     zoneRunBtn.addEventListener('click', async () => {
       if (!zoneImg || !zone) return;
       zoneRunBtn.disabled = true;
       try {
         busy('zone-status', 'Loading model…');
-        const detector = await loadPipeline('rtdetr', 'object-detection', 'onnx-community/rtdetr_r18vd_coco_o365', { dtype: 'q8' }, 'zone-status');
-        busy('zone-status', 'Detecting people…');
-        const image = await RawImage.fromURL(zoneImg.src);
-        const results = await detector(image, { threshold: 0.5 });
-        const scaleX = zoneCanvas.width / zoneImg.naturalWidth;
-        const scaleY = zoneCanvas.height / zoneImg.naturalHeight;
-        redrawZoneCanvas();
-        const ctx = zoneCanvas.getContext('2d');
-        const people = results.filter((r) => r.label === 'person');
-        let violations = 0;
-        people.forEach((p) => {
-          const x = p.box.xmin * scaleX, y = p.box.ymin * scaleY;
-          const w = (p.box.xmax - p.box.xmin) * scaleX, h = (p.box.ymax - p.box.ymin) * scaleY;
-          const overlaps = x < zone.x + zone.w && x + w > zone.x && y < zone.y + zone.h && y + h > zone.y;
-          if (overlaps) violations++;
-          drawBox(ctx, x, y, w, h, overlaps ? 'Intrusion' : 'Person', overlaps ? '#B91C1C' : '#15803D');
-        });
-        const out = document.getElementById('zone-output');
-        if (!people.length) {
-          out.innerHTML = '<p class="text-[14px] text-graphite">No people detected in this photo.</p>';
-        } else {
-          out.innerHTML = `<p class="text-[14px]">${people.length} ${people.length === 1 ? 'person' : 'people'} detected — <span class="${violations ? 'text-error' : 'text-botanical-green'}">${violations} in the restricted zone</span>.</p>`;
-        }
+        const { people, violations } = await detectZoneIntrusions(zoneImg);
+        renderZoneOutput(people, violations);
         setStatus('zone-status', 'Done.');
       } catch (err) {
         console.error(err);
@@ -3169,86 +3377,343 @@ C-5,P-1,institutional,2026-04-06,2026-04-07,1111111111,01</textarea>
         zoneRunBtn.disabled = false;
       }
     });
-  })();
-</script>
 
-<!-- ============== THEME TOGGLE ============== -->
-<script>
+    // A fast requestAnimationFrame loop keeps the canvas feeling like a live feed
+    // (for drawing the zone rectangle smoothly) while the much slower detection
+    // loop below does the actual model inference every ~1.5s.
+    let previewing = false, analyzing = false;
+    function previewLoop() {
+      if (!previewing || !cameraLoop.running) { previewing = false; return; }
+      if (!analyzing && !drawing) redrawZoneCanvas();
+      requestAnimationFrame(previewLoop);
+    }
+
+    const cameraLoop = createCameraLoop({
+      videoEl: zoneVideo,
+      canvasEl: zoneCanvas,
+      toggleBtn: zoneCamToggle,
+      intervalMs: 1500,
+      onFrame: async () => {
+        zoneImg = null;
+        zoneRunBtn.disabled = true;
+        if (!previewing) { previewing = true; requestAnimationFrame(previewLoop); }
+        if (!zone || zone.w <= 10 || zone.h <= 10) {
+          setStatus('zone-status', 'Drag on the live feed to draw a restricted zone.');
+          return;
+        }
+        analyzing = true;
+        busy('zone-status', 'Analyzing live feed…');
+        const { people, violations } = await detectZoneIntrusions(zoneVideo);
+        analyzing = false;
+        renderZoneOutput(people, violations);
+        setStatus('zone-status', 'Live — analyzing every ~1.5s.');
+        logEvent('zone-log', `${people.length} ${people.length === 1 ? 'person' : 'people'}, ${violations} in zone`);
+      }
+    });
+  })();
+
+  /* ---------------- Demo 16: Live hair color try-on (MediaPipe hair segmentation + face mesh) ---------------- */
   (function () {
-    var btn = document.getElementById('theme-toggle');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    const VISION_VERSION = '1.0.1';
+    const WASM_BASE = `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${VISION_VERSION}/wasm`;
+    const HAIR_MODEL_URL = 'https://storage.googleapis.com/mediapipe-models/image_segmenter/hair_segmenter/float32/latest/hair_segmenter.tflite';
+    const FACE_MODEL_URL = 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task';
+    const SWATCHES = [
+      { name: 'Chestnut', hex: '#5C3A21' },
+      { name: 'Espresso', hex: '#2B1B12' },
+      { name: 'Ash Blonde', hex: '#B8A784' },
+      { name: 'Copper', hex: '#B4552D' },
+      { name: 'Burgundy', hex: '#5A1F2E' },
+      { name: 'Platinum', hex: '#E8E3D8' }
+    ];
+
+    let segmenter = null, faceLandmarker = null, visionFileset = null;
+    let stream = null, running = false, rafId = null;
+    let showMesh = false;
+    let targetHue = 0, targetSat = 0; // recomputed whenever the color changes
+
+    const video = document.getElementById('hair-video');
+    const canvas = document.getElementById('hair-canvas');
+    const toggleBtn = document.getElementById('hair-cam-toggle');
+    const meshToggle = document.getElementById('hair-mesh-toggle');
+    const colorPicker = document.getElementById('hair-color-picker');
+    const swatchesEl = document.getElementById('hair-swatches');
+
+    function hexToRgb(hex) {
+      const n = parseInt(hex.slice(1), 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h = 0, s = 0;
+      const l = (max + min) / 2;
+      const d = max - min;
+      if (d !== 0) {
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          default: h = (r - g) / d + 4;
+        }
+        h /= 6;
+      }
+      return [h, s, l];
+    }
+
+    function hue2rgb(p, q, t) {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    }
+
+    // Recolors by keeping the ORIGINAL pixel's lightness and swapping in the
+    // target color's hue/saturation — this is exactly why highlights and
+    // shadows survive a dye-color change: they live in the lightness channel.
+    function hslToRgbWithHS(h, s, l) {
+      if (s === 0) { const v = l * 255; return [v, v, v]; }
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      return [
+        hue2rgb(p, q, h + 1 / 3) * 255,
+        hue2rgb(p, q, h) * 255,
+        hue2rgb(p, q, h - 1 / 3) * 255
+      ];
+    }
+
+    function setTargetColor(hex) {
+      const [r, g, b] = hexToRgb(hex);
+      const [h, s] = rgbToHsl(r, g, b);
+      targetHue = h; targetSat = s;
+      colorPicker.value = hex;
+    }
+
+    swatchesEl.innerHTML = SWATCHES
+      .map((s) => `<button type="button" class="hair-swatch w-7 h-7 rounded-full border hairline" style="background:${s.hex}" data-hex="${s.hex}" title="${s.name}" aria-label="${s.name}"></button>`)
+      .join('');
+    swatchesEl.querySelectorAll('.hair-swatch').forEach((btn) => {
+      btn.addEventListener('click', () => setTargetColor(btn.dataset.hex));
+    });
+    colorPicker.addEventListener('input', () => setTargetColor(colorPicker.value));
+    setTargetColor(colorPicker.value);
+
+    meshToggle.addEventListener('change', async () => {
+      showMesh = meshToggle.checked;
+      // If the camera's already running, the face-mesh model still needs to be
+      // fetched on demand — it's normally only loaded once, at camera start.
+      if (showMesh && running && !faceLandmarker) {
+        try { await ensureModels(); } catch (err) { console.error(err); }
+      }
+    });
+
+    async function ensureModels() {
+      if (!visionFileset) {
+        busy('hair-status', 'Loading MediaPipe runtime…');
+        const { FilesetResolver, ImageSegmenter, FaceLandmarker } = await import(
+          `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${VISION_VERSION}/vision_bundle.mjs`
+        );
+        visionFileset = await FilesetResolver.forVisionTasks(WASM_BASE);
+        window.__hairTasks = { ImageSegmenter, FaceLandmarker };
+      }
+      const { ImageSegmenter, FaceLandmarker } = window.__hairTasks;
+      if (!segmenter) {
+        busy('hair-status', 'Downloading hair-segmentation model — ~1 MB, first run only…');
+        segmenter = await ImageSegmenter.createFromOptions(visionFileset, {
+          baseOptions: { modelAssetPath: HAIR_MODEL_URL, delegate: 'GPU' },
+          runningMode: 'VIDEO',
+          outputCategoryMask: false,
+          outputConfidenceMasks: true
+        });
+      }
+      if (showMesh && !faceLandmarker) {
+        busy('hair-status', 'Downloading face-mesh model — ~4 MB, first run only…');
+        faceLandmarker = await FaceLandmarker.createFromOptions(visionFileset, {
+          baseOptions: { modelAssetPath: FACE_MODEL_URL, delegate: 'GPU' },
+          runningMode: 'VIDEO',
+          numFaces: 1,
+          outputFaceBlendshapes: false,
+          outputFacialTransformationMatrixes: false
+        });
+      }
+    }
+
+    let frameCount = 0, lastFpsTime = performance.now(), fps = 0;
+
+    function renderFrame() {
+      if (!running) return;
+      rafId = requestAnimationFrame(renderFrame);
+      if (video.readyState < 2) return;
+
+      const now = performance.now();
+      const segResult = segmenter.segmentForVideo(video, now, {});
+      const mask = segResult.confidenceMasks && segResult.confidenceMasks[0];
+      if (!mask) return;
+      const maskData = mask.getAsFloat32Array();
+      const maskW = mask.width, maskH = mask.height;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const px = frame.data;
+      const cw = canvas.width, ch = canvas.height;
+
+      for (let y = 0; y < ch; y++) {
+        const my = Math.min(maskH - 1, (y * maskH / ch) | 0);
+        for (let x = 0; x < cw; x++) {
+          const mx = Math.min(maskW - 1, (x * maskW / cw) | 0);
+          const alpha = maskData[my * maskW + mx];
+          if (alpha < 0.15) continue;
+          const i = (y * cw + x) * 4;
+          const r = px[i], g = px[i + 1], b = px[i + 2];
+          const l = (Math.max(r, g, b) + Math.min(r, g, b)) / 2 / 255;
+          const [nr, ng, nb] = hslToRgbWithHS(targetHue, targetSat, l);
+          const a = Math.min(1, alpha) * 0.85; // feather + cap so it never looks fully opaque/flat
+          px[i] = r * (1 - a) + nr * a;
+          px[i + 1] = g * (1 - a) + ng * a;
+          px[i + 2] = b * (1 - a) + nb * a;
+        }
+      }
+      ctx.putImageData(frame, 0, 0);
+
+      if (showMesh && faceLandmarker) {
+        const faceResult = faceLandmarker.detectForVideo(video, now);
+        if (faceResult.faceLandmarks && faceResult.faceLandmarks.length) {
+          ctx.fillStyle = 'rgba(63,85,82,0.85)';
+          const lm = faceResult.faceLandmarks[0];
+          for (let i = 0; i < lm.length; i += 3) {
+            ctx.beginPath();
+            ctx.arc(lm[i].x * cw, lm[i].y * ch, 1.1, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      frameCount++;
+      if (now - lastFpsTime >= 1000) {
+        fps = Math.round((frameCount * 1000) / (now - lastFpsTime));
+        frameCount = 0; lastFpsTime = now;
+      }
+      setStatus('hair-status', `Live — ~${fps || '…'} fps in this browser, on this device.`);
+    }
+
+    async function startCamera() {
+      toggleBtn.disabled = true;
+      try {
+        await ensureModels();
+        busy('hair-status', 'Starting camera…');
+        stream = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 480 }, height: { ideal: 360 }, facingMode: 'user' } });
+        video.srcObject = stream;
+        await video.play();
+        if (video.readyState < 2) await new Promise((resolve) => { video.onloadedmetadata = resolve; });
+        canvas.width = video.videoWidth || 480;
+        canvas.height = video.videoHeight || 360;
+        canvas.classList.remove('hidden');
+        running = true;
+        toggleBtn.textContent = '■ Stop camera';
+        frameCount = 0; lastFpsTime = performance.now();
+        renderFrame();
+      } catch (err) {
+        console.error(err);
+        setStatus('hair-status', `Couldn't start the camera: ${err.message}`);
+        toggleBtn.textContent = '● Start live camera';
+      } finally {
+        toggleBtn.disabled = false;
+      }
+    }
+
+    function stopCamera() {
+      running = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      if (stream) { stream.getTracks().forEach((t) => t.stop()); stream = null; }
+      toggleBtn.textContent = '● Start live camera';
+      setStatus('hair-status', '');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      if (running) stopCamera();
+      else startCamera();
     });
   })();
 </script>
-<!-- ============== SCROLL REVEAL + HERO ANIMATION (purely visual, no demo logic) ============== -->
+
+
 <script>
+  (function () {
+    var chips = document.querySelectorAll('.chips button'), cards = document.querySelectorAll('.pc');
+    chips.forEach(function (b) {
+      b.addEventListener('click', function () {
+        chips.forEach(function (x) { x.classList.toggle('on', x === b); });
+        var f = b.getAttribute('data-f');
+        cards.forEach(function (c) { c.hidden = !(f === 'all' || c.getAttribute('data-cat') === f); });
+      });
+    });
+  })();
+</script>
+
+<script>
+  (function () {
+    var m = document.getElementById('menu-toggle'), menu = document.getElementById('mobile-menu');
+    if (m && menu) m.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      m.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    var c = document.getElementById('announce-close'), a = document.getElementById('announce');
+    if (c && a) c.addEventListener('click', function () { a.style.display = 'none'; });
+  })();
   document.addEventListener('DOMContentLoaded', function () {
     var observer = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          obs.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('active'); obs.unobserve(entry.target); }
       });
-    }, { root: null, rootMargin: '0px', threshold: 0.1 });
+    }, { root: null, rootMargin: '0px', threshold: 0.05 });
     document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
   });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<!-- ============== CONTACT FORM ============== -->
 <script>
   (function () {
-    var container = document.getElementById('hero-sphere-container');
-    if (!container || typeof THREE === 'undefined') return;
-
-    var width = container.clientWidth || 300;
-    var height = container.clientHeight || 280;
-
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(window.devicePixelRatio || 1);
-    container.appendChild(renderer.domElement);
-
-    var geometry = new THREE.IcosahedronGeometry(2, 2);
-    var material = new THREE.MeshPhongMaterial({ color: 0x6c8884, wireframe: true, transparent: true, opacity: 0.6, shininess: 100 });
-    var sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-
-    var coreGeometry = new THREE.IcosahedronGeometry(1.2, 1);
-    var coreMaterial = new THREE.MeshLambertMaterial({ color: 0x7fa6c4, transparent: true, opacity: 0.35 });
-    var core = new THREE.Mesh(coreGeometry, coreMaterial);
-    scene.add(core);
-
-    scene.add(new THREE.AmbientLight(0x404040, 2));
-    var pointLight = new THREE.PointLight(0xffffff, 2, 100);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
-
-    camera.position.z = 5;
-
-    function animate() {
-      requestAnimationFrame(animate);
-      sphere.rotation.y += 0.004;
-      sphere.rotation.x += 0.0015;
-      core.rotation.y -= 0.0025;
-      renderer.render(scene, camera);
+    var HUBSPOT_PORTAL_ID = '246988891';
+    var HUBSPOT_FORM_ID = 'ae3447ad-a441-477e-9a3b-2b3fc7ed4eab';
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    var statusEl = document.getElementById('contact-form-status');
+    var submitBtn = form.querySelector('button[type="submit"]');
+    function setStatus(message, tone) {
+      statusEl.textContent = message;
+      statusEl.style.color = tone === 'error' ? '#B91C1C' : '#1F8A92';
     }
-
-    window.addEventListener('resize', function () {
-      var w = container.clientWidth || width;
-      var h = container.clientHeight || height;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form.website.value) return;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      var nameParts = form.name.value.trim().split(/\s+/);
+      var firstName = nameParts.shift() || '';
+      var lastName = nameParts.join(' ');
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + HUBSPOT_FORM_ID, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: [
+            { name: 'firstname', value: firstName },
+            { name: 'lastname', value: lastName },
+            { name: 'email', value: form.email.value.trim() },
+            { name: 'company', value: form.company.value.trim() },
+            { name: 'phone', value: form.phone.value.trim() },
+            { name: 'message', value: form.message.value.trim() }
+          ],
+          context: { pageUri: window.location.href, pageName: document.title }
+        })
+      })
+        .then(function (res) { if (!res.ok) throw new Error('Submission failed'); form.reset(); setStatus("Thanks — we'll reply within 24 hours.", 'success'); })
+        .catch(function () { setStatus('Something went wrong sending that. Please email hello@tathastha.com directly.', 'error'); })
+        .finally(function () { submitBtn.disabled = false; submitBtn.textContent = 'Submit'; });
     });
-
-    animate();
   })();
 </script>
-
 </body>
 </html>
